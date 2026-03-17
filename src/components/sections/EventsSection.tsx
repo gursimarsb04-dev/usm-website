@@ -12,17 +12,46 @@ interface Event {
 }
 
 const events: Event[] = [
+  // Recent / Upcoming
   {
     id: '1',
-    name: 'Safal Summit 2024',
-    date: 'March 2024',
+    name: "Bhai Khalra's Legacy, Our Responsibility",
+    date: '2025',
     location: 'California',
     description:
-      "USM's flagship annual conference. Career workshops, keynote speakers, and a celebration of Sikh student excellence.",
-    type: 'past',
+      'A powerful event honoring the legacy of Bhai Jaswant Singh Khalra and exploring our collective responsibility to continue his work.',
+    type: 'upcoming',
   },
   {
     id: '2',
+    name: 'Safal Summit 2025',
+    date: '2025',
+    location: 'California',
+    description:
+      "USM's flagship annual conference — 311 photos captured. Career workshops, keynote speakers, and professional networking for Sikh students.",
+    type: 'upcoming',
+  },
+  {
+    id: '3',
+    name: 'Camp Kudrat 2025',
+    date: 'Summer 2025',
+    location: 'California',
+    description:
+      'Reflect. Connect. Renew. Over 1,100 photos captured at this year\'s retreat for spiritual growth and lifelong bonds.',
+    type: 'upcoming',
+  },
+  // Past Events
+  {
+    id: '4',
+    name: '10th Annual USM Conference',
+    date: '2024',
+    location: 'California',
+    description:
+      'A milestone celebration — the 10th annual gathering of SSA leaders with 585 photos of workshops, panels, and community.',
+    type: 'past',
+  },
+  {
+    id: '5',
     name: 'Camp Kudrat 2024',
     date: 'Summer 2024',
     location: 'California',
@@ -31,58 +60,85 @@ const events: Event[] = [
     type: 'past',
   },
   {
-    id: '3',
-    name: 'National Conference 2024',
-    date: 'Fall 2024',
-    location: 'Virtual',
+    id: '6',
+    name: '9th Annual USM Conference',
+    date: '2024',
+    location: 'California',
     description:
       'SSA leaders from every chapter came together to share strategies, build relationships, and plan the year ahead.',
     type: 'past',
   },
   {
-    id: '4',
-    name: 'Langar Seva Events',
-    date: 'Ongoing',
-    location: 'Campuses Nationwide',
-    description:
-      'Campus-wide langar events open to all students, sharing the Sikh tradition of free community meals.',
-    type: 'past',
-  },
-  {
-    id: '5',
-    name: 'Kadam Career Panels',
-    date: 'Throughout 2024',
-    location: 'Various Campuses',
-    description:
-      'Intimate career panels connecting students directly with Sikh professionals in tech, medicine, law, and business.',
-    type: 'past',
-  },
-  {
-    id: '6',
-    name: 'Leadership Retreat 2024',
-    date: 'Summer 2024',
-    location: 'TBA',
-    description:
-      'Intensive training for new and returning SSA officers — learning to lead with purpose and serve campus communities.',
-    type: 'past',
-  },
-  {
     id: '7',
-    name: 'Safal Summit 2025',
-    date: 'Date TBA',
-    location: 'Location TBA',
+    name: 'Camp Kudrat 2023',
+    date: 'Summer 2023',
+    location: 'California',
     description:
-      'The next Safal Summit is coming. Career workshops, keynote speakers, and professional networking for Sikh students.',
-    type: 'upcoming',
+      'Nearly 500 photos of sangat connecting through nature, Gurbani, and meaningful workshops.',
+    type: 'past',
   },
   {
     id: '8',
-    name: 'Camp Kudrat 2025',
-    date: 'Date TBA',
-    location: 'Location TBA',
+    name: '8th Annual USM Conference',
+    date: '2023',
+    location: 'California',
     description:
-      'Reflect. Connect. Renew. The next Camp Kudrat retreat for spiritual growth and lifelong bonds.',
-    type: 'upcoming',
+      'Another year of bringing SSA chapters together for collaboration, learning, and celebration.',
+    type: 'past',
+  },
+  {
+    id: '9',
+    name: '7th Annual Inter-SSA Conference',
+    date: '2022',
+    location: 'California',
+    description:
+      '250 photos capturing workshops, keynotes, and the energy of Sikh students united.',
+    type: 'past',
+  },
+  {
+    id: '10',
+    name: 'Leadership Retreat 2019',
+    date: 'Summer 2019',
+    location: 'California',
+    description:
+      'Intensive officer training — learning to lead with purpose, organize events, and serve campus communities.',
+    type: 'past',
+  },
+  {
+    id: '11',
+    name: '2nd Annual Camp Kudrat',
+    date: 'Summer 2019',
+    location: 'California',
+    description:
+      'Over 450 photos of sangat reconnecting with Sikhi through guided sessions, nature, and team building.',
+    type: 'past',
+  },
+  {
+    id: '12',
+    name: '4th Annual Inter-SSA Conference',
+    date: '2018',
+    location: 'California',
+    description:
+      'The most-viewed conference album — 334 photos and 1,600+ views of Sikh student excellence.',
+    type: 'past',
+  },
+  {
+    id: '13',
+    name: '1st Annual Camp Kudrat',
+    date: 'Summer 2018',
+    location: 'California',
+    description:
+      'Where it all began. The first Camp Kudrat retreat launched with 430 photos and 1,700+ views.',
+    type: 'past',
+  },
+  {
+    id: '14',
+    name: '1st Annual Inter-SSA Conference',
+    date: '2016',
+    location: 'California',
+    description:
+      'The very first USM Inter-SSA Conference — 69 photos marking the start of a movement.',
+    type: 'past',
   },
 ];
 

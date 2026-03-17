@@ -43,9 +43,19 @@ export default function AboutPage() {
 
   const team = [
     { name: 'Harsimran Kaur', role: 'Founder & Executive Director', initials: 'HK' },
-    { name: 'Director of Programs', role: 'Programs', initials: 'DP' },
-    { name: 'Director of Outreach', role: 'Outreach', initials: 'DO' },
-    { name: 'Director of Operations', role: 'Operations', initials: 'DOO' },
+    { name: 'Gursimar Kaur', role: 'President', initials: 'GK' },
+    { name: 'Manjot Singh', role: 'Director of Operations', initials: 'MS' },
+    { name: 'Haramrit Singh', role: 'West Coast SSA Engagement Director', initials: 'HS' },
+    { name: 'Gursimar Singh', role: 'Director of Technology', initials: 'GS' },
+    { name: 'Divjot Singh', role: 'Staff', initials: 'DS' },
+    { name: 'Divneel Singh', role: 'Tech Lead', initials: 'DS' },
+    { name: 'Achint', role: 'Staff', initials: 'A' },
+    { name: 'Hasmeet', role: 'Staff', initials: 'H' },
+    { name: 'Navkiran Kaur', role: 'Staff', initials: 'NK' },
+    { name: 'Preet Singh', role: 'Midwest Regional Director', initials: 'PS' },
+    { name: 'Puneet Cheema', role: 'Staff', initials: 'PC' },
+    { name: 'Rasleen Kaur', role: 'Staff', initials: 'RK' },
+    { name: 'Ravkiran Kaur', role: 'Staff', initials: 'RK' },
   ];
 
   const partners = [
@@ -118,14 +128,27 @@ export default function AboutPage() {
           <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a2e] text-center mb-12">
             Our Team
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {team.map((member, index) => (
+          {/* Leadership */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            {team.slice(0, 4).map((member, index) => (
               <div key={index} className="text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-[#FF6B00] to-[#D4A843] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white font-bold text-xl">{member.initials}</span>
+                <div className="w-24 h-24 bg-gradient-to-br from-[#FF6B00] to-[#D4A843] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-white font-bold text-2xl">{member.initials}</span>
                 </div>
                 <h3 className="text-lg font-bold text-[#1a1a2e]">{member.name}</h3>
-                <p className="text-sm text-gray-500">{member.role}</p>
+                <p className="text-sm text-[#FF6B00] font-medium">{member.role}</p>
+              </div>
+            ))}
+          </div>
+          {/* Staff */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+            {team.slice(4).map((member, index) => (
+              <div key={index} className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-br from-[#1a1a2e] to-[#2d2d44] rounded-full flex items-center justify-center mx-auto mb-3">
+                  <span className="text-white font-bold text-lg">{member.initials}</span>
+                </div>
+                <h3 className="text-sm font-bold text-[#1a1a2e]">{member.name}</h3>
+                <p className="text-xs text-gray-500">{member.role}</p>
               </div>
             ))}
           </div>
