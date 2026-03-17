@@ -14,26 +14,35 @@ interface SSAChapter {
 }
 
 const ssaChapters: SSAChapter[] = [
-  { id: '1', university: 'UCLA', city: 'Los Angeles', state: 'CA', country: 'USA', region: 'West' },
-  { id: '2', university: 'UC Berkeley', city: 'Berkeley', state: 'CA', country: 'USA', region: 'West' },
-  { id: '3', university: 'UC Davis', city: 'Davis', state: 'CA', country: 'USA', region: 'West' },
-  { id: '4', university: 'UC San Diego', city: 'San Diego', state: 'CA', country: 'USA', region: 'West' },
-  { id: '5', university: 'UC Irvine', city: 'Irvine', state: 'CA', country: 'USA', region: 'West' },
-  { id: '6', university: 'University of Washington', city: 'Seattle', state: 'WA', country: 'USA', region: 'West' },
-  { id: '7', university: 'Arizona State University', city: 'Tempe', state: 'AZ', country: 'USA', region: 'West' },
-  { id: '8', university: 'University of Michigan', city: 'Ann Arbor', state: 'MI', country: 'USA', region: 'Midwest' },
-  { id: '9', university: 'University of Illinois Urbana-Champaign', city: 'Champaign', state: 'IL', country: 'USA', region: 'Midwest' },
-  { id: '10', university: 'Purdue University', city: 'West Lafayette', state: 'IN', country: 'USA', region: 'Midwest' },
-  { id: '11', university: 'University of Texas at Austin', city: 'Austin', state: 'TX', country: 'USA', region: 'South' },
-  { id: '12', university: 'Texas A&M University', city: 'College Station', state: 'TX', country: 'USA', region: 'South' },
-  { id: '13', university: 'University of Florida', city: 'Gainesville', state: 'FL', country: 'USA', region: 'South' },
-  { id: '14', university: 'Georgia Institute of Technology', city: 'Atlanta', state: 'GA', country: 'USA', region: 'South' },
-  { id: '15', university: 'Virginia Tech', city: 'Blacksburg', state: 'VA', country: 'USA', region: 'South' },
-  { id: '16', university: 'University of Maryland', city: 'College Park', state: 'MD', country: 'USA', region: 'Northeast' },
-  { id: '17', university: 'New York University', city: 'New York', state: 'NY', country: 'USA', region: 'Northeast' },
-  { id: '18', university: 'Rutgers University', city: 'New Brunswick', state: 'NJ', country: 'USA', region: 'Northeast' },
-  { id: '19', university: 'Stony Brook University', city: 'Stony Brook', state: 'NY', country: 'USA', region: 'Northeast' },
-  { id: '20', university: 'University of Toronto', city: 'Toronto', state: 'ON', country: 'Canada', region: 'Canada' },
+  // California
+  { id: '1', university: 'Sacramento State', city: 'Sacramento', state: 'CA', country: 'USA', region: 'California' },
+  { id: '2', university: 'UC Berkeley', city: 'Berkeley', state: 'CA', country: 'USA', region: 'California' },
+  { id: '3', university: 'UC Davis', city: 'Davis', state: 'CA', country: 'USA', region: 'California' },
+  { id: '4', university: 'CSU Stanislaus', city: 'Turlock', state: 'CA', country: 'USA', region: 'California' },
+  { id: '5', university: 'Fresno State', city: 'Fresno', state: 'CA', country: 'USA', region: 'California' },
+  { id: '6', university: 'UC Merced', city: 'Merced', state: 'CA', country: 'USA', region: 'California' },
+  { id: '7', university: 'CSU East Bay', city: 'Hayward', state: 'CA', country: 'USA', region: 'California' },
+  { id: '8', university: 'San Francisco State', city: 'San Francisco', state: 'CA', country: 'USA', region: 'California' },
+  { id: '9', university: 'University of San Francisco', city: 'San Francisco', state: 'CA', country: 'USA', region: 'California' },
+  { id: '10', university: 'Cal Poly Pomona', city: 'Pomona', state: 'CA', country: 'USA', region: 'California' },
+  { id: '11', university: 'UC Riverside', city: 'Riverside', state: 'CA', country: 'USA', region: 'California' },
+  { id: '12', university: 'University of Southern California', city: 'Los Angeles', state: 'CA', country: 'USA', region: 'California' },
+  { id: '13', university: 'UC Irvine', city: 'Irvine', state: 'CA', country: 'USA', region: 'California' },
+  { id: '14', university: 'Cal State Fullerton', city: 'Fullerton', state: 'CA', country: 'USA', region: 'California' },
+  { id: '15', university: 'UC San Diego', city: 'San Diego', state: 'CA', country: 'USA', region: 'California' },
+  { id: '16', university: 'Cal State Long Beach', city: 'Long Beach', state: 'CA', country: 'USA', region: 'California' },
+  { id: '17', university: 'UCLA', city: 'Los Angeles', state: 'CA', country: 'USA', region: 'California' },
+  { id: '18', university: 'UC Santa Barbara', city: 'Santa Barbara', state: 'CA', country: 'USA', region: 'California' },
+  { id: '19', university: 'Orange Coast College', city: 'Costa Mesa', state: 'CA', country: 'USA', region: 'California' },
+  // Washington
+  { id: '20', university: 'University of Washington', city: 'Seattle', state: 'WA', country: 'USA', region: 'West' },
+  // New York
+  { id: '21', university: "St. John's University", city: 'Queens', state: 'NY', country: 'USA', region: 'Northeast' },
+  // New Jersey
+  { id: '22', university: 'New Jersey Institute of Technology', city: 'Newark', state: 'NJ', country: 'USA', region: 'Northeast' },
+  { id: '24', university: 'Rutgers University', city: 'New Brunswick', state: 'NJ', country: 'USA', region: 'Northeast' },
+  // Indiana
+  { id: '23', university: 'Purdue University', city: 'West Lafayette', state: 'IN', country: 'USA', region: 'Midwest' },
 ];
 
 export default function FindSSAPage() {
@@ -61,7 +70,7 @@ export default function FindSSAPage() {
             Find Your Sikh Student Association
           </h1>
           <p className="text-xl text-gray-200 max-w-2xl mx-auto">
-            Meet your local sangat. Connect with one of our 39 SSA chapters at universities across North America.
+            Meet your local sangat. Connect with one of our {ssaChapters.length} SSA chapters at universities across the US.
           </p>
         </div>
       </section>
