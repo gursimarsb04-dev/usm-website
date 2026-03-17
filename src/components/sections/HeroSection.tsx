@@ -13,15 +13,15 @@ export function HeroSection() {
       <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
         {/* Main Headline */}
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-          Build Your Future.{' '}
-          <span className="block">Grow Your Impact.</span>{' '}
-          <span className="text-[#FF6B00]">Strengthen Your Faith.</span>
+          We Get It.{' '}
+          <span className="block text-[#FF6B00]">You shouldn't have to navigate this alone.</span>
         </h1>
 
-        {/* Subheadling */}
+        {/* Subheadline */}
         <p className="text-lg sm:text-xl text-gray-300 mb-10 leading-relaxed max-w-2xl mx-auto">
-          Join 5,000+ Sikh students across 39 university chapters. Get mentorship from 500+ professionals,
-          develop your career, deepen your spirituality, and lead your community.
+          Sikh students are constantly juggling—navigating college life while staying grounded in their
+          Sikhi identity. Finding sangat who gets both your academic goals and your spiritual journey.
+          Building lifelong friendships while growing together in faith and purpose.
         </p>
 
         {/* CTA Buttons */}
@@ -31,7 +31,7 @@ export function HeroSection() {
             href="/find-ssa"
             className="px-8 py-4 bg-[#FF6B00] hover:bg-[#E55A00] text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
           >
-            Find Your Chapter
+            Find Your SSA
           </a>
 
           {/* Secondary CTA - Outline */}
@@ -39,7 +39,7 @@ export function HeroSection() {
             href="/programs"
             className="px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-[#1a1a2e] transition-all duration-300 transform hover:scale-105"
           >
-            Explore Programs
+            Upcoming Events
           </a>
         </div>
 

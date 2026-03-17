@@ -2,48 +2,57 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ArrowRight, Users, Target, Heart } from 'lucide-react';
+import { ArrowRight, Sparkles, HandHeart, Users, GraduationCap } from 'lucide-react';
 
 export default function AboutPage() {
-  const missionCards = [
+  const pillarCards = [
     {
-      icon: Target,
-      title: 'Mission',
-      description: 'Create pathways for Sikh youth to thrive in their professional, personal, and spiritual journeys',
+      icon: Sparkles,
+      title: 'Simran',
+      subtitle: 'Spirituality',
+      description: 'Grounding students in their Sikhi through Gurbani study, Camp Kudrat retreats, and daily practice.',
+    },
+    {
+      icon: HandHeart,
+      title: 'Seva',
+      subtitle: 'Philanthropy',
+      description: 'Serving communities through Langar Seva, volunteer drives, and giving back beyond the campus.',
     },
     {
       icon: Users,
-      title: 'Vision',
-      description: 'Every Sikh student has access to mentorship, community, and spiritual growth',
+      title: 'Sangat',
+      subtitle: 'Community',
+      description: 'Building lifelong bonds through SSA chapters, national conferences, and a network that feels like family.',
     },
     {
-      icon: Heart,
-      title: 'Values',
-      description: 'Seva (Service), Equality, Excellence, Faith, Community',
+      icon: GraduationCap,
+      title: 'Academics',
+      subtitle: 'Excellence',
+      description: 'Supporting professional excellence through career panels, mentorship, and real-world skill building.',
     },
   ];
 
   const timeline = [
-    { year: '2015', event: 'United Sikh Movement Founded' },
-    { year: '2016', event: 'First Sikh Student Association Chapter Established' },
-    { year: '2017', event: 'Inaugural Safal Summit (500+ attendees)' },
-    { year: '2018', event: '10 SSA Chapters Across Universities' },
-    { year: '2020', event: '25 SSA Chapters & Camp Kudrat Launch' },
-    { year: '2024', event: '39 Chapters & 4,000+ Annual Summit Attendees' },
+    { year: '2015', event: 'USM founded by Harsimran Kaur in Elk Grove, CA' },
+    { year: '2016', event: 'First SSA chapter established' },
+    { year: '2018', event: 'Camp Kudrat launched — "Reflect. Connect. Renew"' },
+    { year: '2020', event: '20+ SSA chapters across the US' },
+    { year: '2022', event: 'Safal Summit draws record attendance' },
+    { year: '2024', event: '39 active chapters nationwide' },
   ];
 
   const team = [
-    { name: 'Director of Digital Programs', initials: 'DDP' },
-    { name: 'Executive Director', initials: 'ED' },
-    { name: 'Programs Director', initials: 'PD' },
-    { name: 'Operations Director', initials: 'OD' },
+    { name: 'Harsimran Kaur', role: 'Founder & Executive Director', initials: 'HK' },
+    { name: 'Director of Programs', role: 'Programs', initials: 'DP' },
+    { name: 'Director of Outreach', role: 'Outreach', initials: 'DO' },
+    { name: 'Director of Operations', role: 'Operations', initials: 'DOO' },
   ];
 
   const partners = [
     'Jakara Movement',
     'Sikh Coalition',
     'SALDEF',
-    'Universities Nationwide',
+    'Dasvandh Network',
   ];
 
   return (
@@ -56,25 +65,28 @@ export default function AboutPage() {
               About United Sikh Movement
             </h1>
             <p className="text-lg md:text-xl text-gray-200 leading-relaxed">
-              Empowering Sikh youth to excel professionally, personally, and spiritually while staying
-              connected to their faith and community across 39 university chapters.
+              An ecosystem for Sikh youth to excel professionally, personally and spiritually — across 39 university chapters nationwide.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Mission, Vision, Values */}
+      {/* Four Pillars */}
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {missionCards.map((card, index) => {
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a2e] text-center mb-12">
+            Our Four Pillars
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {pillarCards.map((card, index) => {
               const Icon = card.icon;
               return (
                 <div key={index} className="bg-[#F8F9FA] rounded-lg p-8 text-center">
                   <div className="w-14 h-14 bg-[#FF6B00] bg-opacity-10 rounded-lg flex items-center justify-center mx-auto mb-4">
                     <Icon className="w-7 h-7 text-[#FF6B00]" />
                   </div>
-                  <h3 className="text-2xl font-bold text-[#1a1a2e] mb-3">{card.title}</h3>
+                  <h3 className="text-2xl font-bold text-[#1a1a2e] mb-1">{card.title}</h3>
+                  <p className="text-sm font-medium text-[#FF6B00] mb-3">{card.subtitle}</p>
                   <p className="text-gray-600 leading-relaxed">{card.description}</p>
                 </div>
               );
@@ -113,6 +125,7 @@ export default function AboutPage() {
                   <span className="text-white font-bold text-xl">{member.initials}</span>
                 </div>
                 <h3 className="text-lg font-bold text-[#1a1a2e]">{member.name}</h3>
+                <p className="text-sm text-gray-500">{member.role}</p>
               </div>
             ))}
           </div>

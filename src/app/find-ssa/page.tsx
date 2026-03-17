@@ -61,7 +61,7 @@ export default function FindSSAPage() {
             Find Your Sikh Student Association
           </h1>
           <p className="text-xl text-gray-200 max-w-2xl mx-auto">
-            Connect with one of our 39 SSA chapters at universities across North America
+            Meet your local sangat. Connect with one of our 39 SSA chapters at universities across North America.
           </p>
         </div>
       </section>
@@ -136,14 +136,17 @@ export default function FindSSAPage() {
       {/* Bottom CTA Section */}
       <section className="bg-[#1a1a2e] px-4 py-16">
         <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">
-            Don't see your school?
+          <h2 className="text-3xl font-bold text-white mb-4">
+            Don&apos;t see your school? Start a chapter.
           </h2>
+          <p className="text-gray-200 text-lg mb-8 max-w-2xl mx-auto">
+            USM provides everything you need — resources, training, and ongoing support to build a thriving SSA on your campus.
+          </p>
           <Link
             href="/get-involved"
             className="inline-block bg-[#FF6B00] text-white font-bold px-8 py-4 rounded-lg hover:bg-[#E55A00] transition-colors text-lg"
           >
-            Start a Chapter
+            Get Started
           </Link>
         </div>
       </section>

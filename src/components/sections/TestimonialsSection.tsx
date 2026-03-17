@@ -1,31 +1,31 @@
 export function TestimonialsSection() {
   const testimonials = [
     {
-      name: 'Priya Sharma',
-      university: 'UCLA',
-      program: 'Computer Science',
-      graduationYear: 2024,
-      quote:
-        'USM gave me the confidence to pursue a tech career while staying connected to my roots. The mentorship from professionals in the tech industry helped me land an internship at Google, and the community support made me feel like I truly belonged.',
-      avatar: '👩‍💻',
-    },
-    {
-      name: 'Arjun Patel',
-      university: 'University of Michigan',
-      program: 'Pre-Med',
+      name: 'Jasleen Kaur',
+      university: 'UC Davis',
+      program: 'Biology',
       graduationYear: 2025,
       quote:
-        'Balancing pre-med coursework and my faith was challenging until I joined USM. The Camp Kudrat retreat was transformative—it reminded me why I want to become a doctor and gave me a support system of students on the same journey.',
-      avatar: '👨‍⚕️',
+        'Camp Kudrat changed everything for me. I came in feeling disconnected from my Sikhi and left with a renewed sense of purpose. The reflection sessions, the late-night conversations with sangat, and the connection to nature—it reminded me that spirituality and academics can fuel each other.',
+      avatar: '🧬',
     },
     {
-      name: 'Simran Kaur',
-      university: 'University of Texas at Austin',
-      program: 'Business Administration',
-      graduationYear: 2024,
+      name: 'Manpreet Singh',
+      university: 'UT Austin',
+      program: 'Computer Science',
+      graduationYear: 2026,
       quote:
-        'As someone passionate about entrepreneurship, USM\'s professional development program was a game-changer. The 500+ mentor network connected me with successful Sikh entrepreneurs who guided me in launching my own business venture.',
-      avatar: '👩‍💼',
+        'Before joining my SSA, I didn\'t know a single other Sikh student on campus. Now I have a whole community that gets it—people who understand what it\'s like to balance coding projects with keeping your Sikhi strong. USM helped me find my sangat when I needed it most.',
+      avatar: '💻',
+    },
+    {
+      name: 'Harleen Kaur',
+      university: 'University of Michigan',
+      program: 'Business',
+      graduationYear: 2025,
+      quote:
+        'The Kadam Career Panel connected me with Sikh professionals in consulting and finance who looked like me and understood my journey. Having mentors who navigated corporate America while staying true to their identity gave me the confidence to pursue my goals without compromise.',
+      avatar: '📊',
     },
   ];
 

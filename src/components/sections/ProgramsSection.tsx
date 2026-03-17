@@ -1,31 +1,57 @@
 export function ProgramsSection() {
   const programs = [
     {
-      icon: '🎓',
-      title: 'Safal Summit',
-      description:
-        'Our flagship annual conference bringing together 4,000+ Sikh students for networking, workshops, and inspirational talks from industry leaders.',
-      link: '/programs',
-    },
-    {
-      icon: '🤝',
-      title: 'SSA Coordination',
-      description:
-        'Support and resources for all 39 chapters including event planning guides, leadership training, and community building initiatives.',
-      link: '/programs',
-    },
-    {
       icon: '🏕️',
       title: 'Camp Kudrat',
+      tagline: 'Reflect. Connect. Renew',
+      category: 'Sikhi Development',
       description:
-        'An immersive retreat designed for spiritual growth, self-discovery, and building lifelong connections with fellow Sikh students.',
+        'An immersive retreat for spiritual growth, self-discovery, and building lifelong bonds with fellow Sikh students.',
+      link: '/programs',
+    },
+    {
+      icon: '📖',
+      title: 'Gurbani Study',
+      tagline: 'Mother Tongue Made Easy',
+      category: 'Sikhi Development',
+      description:
+        'Weekly sessions making Gurmukhi and Gurbani accessible, helping students connect with Sikh scripture in a supportive environment.',
+      link: '/programs',
+    },
+    {
+      icon: '🎓',
+      title: 'Safal Summit',
+      tagline: 'Excel. Connect. Lead.',
+      category: 'Professional Development',
+      description:
+        'Our flagship conference bringing Sikh students together for career workshops, keynote speakers, and networking with industry professionals.',
       link: '/programs',
     },
     {
       icon: '💼',
-      title: 'Professional Development',
+      title: 'Kadam Career Panel',
+      tagline: 'Your Next Step Starts Here',
+      category: 'Professional Development',
       description:
-        'Mentorship from 500+ professionals, career coaching, internship opportunities, and networking events to launch your career.',
+        'Intimate career panels connecting students directly with Sikh professionals across tech, medicine, law, business, and more.',
+      link: '/programs',
+    },
+    {
+      icon: '🤝',
+      title: 'National Conference',
+      tagline: 'Network, Learn, Lead',
+      category: 'SSA Network',
+      description:
+        'Annual gathering of SSA leaders from every chapter to share strategies, build relationships, and shape the future of Sikh student life.',
+      link: '/programs',
+    },
+    {
+      icon: '🍽️',
+      title: 'Langar Seva',
+      tagline: 'Feeding All With Humility',
+      category: 'SSA Network',
+      description:
+        'Campus-wide langar events open to all students, sharing the Sikh tradition of community meals and breaking barriers through food.',
       link: '/programs',
     },
   ];
@@ -36,15 +62,15 @@ export function ProgramsSection() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-[#1a1a2e] mb-4">
-            Our Programs
+            Our Initiatives
           </h2>
           <p className="text-lg text-gray-600">
-            Empowering Sikh youth through mentorship, career development, and spiritual growth
+            Grounded in Simran, Seva, Sangat, and Academics
           </p>
         </div>
 
         {/* Programs Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {programs.map((program, index) => (
             <div
               key={index}
@@ -53,10 +79,20 @@ export function ProgramsSection() {
               {/* Icon */}
               <div className="text-5xl mb-6">{program.icon}</div>
 
+              {/* Category Badge */}
+              <span className="inline-block text-xs font-semibold uppercase tracking-wider text-[#FF6B00] mb-2">
+                {program.category}
+              </span>
+
               {/* Title */}
-              <h3 className="text-xl font-bold text-[#1a1a2e] mb-3 group-hover:text-[#FF6B00] transition-colors">
+              <h3 className="text-xl font-bold text-[#1a1a2e] mb-1 group-hover:text-[#FF6B00] transition-colors">
                 {program.title}
               </h3>
+
+              {/* Tagline */}
+              <p className="text-sm text-gray-500 italic mb-3">
+                {program.tagline}
+              </p>
 
               {/* Description */}
               <p className="text-gray-600 mb-6 leading-relaxed text-sm">

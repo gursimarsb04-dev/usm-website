@@ -23,28 +23,28 @@ const pathways: Pathway[] = [
   {
     id: '1',
     title: 'Join Your Local SSA',
-    description: 'Find and connect with your campus chapter. Meet other Sikh students, attend events, and build meaningful relationships.',
+    description: 'Meet your local sangat. Find your campus chapter and plug into a community of Sikh students who get it. Attend events, make friends, and grow together.',
     icon: <Users className="w-12 h-12 text-[#FF6B00]" />,
     link: '/find-ssa',
   },
   {
     id: '2',
     title: 'Start a New Chapter',
-    description: 'Bring USM to your university. We provide resources, training, and ongoing support to help you build a thriving community.',
+    description: "No SSA at your school? We'll help you build one from scratch — resources, training, and a network of 39 chapters backing you up.",
     icon: <Zap className="w-12 h-12 text-[#FF6B00]" />,
     link: '/get-involved/start-chapter',
   },
   {
     id: '3',
-    title: 'Volunteer Your Skills',
-    description: 'Help with events, content creation, mentoring, and tech projects. Share your talents and make a direct impact.',
+    title: 'Become a Savadar',
+    description: 'Register for the SSA Collective as a Savadar. Mentor students, help organize events, and contribute your professional expertise.',
     icon: <Heart className="w-12 h-12 text-[#FF6B00]" />,
     link: '/volunteer',
   },
   {
     id: '4',
     title: 'Support with a Donation',
-    description: 'Fund programs that change lives. Your contributions support SSA initiatives, events, and community services.',
+    description: 'Every dollar funds Camp Kudrat retreats, Langar Seva events, and the programs Sikh students count on.',
     icon: <DollarSign className="w-12 h-12 text-[#FF6B00]" />,
     link: '/donate',
   },
@@ -53,24 +53,24 @@ const pathways: Pathway[] = [
 const upcomingEvents: Event[] = [
   {
     id: '1',
-    name: 'Safal Summit 2026',
-    date: 'June 15-17, 2026',
-    location: 'Houston, TX',
-    description: 'Join SSA leaders from across North America for our flagship annual conference. Network, learn, and celebrate our community.',
+    name: 'Safal Summit',
+    date: 'Date TBA',
+    location: 'Location TBA',
+    description: "USM's flagship annual conference. Career workshops, keynote speakers, and a celebration of Sikh student excellence.",
   },
   {
     id: '2',
-    name: 'Camp Kudrat Spring',
-    date: 'April 5-7, 2026',
-    location: 'Bay Area, CA',
-    description: 'A transformative spring retreat for SSA members. Build confidence, develop leadership skills, and strengthen your faith.',
+    name: 'Camp Kudrat',
+    date: 'Date TBA',
+    location: 'Location TBA',
+    description: 'Reflect. Connect. Renew. A weekend retreat for spiritual growth and lifelong bonds.',
   },
   {
     id: '3',
-    name: 'SSA Leadership Conference',
-    date: 'May 10, 2026',
+    name: 'National Conference',
+    date: 'Date TBA',
     location: 'Virtual',
-    description: 'Virtual training and resources for SSA officers and leaders. Topics include event planning, community engagement, and growth strategies.',
+    description: 'SSA leaders from every chapter come together to share strategies, build relationships, and plan the year ahead.',
   },
 ];
 
@@ -84,7 +84,7 @@ export default function GetInvolvedPage() {
             Get Involved with USM
           </h1>
           <p className="text-xl text-gray-200 max-w-2xl mx-auto">
-            There are many ways to be part of the movement
+            Whether you&apos;re a student, professional, or supporter — there&apos;s a place for you in USM.
           </p>
         </div>
       </section>
@@ -177,6 +177,8 @@ export default function GetInvolvedPage() {
               <span>Sikh Coalition</span>
               <span className="text-[#D4A843]">•</span>
               <span>SALDEF</span>
+              <span className="text-[#D4A843]">•</span>
+              <span>Dasvandh Network</span>
             </div>
           </div>
         </div>

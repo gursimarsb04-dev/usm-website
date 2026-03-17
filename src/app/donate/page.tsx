@@ -6,47 +6,47 @@ export default function DonatePage() {
       amount: '$10',
       frequency: '/month',
       title: 'Supporter',
-      description: 'Provides one student with access to career resources and mentorship materials',
-      benefits: ['Career resource access', 'Mentorship materials', 'Community updates'],
+      description: 'Covers study materials for one Gurbani Study session',
+      benefits: ['Gurbani Study support', 'Community updates', 'Quarterly impact reports'],
     },
     {
       amount: '$25',
       frequency: '/month',
       title: 'Champion',
-      description: "Sponsors a student's attendance at a regional workshop or networking event",
-      benefits: ['Workshop attendance', 'Networking events', 'Impact reports'],
+      description: "Sponsors a student's Camp Kudrat retreat scholarship",
+      benefits: ['Retreat scholarship', 'Impact reports', 'Donor recognition'],
       featured: true,
     },
     {
       amount: '$50',
       frequency: '/month',
-      title: 'Leader',
-      description: 'Funds leadership training for an entire SSA chapter for one semester',
-      benefits: ['Full chapter support', 'Leadership training', 'Donor recognition'],
+      title: 'Builder',
+      description: "Funds an SSA chapter's Langar Seva event",
+      benefits: ['Langar Seva funding', 'Chapter support', 'Donor recognition'],
     },
     {
       amount: '$100',
       frequency: '/month',
       title: 'Visionary',
-      description: "Covers a student's full Safal Summit experience including travel assistance",
-      benefits: ['Summit sponsorship', 'Travel assistance', 'VIP recognition'],
+      description: "Covers a student's full Safal Summit experience",
+      benefits: ['Summit sponsorship', 'Full experience coverage', 'VIP recognition'],
     },
   ];
 
   const fundAllocation = [
     {
       percentage: 40,
-      label: 'Mentorship & Career Programs',
+      label: 'Programs & Events (Camp Kudrat, Safal Summit, Langar Seva)',
       icon: Users,
     },
     {
       percentage: 25,
-      label: 'Events & Conferences',
+      label: 'SSA Chapter Support & Resources',
       icon: TrendingUp,
     },
     {
       percentage: 20,
-      label: 'Chapter Support & Resources',
+      label: 'Sikhi Development (Gurbani Study, Retreats)',
       icon: Heart,
     },
     {
@@ -58,20 +58,20 @@ export default function DonatePage() {
 
   const impactMetrics = [
     {
-      number: '4,200',
-      description: 'students attended Safal Summit',
+      number: '$32,840+',
+      description: 'raised this year',
+    },
+    {
+      number: '275',
+      description: 'donors supporting USM',
     },
     {
       number: '39',
-      description: 'SSA chapters received support',
+      description: 'SSA chapters funded',
     },
     {
-      number: '500+',
-      description: 'mentorship connections made',
-    },
-    {
-      number: '12',
-      description: 'Camp Kudrat retreats hosted',
+      number: '7',
+      description: 'active programs running',
     },
   ];
 
@@ -82,10 +82,10 @@ export default function DonatePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a2e] to-[#FF6B00] opacity-10" />
         <div className="relative max-w-4xl mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl font-bold text-[#1a1a2e] mb-6">
-            Invest in the Next Generation of Sikh Leaders
+            Fuel the Movement
           </h1>
           <p className="text-lg sm:text-xl text-gray-700 leading-relaxed">
-            Your donation directly supports mentorship, education, and community programs for Sikh youth across 39 university chapters.
+            Your support funds Camp Kudrat retreats, Safal Summit, Langar Seva, and the programs that help Sikh students thrive.
           </p>
         </div>
       </section>
@@ -130,7 +130,7 @@ export default function DonatePage() {
                 </ul>
 
                 <a
-                  href="https://unitedsikhmovement.org"
+                  href="https://dvnetwork.org/organizations/united-sikh-movement"
                   className={`block text-center py-3 px-6 rounded-lg font-semibold transition-colors ${
                     tier.featured
                       ? 'bg-white text-[#FF6B00] hover:bg-gray-100'
@@ -212,7 +212,7 @@ export default function DonatePage() {
             USM is a registered 501(c)(3) nonprofit organization.
           </p>
           <p className="text-gray-600 mb-2">
-            All donations are tax-deductible.
+            All donations are tax-deductible. Donations processed securely through Dasvandh Network.
           </p>
           <p className="text-gray-600">
             EIN: Available upon request
@@ -227,9 +227,13 @@ export default function DonatePage() {
             Prefer to give once?
           </h3>
           <p className="text-gray-100 mb-6">
-            Contact us at {' '}
-            <a href="mailto:donate@unitedsikhmovement.org" className="font-semibold hover:underline">
-              donate@unitedsikhmovement.org
+            Make a one-time donation through{' '}
+            <a href="https://dvnetwork.org/organizations/united-sikh-movement" className="font-semibold hover:underline">
+              Dasvandh Network
+            </a>
+            {' '}or reach out at{' '}
+            <a href="mailto:info@unitedsikhmovement.org" className="font-semibold hover:underline">
+              info@unitedsikhmovement.org
             </a>
           </p>
         </div>

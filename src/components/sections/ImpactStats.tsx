@@ -4,21 +4,20 @@ export function ImpactStats() {
   const stats = [
     {
       number: 39,
-      label: 'Student Chapters',
+      label: 'SSA Chapters',
     },
     {
-      number: 500,
-      label: 'Mentors & Leaders',
-      suffix: '+',
+      number: 275,
+      label: 'Donors This Year',
+    },
+    {
+      number: 32840,
+      label: 'Raised This Year',
+      prefix: '$',
     },
     {
       number: 5000,
       label: 'Students Reached',
-      suffix: '+',
-    },
-    {
-      number: 15,
-      label: 'Years of Excellence',
       suffix: '+',
     },
   ];
@@ -45,7 +44,7 @@ export function ImpactStats() {
             >
               <div className="mb-4">
                 <span className="text-5xl sm:text-6xl font-bold text-[#FF6B00]">
-                  <AnimatedCounter target={stat.number} suffix={stat.suffix} />
+                  <AnimatedCounter target={stat.number} prefix={stat.prefix} suffix={stat.suffix} />
                 </span>
               </div>
               <p className="text-lg font-semibold text-[#1a1a2e]">{stat.label}</p>

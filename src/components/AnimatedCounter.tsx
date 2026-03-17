@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-export function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: string }) {
+export function AnimatedCounter({ target, prefix = '', suffix = '' }: { target: number; prefix?: string; suffix?: string }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   const hasAnimated = useRef(false);
@@ -35,7 +35,7 @@ export function AnimatedCounter({ target, suffix = '' }: { target: number; suffi
 
   return (
     <span ref={ref}>
-      {count.toLocaleString()}{suffix}
+      {prefix}{count.toLocaleString()}{suffix}
     </span>
   );
 }

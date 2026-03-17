@@ -24,10 +24,10 @@ export function CTASection() {
               I'm a Student
             </h3>
             <p className="text-gray-600 mb-6">
-              Find your local chapter, connect with mentors, and join our vibrant community.
+              Find your SSA, attend Camp Kudrat, and connect with sangat who gets it.
             </p>
             <span className="inline-flex items-center text-[#FF6B00] font-semibold group-hover:text-[#E55A00] transition-colors">
-              Find Your Chapter
+              Find Your SSA
               <svg
                 className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform"
                 fill="none"
@@ -54,7 +54,7 @@ export function CTASection() {
               I Want to Support
             </h3>
             <p className="text-gray-600 mb-6">
-              Make a difference by supporting Sikh youth empowerment and education initiatives.
+              Fund programs that strengthen Sikh youth — every dollar goes to mentorship, events, and community.
             </p>
             <span className="inline-flex items-center text-[#FF6B00] font-semibold group-hover:text-[#E55A00] transition-colors">
               Support USM

@@ -36,10 +36,10 @@ export function NewsletterSection() {
         {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            Stay Connected
+            Stay in the Loop
           </h2>
           <p className="text-lg text-gray-400 mb-2">
-            Join 3,000+ subscribers getting updates on Sikh youth empowerment
+            Get updates on events, new SSA chapters, and ways to get involved.
           </p>
         </div>
 

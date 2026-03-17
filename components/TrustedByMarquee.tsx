@@ -11,9 +11,9 @@ export default function TrustedByMarquee({ logos }: { logos: any[] }) {
   const duplicatedLogos = [...logos, ...logos, ...logos];
 
   return (
-    <div className="w-full overflow-hidden py-12 border-y border-off-white bg-white/50">
+    <div className="w-full overflow-hidden py-12 bg-white">
       <div className="max-w-[1400px] mx-auto mb-8 px-6 md:px-12 text-center">
-        <h4 className="text-[10px] uppercase tracking-[0.2em] text-warm-gray font-medium">Trusted By</h4>
+        <h4 className="font-display font-semibold text-2xl text-navy">Trusted By</h4>
       </div>
       <div className="flex relative items-center gap-12 sm:gap-20">
         <motion.div
