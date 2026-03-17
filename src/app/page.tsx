@@ -1,7 +1,7 @@
 import { HeroSection } from '@/components/sections/HeroSection';
 import { ImpactStats } from '@/components/sections/ImpactStats';
 import { ProgramsSection } from '@/components/sections/ProgramsSection';
-import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
+import { EventsSection } from '@/components/sections/EventsSection';
 import { CTASection } from '@/components/sections/CTASection';
 import { NewsletterSection } from '@/components/sections/NewsletterSection';
 
@@ -16,7 +16,7 @@ export default function Home() {
       <HeroSection />
       <ImpactStats />
       <ProgramsSection />
-      <TestimonialsSection />
+      <EventsSection />
       <CTASection />
       <NewsletterSection />
     </main>
