@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { stripe } from "@/lib/stripe";
+import { getStripe } from "@/lib/stripe";
 
 export const metadata: Metadata = {
   title: "Thank You",
@@ -15,6 +15,7 @@ export default async function DonateThankYouPage({
 
   if (searchParams.session_id) {
     try {
+      const stripe = getStripe();
       const session = await stripe.checkout.sessions.retrieve(searchParams.session_id);
       if (session.amount_total) {
         donationAmount = new Intl.NumberFormat("en-US", {

@@ -135,7 +135,7 @@ export default function DonatePage() {
                     tier.featured
                       ? 'bg-white text-[#FF6B00] hover:bg-gray-100'
                       : 'bg-[#FF6B00] text-white hover:bg-[#E55A00]'
-                 }`}
+                  }`}
                 >
                   Donate Now
                 </a>

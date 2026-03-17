@@ -8,11 +8,19 @@ const blogSlugsQuery = groq`*[_type == "blogPost" && defined(slug.current)][].sl
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
-  const [ssaSlugs, eventSlugs, blogSlugs] = await Promise.all([
-    client.fetch<string[]>(ssaSlugsQuery),
-    client.fetch<string[]>(eventSlugsQuery),
-    client.fetch<string[]>(blogSlugsQuery),
-  ]);
+  let ssaSlugs: string[] = [];
+  let eventSlugs: string[] = [];
+  let blogSlugs: string[] = [];
+
+  try {
+    [ssaSlugs, eventSlugs, blogSlugs] = await Promise.all([
+      client.fetch<string[]>(ssaSlugsQuery),
+      client.fetch<string[]>(eventSlugsQuery),
+      client.fetch<string[]>(blogSlugsQuery),
+    ]);
+  } catch {
+    // Sanity not configured yet
+  }
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: siteUrl, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },

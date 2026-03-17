@@ -85,6 +85,5 @@ export function NewsletterSection() {
         </p>
       </div>
     </section>
-  
-  }
+  );
 }

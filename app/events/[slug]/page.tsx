@@ -9,8 +9,12 @@ import type { Event } from "@/types";
 export const revalidate = 600;
 
 export async function generateStaticParams() {
-  const slugs = await client.fetch<string[]>(eventSlugsQuery);
-  return slugs.map((slug) => ({ slug }));
+  try {
+    const slugs = await client.fetch<string[]>(eventSlugsQuery);
+    return slugs.map((slug) => ({ slug }));
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {

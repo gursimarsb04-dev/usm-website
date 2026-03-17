@@ -161,7 +161,7 @@ function VolunteerSignupForm({
 }) {
   const [formData, setFormData] = useState({
     name: '',
-    email: '",
+    email: '',
     phone: '',
     organization: '',
     role: '',
@@ -422,7 +422,6 @@ function VolunteerSignupForm({
         </form>
       )}
     </div>
-  
-  }
+  );
 }
 

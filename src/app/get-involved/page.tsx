@@ -199,8 +199,6 @@ export default function GetInvolvedPage() {
           </Link>
         </div>
       </section>
-  
-  
-   5•dbö>
+    </div>
   );
 }

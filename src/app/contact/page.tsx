@@ -154,3 +154,85 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-[#1a1a2e] text-center mb-12">
+            Frequently Asked Questions
+          </h2>
+          <div className="space-y-4">
+            {faqItems.map((item, index) => (
+              <FAQItem key={index} question={item.question} answer={item.answer} />
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function FAQItem({ question, answer }: { question: string; answer: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border border-gray-200 rounded-lg overflow-hidden">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between p-5 text-left hover:bg-gray-50 transition-colors"
+      >
+        <span className="font-semibold text-[#1a1a2e]">{question}</span>
+        <ChevronDown className={`w-5 h-5 text-gray-500 transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+      {open && (
+        <div className="px-5 pb-5 text-gray-600 leading-relaxed">{answer}</div>
+      )}
+    </div>
+  );
+}
+
+function ContactForm() {
+  const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus('success');
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+          <input type="text" required className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#FF6B00] focus:border-transparent outline-none" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+          <input type="text" required className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#FF6B00] focus:border-transparent outline-none" />
+        </div>
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+        <input type="email" required className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#FF6B00] focus:border-transparent outline-none" />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
+        <textarea rows={5} required className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#FF6B00] focus:border-transparent outline-none resize-none" />
+      </div>
+      {status === 'success' && (
+        <div className="flex items-center gap-2 text-green-600">
+          <CheckCircle className="w-5 h-5" />
+          <span>Message sent successfully!</span>
+        </div>
+      )}
+      {status === 'error' && (
+        <div className="flex items-center gap-2 text-red-600">
+          <AlertCircle className="w-5 h-5" />
+          <span>Something went wrong. Please try again.</span>
+        </div>
+      )}
+      <button type="submit" className="w-full sm:w-auto px-8 py-3 bg-[#FF6B00] text-white font-semibold rounded-lg hover:bg-[#e55f00] transition-colors">
+        Send Message
+      </button>
+    </form>
+  );
+}

@@ -162,12 +162,13 @@ export default function ProgramsPage() {
           <div className="grid md:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="text-4xl font-bold text-[#FF6B00] mb-2">
-                >39/div>
+                39
+              </div>
               <p className="text-gray-600">University Chapters</p>
             </div>
             <div className="text-center">
               <div className="text-4xl font-bold text-[#D4A843] mb-2">
-                4;000+
+                4,000+
               </div>
               <p className="text-gray-600">Summit Attendees</p>
             </div>
