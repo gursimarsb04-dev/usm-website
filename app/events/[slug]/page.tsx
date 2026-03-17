@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { client } from "@/sanity/client";
 import { eventBySlugQuery, eventSlugsQuery } from "@/sanity/queries";
 import { formatDate } from "@/lib/utils";
+import { eventJsonLd } from "@/lib/jsonld";
 import type { Event } from "@/types";
 
 export const revalidate = 600;
@@ -27,6 +28,10 @@ export default async function EventDetailPage({ params }: { params: { slug: stri
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd(event)) }}
+      />
       <section data-section="event-detail">
         <span data-event-type>{event.eventType}</span>
         <h1>{event.title}</h1>

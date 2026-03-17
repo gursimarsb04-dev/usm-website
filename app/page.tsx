@@ -1,5 +1,6 @@
 import { client } from "@/sanity/client";
 import { homePageQuery } from "@/sanity/queries";
+import { organizationJsonLd } from "@/lib/jsonld";
 
 export const revalidate = 1800;
 
@@ -9,6 +10,10 @@ export default async function HomePage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
+      />
       <section data-section="hero">
         <h1>{settings?.heroHeadline || "Empowering Sikh Students to Lead, Connect, and Grow"}</h1>
         <p>{settings?.heroSubtext}</p>
