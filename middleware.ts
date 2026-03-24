@@ -1,11 +1,24 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
+/**
+ * Subdomain routing middleware.
+ *
+ * Only activates subdomain rewriting for:
+ *   - *.unitedsikhmovement.org  (production)
+ *   - *.localhost:3000           (local dev)
+ *
+ * All other hosts (Vercel preview URLs, custom domains without
+ * subdomains, etc.) pass through untouched.
+ */
+
+const PRODUCTION_DOMAIN = 'unitedsikhmovement.org';
+
 export function middleware(request: NextRequest) {
   const hostname = request.headers.get('host') || '';
   const url = request.nextUrl.clone();
 
-  // Skip for API routes, Next.js internals, and static assets
+  // Skip for API routes, Next.js internals, admin panel, and static assets
   if (
     url.pathname.startsWith('/api') ||
     url.pathname.startsWith('/_next') ||
@@ -27,25 +40,19 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Extract subdomain
-  // Production: rusikh.unitedsikhmovement.org
-  // Development: rusikh.localhost:3000
+  // --- Subdomain extraction (ONLY for known domains) ---
   const currentHost = hostname.replace(':3000', '');
-
   let subdomain: string | null = null;
 
   if (currentHost.endsWith('.localhost')) {
     // Local dev: rusikh.localhost
     subdomain = currentHost.replace('.localhost', '');
-  } else if (currentHost.includes('.')) {
-    const parts = currentHost.split('.');
-    // e.g. rusikh.unitedsikhmovement.org => 3 parts
-    if (parts.length >= 3) {
-      subdomain = parts[0];
-    }
+  } else if (currentHost.endsWith(`.${PRODUCTION_DOMAIN}`)) {
+    // Production: rusikh.unitedsikhmovement.org
+    subdomain = currentHost.replace(`.${PRODUCTION_DOMAIN}`, '');
   }
 
-  // Skip for apex domain, www, and admin subdomains
+  // No subdomain detected, or it's www/admin → pass through normally
   if (!subdomain || subdomain === 'www' || subdomain === 'admin') {
     return NextResponse.next();
   }
