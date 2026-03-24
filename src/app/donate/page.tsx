@@ -1,4 +1,7 @@
+'use client';
+
 import { CheckCircle2, Heart, TrendingUp, Users } from 'lucide-react';
+import EmailCapture from '@/components/EmailCapture';
 
 export default function DonatePage() {
   const donationTiers = [
@@ -202,6 +205,17 @@ export default function DonatePage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Email Capture */}
+      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <EmailCapture
+            variant="inline"
+            headline="Stay in the Loop"
+            subtitle="Get notified about upcoming fundraising campaigns and impact updates."
+          />
         </div>
       </section>
 

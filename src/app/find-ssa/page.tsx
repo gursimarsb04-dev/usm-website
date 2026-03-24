@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { Search } from 'lucide-react';
+import EmailCapture from '@/components/EmailCapture';
 
 interface SSAChapter {
   id: string;
@@ -139,6 +140,17 @@ export default function FindSSAPage() {
               </button>
             </div>
           )}
+        </div>
+      </section>
+
+      {/* Email Capture */}
+      <section className="px-4 py-12">
+        <div className="max-w-6xl mx-auto">
+          <EmailCapture
+            variant="card"
+            headline="Get SSA Updates"
+            subtitle="Be the first to know about new chapters, events, and resources."
+          />
         </div>
       </section>
 

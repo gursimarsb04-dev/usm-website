@@ -40,7 +40,7 @@ export default function Footer() {
           <h4 className="text-white font-medium mb-2">Explore</h4>
           <Link href="/" className="hover:text-saffron transition-colors w-fit">Home</Link>
           <Link href="/about" className="hover:text-saffron transition-colors w-fit">About Us</Link>
-          <Link href="/ssa" className="hover:text-saffron transition-colors w-fit">Find an SSA</Link>
+          <Link href="/find-ssa" className="hover:text-saffron transition-colors w-fit">Find an SSA</Link>
           <Link href="/events" className="hover:text-saffron transition-colors w-fit">Events</Link>
         </div>
 

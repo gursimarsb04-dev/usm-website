@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Providers from "./providers";
 import "./globals.css";
 
 const jetbrainsMono = JetBrains_Mono({
@@ -40,11 +41,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <Navbar />
-        <main id="main-content" className="min-h-screen flex flex-col pt-24">
-          {children}
-        </main>
-        <Footer />
+        <Providers>
+          <Navbar />
+          <main id="main-content" className="min-h-screen flex flex-col pt-24">
+            {children}
+          </main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowRight, Sparkles, HandHeart, Users, GraduationCap } from 'lucide-react';
+import EmailCapture from '@/components/EmailCapture';
 
 export default function AboutPage() {
   const pillarCards = [
@@ -153,6 +154,13 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Email Capture */}
+      <EmailCapture
+        variant="banner"
+        headline="Stay Connected"
+        subtitle="Get updates on conferences, retreats, and SSA news."
+      />
 
       {/* CTA */}
       <section className="py-16 md:py-24 bg-gradient-to-r from-[#FF6B00] to-[#E55A00]">

@@ -25,10 +25,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
     { url: siteUrl, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
     { url: `${siteUrl}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
-    { url: `${siteUrl}/ssa`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${siteUrl}/find-ssa`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
     { url: `${siteUrl}/events`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
     { url: `${siteUrl}/donate`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
   ];
+
+  const programSlugs = ['camp-kudrat', 'gurbani-study', 'safal-summit', 'kadam-career-panel', 'national-conference', 'leadership-retreat'];
+  const programPages = programSlugs.map((slug) => ({
+    url: `${siteUrl}/programs/${slug}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.7,
+  }));
 
   const ssaPages = ssaSlugs.map((slug) => ({
     url: `${siteUrl}/ssa/${slug}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.6,
@@ -42,5 +47,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${siteUrl}/blog/${slug}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.5,
   }));
 
-  return [...staticPages, ...ssaPages, ...eventPages, ...blogPages];
+  return [...staticPages, ...programPages, ...ssaPages, ...eventPages, ...blogPages];
 }

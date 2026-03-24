@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { Users, Zap, Heart, DollarSign, Calendar, MapPin } from 'lucide-react';
+import EmailCapture from '@/components/EmailCapture';
 
 interface Pathway {
   id: string;
@@ -183,6 +184,13 @@ export default function GetInvolvedPage() {
           </div>
         </div>
       </section>
+
+      {/* Email Capture */}
+      <EmailCapture
+        variant="banner"
+        headline="Don't Miss Out"
+        subtitle="Sign up to hear about volunteer opportunities, events, and ways to give back."
+      />
 
       {/* CTA Section */}
       <section className="bg-[#FF6B00] px-4 py-16">

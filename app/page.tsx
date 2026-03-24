@@ -59,7 +59,7 @@ export default async function HomePage() {
           {/* Action Area (Keeping dual CTAs as requested but styling like the search pill) */}
           <div className="flex flex-col sm:flex-row items-center gap-4 bg-white/70 backdrop-blur-xl p-2 rounded-full border border-white shadow-xl shadow-navy/5 w-full max-w-2xl mx-auto ring-1 ring-black/5">
             <Link
-              href="/ssa"
+              href="/find-ssa"
               className="group flex flex-1 items-center justify-center gap-3 bg-white text-navy px-8 py-4 md:py-5 rounded-full font-medium transition-all hover:bg-slate-50 w-full outline-none focus-visible:ring-2 focus-visible:ring-saffron"
             >
               <span className="text-lg">Find an SSA Near You</span>
@@ -161,6 +161,51 @@ export default async function HomePage() {
       {/* Impact Stats */}
       <section data-section="impact-stats">
         <ImpactStats ssaCount={ssaCount} eventCount={eventCount} stateCount={stateCount} />
+      </section>
+
+      {/* Our Programs - Clickable cards linking to dedicated pages */}
+      <section data-section="programs" className="py-24 md:py-32 bg-white">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex flex-col gap-16">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="max-w-xl">
+              <span className="text-[10px] uppercase tracking-[0.2em] font-medium text-saffron px-3 py-1 bg-saffron/10 rounded-full inline-block mb-6">What We Do</span>
+              <h2 className="font-display font-semibold text-4xl md:text-5xl tracking-tight text-navy mb-4">
+                Our Programs
+              </h2>
+              <p className="font-body text-slate-body text-xl">
+                From spiritual retreats to career summits, our programs empower Sikh students to grow in every dimension.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { slug: 'camp-kudrat', icon: '\u{1F3D5}\uFE0F', title: 'Camp Kudrat', category: 'Sikhi Development', tagline: 'Reflect. Connect. Renew.' },
+              { slug: 'gurbani-study', icon: '\u{1F4D6}', title: 'Gurbani Study', category: 'Sikhi Development', tagline: 'Mother Tongue Made Easy.' },
+              { slug: 'safal-summit', icon: '\u{1F393}', title: 'Safal Summit', category: 'Professional Development', tagline: 'Excel. Connect. Lead.' },
+              { slug: 'kadam-career-panel', icon: '\u{1F4BC}', title: 'Kadam Career Panel', category: 'Professional Development', tagline: 'Your Next Step Starts Here.' },
+              { slug: 'national-conference', icon: '\u{1F91D}', title: 'National Conference', category: 'SSA Network', tagline: 'Network, Learn, Lead.' },
+              { slug: 'leadership-retreat', icon: '\u{1F3AF}', title: 'Leadership Retreat', category: 'SSA Network', tagline: 'Lead With Purpose.' },
+            ].map((program) => (
+              <Link
+                key={program.slug}
+                href={`/programs/${program.slug}`}
+                className="group bg-white ring-1 ring-black/5 rounded-[2rem] p-8 flex flex-col gap-4 hover:shadow-xl hover:shadow-navy/10 hover:-translate-y-1 transition-all duration-300"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl">{program.icon}</span>
+                  <span className="text-[10px] uppercase tracking-[0.2em] font-medium text-saffron bg-saffron/10 px-3 py-1 rounded-full">{program.category}</span>
+                </div>
+                <h3 className="font-display font-semibold text-2xl text-navy group-hover:text-saffron transition-colors">{program.title}</h3>
+                <p className="text-slate-body font-body italic">{program.tagline}</p>
+                <span className="mt-auto flex items-center gap-2 text-saffron font-medium text-sm group-hover:gap-3 transition-all">
+                  Learn more
+                  <ArrowRight weight="bold" className="w-4 h-4" />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Testimonials */}

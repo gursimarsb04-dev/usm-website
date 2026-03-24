@@ -1,58 +1,60 @@
+import Link from 'next/link';
+
 export function ProgramsSection() {
   const programs = [
     {
-      icon: '🏕️',
+      icon: '\u{1F3D5}\uFE0F',
       title: 'Camp Kudrat',
       tagline: 'Reflect. Connect. Renew',
       category: 'Sikhi Development',
       description:
         'An immersive retreat for spiritual growth, self-discovery, and building lifelong bonds with fellow Sikh students.',
-      link: '/programs',
+      link: '/programs/camp-kudrat',
     },
     {
-      icon: '📖',
+      icon: '\u{1F4D6}',
       title: 'Gurbani Study',
       tagline: 'Mother Tongue Made Easy',
       category: 'Sikhi Development',
       description:
         'Weekly sessions making Gurmukhi and Gurbani accessible, helping students connect with Sikh scripture in a supportive environment.',
-      link: '/programs',
+      link: '/programs/gurbani-study',
     },
     {
-      icon: '🎓',
+      icon: '\u{1F393}',
       title: 'Safal Summit',
       tagline: 'Excel. Connect. Lead.',
       category: 'Professional Development',
       description:
         'Our flagship conference bringing Sikh students together for career workshops, keynote speakers, and networking with industry professionals.',
-      link: '/programs',
+      link: '/programs/safal-summit',
     },
     {
-      icon: '💼',
+      icon: '\u{1F4BC}',
       title: 'Kadam Career Panel',
       tagline: 'Your Next Step Starts Here',
       category: 'Professional Development',
       description:
         'Intimate career panels connecting students directly with Sikh professionals across tech, medicine, law, business, and more.',
-      link: '/programs',
+      link: '/programs/kadam-career-panel',
     },
     {
-      icon: '🤝',
+      icon: '\u{1F91D}',
       title: 'National Conference',
       tagline: 'Network, Learn, Lead',
       category: 'SSA Network',
       description:
         'Annual gathering of SSA leaders from every chapter to share strategies, build relationships, and shape the future of Sikh student life.',
-      link: '/programs',
+      link: '/programs/national-conference',
     },
     {
-      icon: '🍽️',
-      title: 'Langar Seva',
-      tagline: 'Feeding All With Humility',
+      icon: '\u{1F3AF}',
+      title: 'Leadership Retreat',
+      tagline: 'Lead With Purpose',
       category: 'SSA Network',
       description:
-        'Campus-wide langar events open to all students, sharing the Sikh tradition of community meals and breaking barriers through food.',
-      link: '/programs',
+        'Intensive training for new and returning SSA officers to lead with purpose, organize events, and serve campus communities effectively.',
+      link: '/programs/leadership-retreat',
     },
   ];
 
@@ -72,9 +74,10 @@ export function ProgramsSection() {
         {/* Programs Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {programs.map((program, index) => (
-            <div
+            <Link
               key={index}
-              className="bg-white border border-gray-200 rounded-xl p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group"
+              href={program.link}
+              className="bg-white border border-gray-200 rounded-xl p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group block"
             >
               {/* Icon */}
               <div className="text-5xl mb-6">{program.icon}</div>
@@ -100,10 +103,7 @@ export function ProgramsSection() {
               </p>
 
               {/* Learn More Link */}
-              <a
-                href={program.link}
-                className="inline-flex items-center text-[#FF6B00] font-semibold hover:text-[#E55A00] transition-colors group/link"
-              >
+              <span className="inline-flex items-center text-[#FF6B00] font-semibold group-hover:text-[#E55A00] transition-colors">
                 Learn More
                 <svg
                   className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
@@ -113,12 +113,13 @@ export function ProgramsSection() {
                 >
                   <path
                     strokeLinecap="round"
-                    strokeLinejoin="round"                    strokeWidth={2}
+                    strokeLinejoin="round"
+                    strokeWidth={2}
                     d="M9 5l7 7-7 7"
                   />
                 </svg>
-              </a>
-            </div>
+              </span>
+            </Link>
           ))}
         </div>
       </div>
