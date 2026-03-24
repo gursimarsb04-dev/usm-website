@@ -10,6 +10,9 @@ export async function GET() {
 
     const stripe = getStripe();
     let total = 0;
+    if (!stripe) {
+      return NextResponse.json({ total: 0, goal, currency: "usd" as const });
+    }
     const charges = await stripe.charges.list({ limit: 100 });
 
     for (const charge of charges.data) {

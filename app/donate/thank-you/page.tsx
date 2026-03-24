@@ -16,6 +16,7 @@ export default async function DonateThankYouPage({
   if (searchParams.session_id) {
     try {
       const stripe = getStripe();
+      if (!stripe) throw new Error("Stripe not configured");
       const session = await stripe.checkout.sessions.retrieve(searchParams.session_id);
       if (session.amount_total) {
         donationAmount = new Intl.NumberFormat("en-US", {

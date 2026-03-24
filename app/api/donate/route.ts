@@ -15,6 +15,9 @@ export async function POST(request: NextRequest) {
     }
 
     const stripe = getStripe();
+    if (!stripe) {
+      return NextResponse.json({ error: "Stripe is not configured" }, { status: 503 });
+    }
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
     if (frequency === "monthly") {
