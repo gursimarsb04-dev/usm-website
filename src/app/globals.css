@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --teal: #235470;
+  --teal-ink: #16384C;
+  --gold: #F5D78C;
+  --sand: #FBF7EF;
+  --mist: #E9F1F3;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  @apply bg-sand text-teal-ink font-body antialiased;
+}
+
+h1, h2, h3, .display { @apply font-display; }
+
+/* ── One animation pattern, used everywhere: fade-up ── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-up.in-view { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .fade-up { opacity: 1; transform: none; transition: none; }
+}
+
+/* Visible keyboard focus */
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; border-radius: 2px; }
+
+/* Leaflet container needs explicit height */
+.ssa-map { height: 520px; width: 100%; border-radius: 1rem; z-index: 0; }
+@media (max-width: 768px) { .ssa-map { height: 380px; } }
