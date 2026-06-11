@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import FadeUp from '@/components/FadeUp';
 import { sanity, urlFor } from '@/lib/sanity';
+import { programFallbacks, programDescriptions } from '@/lib/program-fallbacks';
 
 export const revalidate = 3600;
 
@@ -12,7 +13,11 @@ export default async function ProgramPage({ params }: { params: { slug: string }
       { slug: params.slug }
     );
   } catch {}
-  if (!p) notFound();
+  if (!p) {
+    const fb = programFallbacks.find((f) => f.slug === params.slug);
+    if (!fb) notFound();
+    p = { ...fb, description: [{ _type: 'block', children: [{ text: programDescriptions[params.slug] || '' }] }] };
+  }
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-16">

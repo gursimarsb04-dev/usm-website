@@ -36,3 +36,9 @@ h1, h2, h3, .display { @apply font-display; }
 /* Leaflet container needs explicit height */
 .ssa-map { height: 520px; width: 100%; border-radius: 1rem; z-index: 0; }
 @media (max-width: 768px) { .ssa-map { height: 380px; } }
+
+/* Chapter marquee */
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee { animation: marquee 40s linear infinite; }
+.marquee:hover { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .marquee { animation: none; } }

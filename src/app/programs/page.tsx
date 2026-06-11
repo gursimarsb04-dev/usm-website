@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import FadeUp from '@/components/FadeUp';
 import { getPrograms, urlFor } from '@/lib/sanity';
+import { programFallbacks } from '@/lib/program-fallbacks';
 
 export const revalidate = 3600;
 export const metadata = { title: 'Programs' };
@@ -10,6 +11,7 @@ const pillarOrder = ['Sikhi Development', 'Professional Development', 'SSA Netwo
 export default async function Programs() {
   let programs: any[] = [];
   try { programs = await getPrograms(); } catch {}
+  if (!programs || programs.length === 0) programs = programFallbacks;
 
   return (
     <div className="mx-auto max-w-wrap px-5 py-16">
@@ -47,11 +49,6 @@ export default async function Programs() {
           </FadeUp>
         );
       })}
-      {programs.length === 0 && (
-        <p className="mt-10 text-teal-soft">
-          Program content loads from Sanity — add Program documents in the Studio (README step 3).
-        </p>
-      )}
     </div>
   );
 }
