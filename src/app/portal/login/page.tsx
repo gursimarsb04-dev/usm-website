@@ -11,62 +11,57 @@ function PinInput({
   onChange: (v: string) => void;
   error: boolean;
 }) {
-  const refs = [
-    useRef<HTMLInputElement>(null),
-    useRef<HTMLInputElement>(null),
-    useRef<HTMLInputElement>(null),
-    useRef<HTMLInputElement>(null),
-  ];
+  const refs = Array.from({ length: 6 }, () => useRef<HTMLInputElement>(null));
 
   function handleChange(i: number, e: React.ChangeEvent<HTMLInputElement>) {
-    const digit = e.target.value.replace(/\D/g, '').slice(-1);
-    const arr = value.padEnd(4, ' ').split('');
-    arr[i] = digit || ' ';
+    const char = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(-1);
+    const arr = value.padEnd(6, ' ').split('');
+    arr[i] = char || ' ';
     const next = arr.join('').trimEnd();
     onChange(next);
-    if (digit && i < 3) refs[i + 1].current?.focus();
+    if (char && i < 5) refs[i + 1].current?.focus();
   }
 
   function handleKeyDown(i: number, e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Backspace') {
-      const arr = value.padEnd(4, ' ').split('');
+      const arr = value.padEnd(6, ' ').split('');
       if (arr[i].trim()) {
         arr[i] = ' ';
         onChange(arr.join('').trimEnd());
       } else if (i > 0) {
         refs[i - 1].current?.focus();
-        const prev = value.padEnd(4, ' ').split('');
+        const prev = value.padEnd(6, ' ').split('');
         prev[i - 1] = ' ';
         onChange(prev.join('').trimEnd());
       }
     } else if (e.key === 'ArrowLeft' && i > 0) {
       refs[i - 1].current?.focus();
-    } else if (e.key === 'ArrowRight' && i < 3) {
+    } else if (e.key === 'ArrowRight' && i < 5) {
       refs[i + 1].current?.focus();
     }
   }
 
   function handlePaste(e: React.ClipboardEvent) {
     e.preventDefault();
-    const digits = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 4);
-    onChange(digits);
-    const focusIdx = Math.min(digits.length, 3);
+    const chars = e.clipboardData.getData('text').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
+    onChange(chars);
+    const focusIdx = Math.min(chars.length, 5);
     refs[focusIdx].current?.focus();
   }
 
   const boxBase =
-    'w-14 h-16 text-center text-2xl font-bold rounded-2xl border-2 transition-all duration-150 focus:outline-none caret-transparent';
+    'w-11 h-14 text-center text-xl font-bold rounded-xl border-2 transition-all duration-150 focus:outline-none caret-transparent uppercase';
   const boxIdle = 'border-teal/20 bg-white focus:border-teal focus:shadow-[0_0_0_3px_rgba(35,84,112,0.12)]';
   const boxError = 'border-red-400 bg-red-50 focus:border-red-500';
 
   return (
-    <div className="flex gap-3 justify-center" onPaste={handlePaste}>
-      {[0, 1, 2, 3].map(i => (
+    <div className="flex gap-2 justify-center" onPaste={handlePaste}>
+      {[0, 1, 2, 3, 4, 5].map(i => (
         <input
           key={i}
           ref={refs[i]}
           type="text"
-          inputMode="numeric"
+          inputMode="text"
           maxLength={1}
           value={value[i]?.trim() || ''}
           onChange={e => handleChange(i, e)}
@@ -92,7 +87,7 @@ export default function PortalLogin() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (pin.replace(/\s/g, '').length < 4) return;
+    if (pin.replace(/\s/g, '').length < 6) return;
     setState('loading');
     const res = await fetch('/api/portal/login', {
       method: 'POST',
@@ -107,7 +102,7 @@ export default function PortalLogin() {
     }
   }
 
-  const pinComplete = pin.replace(/\s/g, '').length === 4;
+  const pinComplete = pin.replace(/\s/g, '').length === 6;
 
   return (
     <div className="flex min-h-[calc(100vh-65px)]">
@@ -125,24 +120,13 @@ export default function PortalLogin() {
             Manage your chapter's page, events, Wrapped, and member requests — all in one place.
           </p>
         </div>
-
         <div className="space-y-4 text-sm text-white/50">
-          <div className="flex items-center gap-3">
-            <span className="text-gold text-base">✦</span>
-            <span>Chapter page editor</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="text-gold text-base">✦</span>
-            <span>Events calendar</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="text-gold text-base">✦</span>
-            <span>USM Wrapped submissions</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="text-gold text-base">✦</span>
-            <span>Member affiliation requests</span>
-          </div>
+          {['Chapter page editor', 'Events calendar', 'USM Wrapped submissions', 'Member affiliation requests'].map(f => (
+            <div key={f} className="flex items-center gap-3">
+              <span className="text-gold text-base">✦</span>
+              <span>{f}</span>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -158,17 +142,15 @@ export default function PortalLogin() {
             <h1 className="font-display text-3xl font-bold text-teal mt-1">SSA Portal</h1>
           </div>
 
-          <div className="lg:block">
-            <h2 className="font-display text-2xl font-bold text-teal">Welcome back</h2>
-            <p className="text-teal-soft text-sm mt-1">Enter your chapter's 4-digit PIN to continue.</p>
-          </div>
+          <h2 className="font-display text-2xl font-bold text-teal">Welcome back</h2>
+          <p className="text-teal-soft text-sm mt-1">Enter your chapter's access code to continue.</p>
 
           <form onSubmit={handleSubmit} className="mt-8">
             <PinInput value={pin} onChange={handlePinChange} error={state === 'error'} />
 
             {state === 'error' && (
               <p className="mt-4 text-center text-sm text-red-600 font-medium">
-                Incorrect PIN — try again or contact USM.
+                Incorrect code — try again or contact USM.
               </p>
             )}
 
@@ -187,7 +169,7 @@ export default function PortalLogin() {
           </form>
 
           <p className="mt-8 text-center text-xs text-teal-soft leading-relaxed">
-            New chapter or forgot your PIN?<br />
+            New chapter or need your access code?<br />
             <a href="mailto:info@unitedsikhmovement.org" className="text-teal underline underline-offset-4">
               Contact your USM coordinator
             </a>

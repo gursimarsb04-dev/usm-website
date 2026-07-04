@@ -7,6 +7,7 @@ import Phulkari from '@/components/Phulkari';
 import { supabasePublic } from '@/lib/supabase-public';
 import type { SSA, USMEvent, Wrapped } from '@/lib/types';
 import JoinSSAButton from '@/components/JoinSSAButton';
+import FollowSSAButton from '@/components/FollowSSAButton';
 
 export const revalidate = 300;
 
@@ -30,8 +31,9 @@ export default async function SSAPage({ params }: { params: { slug: string } }) 
           <p className="text-gold font-display tracking-widest uppercase text-xs">USM Chapter</p>
           <h1 className="font-display text-5xl font-bold mt-2">{s.name}</h1>
           <p className="mt-2 text-white/75">{s.school}{s.city ? ` · ${s.city}, ${s.state}` : ''}</p>
-          <div className="mt-6">
+          <div className="mt-6 flex flex-wrap gap-3 items-center">
             <JoinSSAButton ssaId={s.id} ssaName={s.name} />
+            <FollowSSAButton ssaId={s.id} ssaName={s.name} />
           </div>
           <div className="mt-5 flex gap-4 text-sm">
             {s.instagram_handle && (

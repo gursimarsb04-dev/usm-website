@@ -21,12 +21,34 @@ export async function GET() {
 export async function POST(req: Request) {
   const ssaId = getSSAId();
   if (!ssaId) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+
   const body = await req.json();
-  const { data, error } = await supabaseAdmin()
+  const sb = supabaseAdmin();
+
+  const { data: event, error } = await sb
     .from('events')
     .insert({ ...body, ssa_id: ssaId })
     .select()
     .single();
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
-  return NextResponse.json(data);
+
+  // Fetch SSA info and followers, then notify in the background
+  const [{ data: ssa }, { data: follows }] = await Promise.all([
+    sb.from('ssas').select('name, slug').eq('id', ssaId).single(),
+    sb.from('ssa_follows').select('user_id').eq('ssa_id', ssaId),
+  ]);
+
+  if (ssa && follows && follows.length > 0) {
+    const startsAt = new Date(body.starts_at);
+    const dateStr = startsAt.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    const notifications = follows.map((f: { user_id: string }) => ({
+      user_id: f.user_id,
+      title: `New event: ${body.title}`,
+      body: `${ssa.name} posted a new event on ${dateStr}${body.location ? ` · ${body.location}` : ''}.`,
+      link: `/ssas/${ssa.slug}`,
+    }));
+    await sb.from('notifications').insert(notifications);
+  }
+
+  return NextResponse.json(event);
 }

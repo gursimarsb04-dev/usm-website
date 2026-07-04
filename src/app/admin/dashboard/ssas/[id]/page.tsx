@@ -38,10 +38,10 @@ export default function EditSSA() {
   }
 
   async function resetPin() {
-    if (!confirm('Generate a new PIN for this SSA? The old one will stop working immediately.')) return;
+    if (!confirm('Generate a new access code for this SSA? The old one will stop working immediately.')) return;
     setResettingPin(true);
-    // Generate via admin ssas route by patching with a random pin
-    const newPin = String(Math.floor(1000 + Math.random() * 9000));
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    const newPin = Array.from({ length: 6 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
     const res = await fetch(`/api/admin/ssas/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },

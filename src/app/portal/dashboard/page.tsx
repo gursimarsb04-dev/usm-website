@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { getPortalSSA } from '@/lib/portal-session';
-import ChangePinForm from './ChangePinForm';
 import MembersPanel from './MembersPanel';
 
 export default async function Dashboard() {
@@ -48,7 +47,6 @@ export default async function Dashboard() {
       </div>
 
       <MembersPanel />
-      <ChangePinForm />
 
       <form action="/portal/logout" method="post" className="mt-12">
         <button className="text-xs text-teal-soft underline">Sign out</button>

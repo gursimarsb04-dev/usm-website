@@ -7,10 +7,16 @@ function isAdmin() {
   return cookies().get(ADMIN_COOKIE)?.value === '1';
 }
 
+const PIN_CHARS = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+
+function randomPIN(): string {
+  return Array.from({ length: 6 }, () => PIN_CHARS[Math.floor(Math.random() * PIN_CHARS.length)]).join('');
+}
+
 async function generateUniquePIN(): Promise<string> {
   const sb = supabaseAdmin();
   for (let i = 0; i < 100; i++) {
-    const pin = String(Math.floor(1000 + Math.random() * 9000));
+    const pin = randomPIN();
     const { data } = await sb.from('ssas').select('id').eq('pin', pin).single();
     if (!data) return pin;
   }
