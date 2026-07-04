@@ -4,9 +4,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabaseBrowser } from '@/lib/supabase';
 
-const ADMIN_USERNAME = 'admin';
-const ADMIN_PASSWORD = 'usm2026';
-
 export default function PortalLogin() {
   const router = useRouter();
   const [tab, setTab] = useState<'magic' | 'password'>('password');
@@ -30,9 +27,14 @@ export default function PortalLogin() {
     setState(error ? 'error' : 'sent');
   }
 
-  function handlePasswordLogin(e: React.FormEvent) {
+  async function handlePasswordLogin(e: React.FormEvent) {
     e.preventDefault();
-    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+    const res = await fetch('/api/portal/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, pin: password }),
+    });
+    if (res.ok) {
       router.push('/portal/dashboard');
     } else {
       setPwError(true);

@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import { supabaseServer } from '@/lib/supabase-server';
+import { PORTAL_COOKIE } from '@/lib/portal-session';
 
 export async function POST(req: Request) {
-  const sb = supabaseServer();
-  await sb.auth.signOut();
-  return NextResponse.redirect(new URL('/portal/login', req.url));
+  const res = NextResponse.redirect(new URL('/portal/login', req.url));
+  res.cookies.delete(PORTAL_COOKIE);
+  return res;
 }

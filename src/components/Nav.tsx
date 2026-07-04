@@ -26,6 +26,9 @@ export default function Nav() {
               {l.label}
             </Link>
           ))}
+          <Link href="/auth/login" className="text-xs text-teal-soft hover:text-teal">
+            Sign in
+          </Link>
           <Link href="/portal/login" className="text-xs text-teal-soft hover:text-teal">
             SSA Login
           </Link>
@@ -39,6 +42,7 @@ export default function Nav() {
             <Link key={l.href} href={l.href} onClick={() => setOpen(false)}
               className="font-medium text-teal-ink">{l.label}</Link>
           ))}
+          <Link href="/auth/login" onClick={() => setOpen(false)} className="text-sm text-teal-soft">Sign in</Link>
           <Link href="/portal/login" onClick={() => setOpen(false)} className="text-sm text-teal-soft">SSA Login</Link>
         </div>
       )}
