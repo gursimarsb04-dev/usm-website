@@ -43,35 +43,52 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true, sent: 0 });
   }
 
-  if (!process.env.RESEND_API_KEY) {
-    console.log(`[email-blast] RESEND_API_KEY not set. Would send "${subject}" to:`, emails);
-    return NextResponse.json({ ok: true, sent: emails.length, note: 'RESEND_API_KEY not configured — emails logged only.' });
+  if (!process.env.MAILCHIMP_API_KEY) {
+    console.log(`[email-blast] MAILCHIMP_API_KEY not set. Would send "${subject}" to:`, emails);
+    return NextResponse.json({ ok: true, sent: emails.length, note: 'MAILCHIMP_API_KEY not configured — emails logged only.' });
   }
 
-  const from = process.env.EMAIL_FROM ?? 'USM <onboarding@resend.dev>';
-  const safeMessage = message.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
+  const fromEmail = process.env.EMAIL_FROM_ADDRESS ?? 'noreply@unitedsikhmovement.org';
+  const fromName = process.env.EMAIL_FROM_NAME ?? 'United Sikh Movement';
+  const safeMessage = message
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\n/g, '<br>');
   const html = `
     <div style="font-family:sans-serif;max-width:600px;margin:0 auto;padding:24px;color:#1a2e38">
       <p style="font-size:13px;color:#5f8a9f;margin-bottom:16px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em">${ssa.name}</p>
       <div style="font-size:15px;line-height:1.7">${safeMessage}</div>
       <hr style="border:none;border-top:1px solid #e8f0f4;margin:28px 0">
-      <p style="font-size:12px;color:#999">Sent by ${ssa.name} via United Sikh Movement · <a href="https://unitedsikhmovement.org/ssas/${ssa.slug}" style="color:#235470">View chapter page</a></p>
+      <p style="font-size:12px;color:#999">Sent by ${ssa.name} via United Sikh Movement &middot; <a href="https://unitedsikhmovement.org/ssas/${ssa.slug}" style="color:#235470">View chapter page</a></p>
     </div>`;
 
-  const BATCH = 50;
-  for (let i = 0; i < emails.length; i += BATCH) {
-    const slice = emails.slice(i, i + BATCH);
-    const payload = slice.map(email => ({ from, to: [email], subject, html }));
-    const res = await fetch('https://api.resend.com/emails/batch', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) {
-      const errText = await res.text();
-      return NextResponse.json({ error: `Email provider error: ${errText}` }, { status: 500 });
-    }
+  // Mailchimp Transactional (Mandrill) — sends to specific addresses directly
+  const payload = {
+    key: process.env.MAILCHIMP_API_KEY,
+    message: {
+      html,
+      subject,
+      from_email: fromEmail,
+      from_name: fromName,
+      to: emails.map(email => ({ email, type: 'to' })),
+    },
+  };
+
+  const res = await fetch('https://mandrillapp.com/api/1.0/messages/send.json', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    const errText = await res.text();
+    return NextResponse.json({ error: `Mailchimp error: ${errText}` }, { status: 500 });
   }
 
-  return NextResponse.json({ ok: true, sent: emails.length });
+  const results: any[] = await res.json();
+  const rejected = results.filter(r => r.status === 'rejected' || r.status === 'invalid');
+  const sent = results.length - rejected.length;
+
+  return NextResponse.json({ ok: true, sent });
 }
