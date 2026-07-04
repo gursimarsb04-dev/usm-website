@@ -4,8 +4,8 @@ import { useRouter } from 'next/navigation';
 import { supabaseBrowser } from '@/lib/supabase';
 
 type SSA = { id: string; name: string; school: string; state: string };
-type AffRequest = { id: string; status: string; ssas: { name: string } | null };
-type Follow = { ssa_id: string; ssas: { name: string; slug: string } | null };
+type AffRequest = { id: string; status: string; ssas: { name: string } | { name: string }[] | null };
+type Follow = { ssa_id: string; ssas: { name: string; slug: string } | { name: string; slug: string }[] | null };
 type Notification = { id: string; title: string; body: string | null; link: string | null; read: boolean; created_at: string };
 
 export default function UserDashboard() {

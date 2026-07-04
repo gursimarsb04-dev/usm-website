@@ -8,8 +8,9 @@ export default async function Dashboard() {
   if (!ssa) redirect('/portal/login');
 
   const tools = [
-    { href: '/portal/dashboard/page-editor', title: 'Edit your page', body: 'Description, board, joining instructions, photos.' },
+    { href: '/portal/dashboard/page-editor', title: 'Edit your page', body: 'Homepage, programs, and members-only content.' },
     { href: '/portal/dashboard/events', title: 'Events', body: 'Post events — they appear on your page and the national calendar instantly.' },
+    { href: '/portal/dashboard/email', title: 'Email your community', body: 'Send a message to your followers and affiliated members.' },
     { href: '/portal/dashboard/wrapped', title: 'USM Wrapped', body: 'Submit your year — events, numbers, photos, one senior quote.' },
     { href: '/portal/dashboard/requests', title: 'Request support', body: 'Speakers, funding, board support, resources.' },
   ];
