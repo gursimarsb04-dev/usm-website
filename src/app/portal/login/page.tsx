@@ -1,105 +1,198 @@
 'use client';
-// Magic-link login: no passwords to forget across 40 chapters.
-import { useState } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { supabaseBrowser } from '@/lib/supabase';
+
+function PinInput({
+  value,
+  onChange,
+  error,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  error: boolean;
+}) {
+  const refs = [
+    useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
+    useRef<HTMLInputElement>(null),
+  ];
+
+  function handleChange(i: number, e: React.ChangeEvent<HTMLInputElement>) {
+    const digit = e.target.value.replace(/\D/g, '').slice(-1);
+    const arr = value.padEnd(4, ' ').split('');
+    arr[i] = digit || ' ';
+    const next = arr.join('').trimEnd();
+    onChange(next);
+    if (digit && i < 3) refs[i + 1].current?.focus();
+  }
+
+  function handleKeyDown(i: number, e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Backspace') {
+      const arr = value.padEnd(4, ' ').split('');
+      if (arr[i].trim()) {
+        arr[i] = ' ';
+        onChange(arr.join('').trimEnd());
+      } else if (i > 0) {
+        refs[i - 1].current?.focus();
+        const prev = value.padEnd(4, ' ').split('');
+        prev[i - 1] = ' ';
+        onChange(prev.join('').trimEnd());
+      }
+    } else if (e.key === 'ArrowLeft' && i > 0) {
+      refs[i - 1].current?.focus();
+    } else if (e.key === 'ArrowRight' && i < 3) {
+      refs[i + 1].current?.focus();
+    }
+  }
+
+  function handlePaste(e: React.ClipboardEvent) {
+    e.preventDefault();
+    const digits = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 4);
+    onChange(digits);
+    const focusIdx = Math.min(digits.length, 3);
+    refs[focusIdx].current?.focus();
+  }
+
+  const boxBase =
+    'w-14 h-16 text-center text-2xl font-bold rounded-2xl border-2 transition-all duration-150 focus:outline-none caret-transparent';
+  const boxIdle = 'border-teal/20 bg-white focus:border-teal focus:shadow-[0_0_0_3px_rgba(35,84,112,0.12)]';
+  const boxError = 'border-red-400 bg-red-50 focus:border-red-500';
+
+  return (
+    <div className="flex gap-3 justify-center" onPaste={handlePaste}>
+      {[0, 1, 2, 3].map(i => (
+        <input
+          key={i}
+          ref={refs[i]}
+          type="text"
+          inputMode="numeric"
+          maxLength={1}
+          value={value[i]?.trim() || ''}
+          onChange={e => handleChange(i, e)}
+          onKeyDown={e => handleKeyDown(i, e)}
+          onClick={() => refs[i].current?.select()}
+          className={`${boxBase} ${error ? boxError : boxIdle}`}
+          autoFocus={i === 0}
+        />
+      ))}
+    </div>
+  );
+}
 
 export default function PortalLogin() {
   const router = useRouter();
-  const [tab, setTab] = useState<'magic' | 'password'>('password');
+  const [pin, setPin] = useState('');
+  const [state, setState] = useState<'idle' | 'loading' | 'error'>('idle');
 
-  // Magic-link state
-  const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
-  const [email, setEmail] = useState('');
+  const handlePinChange = useCallback((v: string) => {
+    setPin(v);
+    if (state === 'error') setState('idle');
+  }, [state]);
 
-  // Password state
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [pwError, setPwError] = useState(false);
-
-  async function send(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setState('sending');
-    const { error } = await supabaseBrowser().auth.signInWithOtp({
-      email,
-      options: { emailRedirectTo: `${window.location.origin}/portal/dashboard` },
-    });
-    setState(error ? 'error' : 'sent');
-  }
-
-  async function handlePasswordLogin(e: React.FormEvent) {
-    e.preventDefault();
+    if (pin.replace(/\s/g, '').length < 4) return;
+    setState('loading');
     const res = await fetch('/api/portal/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, pin: password }),
+      body: JSON.stringify({ username: 'admin', pin: pin.trim() }),
     });
     if (res.ok) {
       router.push('/portal/dashboard');
     } else {
-      setPwError(true);
+      setState('error');
+      setPin('');
     }
   }
 
-  return (
-    <div className="min-h-[70vh] grid place-items-center px-5">
-      <div className="w-full max-w-sm rounded-3xl bg-white border border-teal/10 p-8 shadow-sm">
-        <h1 className="font-display text-2xl font-bold text-teal">SSA Portal</h1>
-        <p className="text-sm text-teal-soft mt-1">
-          Manage your chapter's page, events, and Wrapped.
-        </p>
+  const pinComplete = pin.replace(/\s/g, '').length === 4;
 
-        {/* Tab switcher */}
-        <div className="mt-5 flex rounded-xl border border-teal/20 overflow-hidden text-sm font-medium">
-          <button onClick={() => setTab('password')}
-            className={`flex-1 py-2 transition-colors ${tab === 'password' ? 'bg-teal text-white' : 'text-teal hover:bg-teal/5'}`}>
-            Password
-          </button>
-          <button onClick={() => setTab('magic')}
-            className={`flex-1 py-2 transition-colors ${tab === 'magic' ? 'bg-teal text-white' : 'text-teal hover:bg-teal/5'}`}>
-            Magic Link
-          </button>
+  return (
+    <div className="flex min-h-[calc(100vh-65px)]">
+
+      {/* Left panel — teal branding (desktop only) */}
+      <div className="hidden lg:flex flex-col justify-between bg-teal text-white w-[45%] shrink-0 p-14">
+        <div>
+          <p className="text-gold font-display text-xs tracking-widest uppercase font-semibold">
+            United Sikh Movement
+          </p>
+          <h1 className="font-display text-5xl font-bold mt-4 leading-tight">
+            SSA Leader<br />Portal
+          </h1>
+          <p className="mt-5 text-white/70 text-lg leading-relaxed max-w-xs">
+            Manage your chapter's page, events, Wrapped, and member requests — all in one place.
+          </p>
         </div>
 
-        {tab === 'password' ? (
-          <form onSubmit={handlePasswordLogin} className="mt-6 grid gap-3">
-            <input type="text" required value={username} onChange={(e) => { setUsername(e.target.value); setPwError(false); }}
-              placeholder="Username"
-              className="rounded-xl border border-teal/20 px-4 py-3" />
-            <input type="password" required value={password} onChange={(e) => { setPassword(e.target.value); setPwError(false); }}
-              placeholder="Password"
-              className="rounded-xl border border-teal/20 px-4 py-3" />
-            <button className="rounded-full bg-teal text-white py-3 font-display font-semibold hover:bg-teal-ink transition-colors">
-              Sign in
-            </button>
-            {pwError && (
-              <p className="text-sm text-red-600">Incorrect username or password.</p>
-            )}
-          </form>
-        ) : state === 'sent' ? (
-          <p className="mt-6 text-teal font-medium">
-            Check your email — we sent you a sign-in link.
-          </p>
-        ) : (
-          <form onSubmit={send} className="mt-6 grid gap-3">
-            <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
-              placeholder="your-ssa@school.edu"
-              className="rounded-xl border border-teal/20 px-4 py-3" />
-            <button disabled={state === 'sending'}
-              className="rounded-full bg-teal text-white py-3 font-display font-semibold hover:bg-teal-ink transition-colors disabled:opacity-60">
-              {state === 'sending' ? 'Sending…' : 'Email me a sign-in link'}
-            </button>
+        <div className="space-y-4 text-sm text-white/50">
+          <div className="flex items-center gap-3">
+            <span className="text-gold text-base">✦</span>
+            <span>Chapter page editor</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-gold text-base">✦</span>
+            <span>Events calendar</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-gold text-base">✦</span>
+            <span>USM Wrapped submissions</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-gold text-base">✦</span>
+            <span>Member affiliation requests</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Right panel — login form */}
+      <div className="flex-1 flex flex-col items-center justify-center px-6 py-14 bg-sand/40">
+        <div className="w-full max-w-sm">
+
+          {/* Mobile header */}
+          <div className="lg:hidden text-center mb-10">
+            <p className="text-gold-deep font-display text-xs tracking-widest uppercase font-semibold">
+              United Sikh Movement
+            </p>
+            <h1 className="font-display text-3xl font-bold text-teal mt-1">SSA Portal</h1>
+          </div>
+
+          <div className="lg:block">
+            <h2 className="font-display text-2xl font-bold text-teal">Welcome back</h2>
+            <p className="text-teal-soft text-sm mt-1">Enter your chapter's 4-digit PIN to continue.</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="mt-8">
+            <PinInput value={pin} onChange={handlePinChange} error={state === 'error'} />
+
             {state === 'error' && (
-              <p className="text-sm text-red-600">
-                That email isn't registered. Ask your USM coordinator for access.
+              <p className="mt-4 text-center text-sm text-red-600 font-medium">
+                Incorrect PIN — try again or contact USM.
               </p>
             )}
-          </form>
-        )}
 
-        <p className="mt-6 text-xs text-teal-soft">
-          New chapter? Your USM coordinator creates your account during onboarding.
-        </p>
+            <button
+              type="submit"
+              disabled={!pinComplete || state === 'loading'}
+              className="mt-6 w-full rounded-full bg-teal text-white py-3.5 font-display font-semibold text-base hover:bg-teal-ink transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              {state === 'loading' ? (
+                <span className="flex items-center justify-center gap-2">
+                  <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Signing in…
+                </span>
+              ) : 'Sign in'}
+            </button>
+          </form>
+
+          <p className="mt-8 text-center text-xs text-teal-soft leading-relaxed">
+            New chapter or forgot your PIN?<br />
+            <a href="mailto:info@unitedsikhmovement.org" className="text-teal underline underline-offset-4">
+              Contact your USM coordinator
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   );

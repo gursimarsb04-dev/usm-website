@@ -3,7 +3,7 @@ import { validateAdminCredentials, ADMIN_COOKIE } from '@/lib/admin-session';
 
 export async function POST(req: Request) {
   const { username, password } = await req.json();
-  if (!validateAdminCredentials(username, password)) {
+  if (!(await validateAdminCredentials(username, password))) {
     return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
   }
   const res = NextResponse.json({ ok: true });

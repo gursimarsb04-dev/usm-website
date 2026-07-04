@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { getAdminSession } from '@/lib/admin-session';
 import { supabaseAdmin } from '@/lib/supabase-admin';
+import CredentialsForm from './CredentialsForm';
 
 export default async function AdminDashboard() {
   if (!getAdminSession()) redirect('/admin/login');
@@ -36,7 +37,9 @@ export default async function AdminDashboard() {
         ))}
       </div>
 
-      <form action="/admin/logout" method="post" className="mt-12">
+      <CredentialsForm />
+
+      <form action="/admin/logout" method="post" className="mt-8">
         <button className="text-xs text-teal-soft underline">Sign out</button>
       </form>
     </div>
