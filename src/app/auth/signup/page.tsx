@@ -27,7 +27,8 @@ export default function Signup() {
       setError(error.message);
       setState('error');
     } else {
-      router.push('/auth/dashboard');
+      // Supabase may require email confirmation before the session is active
+      router.push('/auth/confirm');
     }
   }
 

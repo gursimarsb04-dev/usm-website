@@ -18,7 +18,10 @@ export default function AuthLogin() {
       password: f.get('password') as string,
     });
     if (error) {
-      setError(error.message);
+      const msg = error.message.toLowerCase().includes('email')
+        ? 'Please confirm your email first — check your inbox for a link from USM.'
+        : error.message;
+      setError(msg);
       setState('error');
     } else {
       router.push('/auth/dashboard');
