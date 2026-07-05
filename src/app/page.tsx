@@ -13,21 +13,21 @@ const pillars = [
   {
     title: 'Sikhi Development',
     line: 'Stay rooted while you grow.',
-    body: 'Camp Kudrat, Gurbani Study, and student-built spaces for kirtan and reflection — like the interfaith reflection room UCSB students opened this year.',
+    body: 'Camp Kudrat, Gurbani workshops, Gurmat Sangeet, and the Salok Mahala 9 series — immersive spaces for Sikh youth to go deeper in their Sikhi alongside people who are on the same path.',
     href: '/programs',
     img: '/photos/pillar-sikhi.jpg',
   },
   {
     title: 'Professional Development',
     line: 'Learn from Sikhs who made it.',
-    body: 'Safal Summit at the World Trade Center, the Kadam Career Panel, free LSAT prep with top-decile Sikh mentors, and the first Sikh-focused hackathon.',
+    body: '13Hacks, the Safal Summit, LSAT prep with 97th-percentile Sikh mentors, case competitions, and the Fateh Collective mentorship platform connecting you to Sikh professionals in every industry — because you shouldn’t have to choose between your career and your values.',
     href: '/programs',
     img: '/photos/pillar-professional.jpg',
   },
   {
     title: 'SSA Network',
-    line: '75 chapters. One sangat.',
-    body: 'Regional teams from NorCal to the East Coast, $1,000 chapter stipends, leadership retreats, and a national conference — so no board builds alone.',
+    line: '40 chapters. One sangat.',
+    body: 'We are the backbone behind 40 Sikh Student Associations coast to coast — providing leadership retreats, regional conferences, funding, resources, and a national network so every SSA can thrive, not just survive.',
     href: '/ssas',
     img: '/photos/pillar-network.jpg',
   },
@@ -38,6 +38,8 @@ const receipts = [
   { what: 'Student government resolution recognizing 1984 passed', who: 'UCI SSA' },
   { what: '20+ students in free LSAT prep with top-10% mentors', who: 'USM × Sikh Legal Society' },
   { what: 'Sikh awareness trainings scheduled for UC & CSU admins', who: 'USM Advocacy' },
+  { what: '4 teams from 13Hacks are now building startups', who: '13Hacks · Sikh Innovation Sprint' },
+  { what: '9 USM staff members have taken Amrit, crediting USM sangat as part of their journey', who: 'Sikhi Development' },
 ];
 
 export default async function Home() {
@@ -85,10 +87,11 @@ export default async function Home() {
               <span className="text-gold">Never one or the other.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg text-white/80 leading-relaxed">
-              Sikh students are constantly juggling — campus life on one side,
-              staying grounded in Sikhi on the other. We built the ecosystem so
-              you never have to pick: sangat on 75 campuses, mentors in every
-              field, and a movement behind you.
+              Sikh students are navigating systems that were never built with
+              them in mind — searching for sangat, mentors who get it, and a
+              community that follows them beyond graduation. USM is the national
+              ecosystem that changes that. 40 chapters. Mentors in every field.
+              A movement behind you.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <Button href="/ssas">Find Your Sangat</Button>
@@ -109,11 +112,12 @@ export default async function Home() {
 
       {/* ── PROOF: the numbers, counting up ── */}
       <section className="py-20 bg-sand">
-        <FadeUp className="mx-auto max-w-wrap px-5 grid grid-cols-2 md:grid-cols-4 gap-10">
+        <FadeUp className="mx-auto max-w-wrap px-5 grid grid-cols-2 md:grid-cols-5 gap-10">
           <StatCounter value={40} label="Active chapters" />
           <StatCounter value={75} label="SSAs in the network" />
-          <StatCounter value={77} suffix="%" label="Leader retention" />
-          <StatCounter value={12600} suffix="+" label="Invested in students this year ($)" />
+          <StatCounter value={95} suffix="%" label="SSA leaders more confident after USM" />
+          <StatCounter value={13000} prefix="$" suffix="+" label="Invested in students this year" />
+          <StatCounter value={2500} suffix="+" label="Students reached annually" />
         </FadeUp>
       </section>
 
@@ -193,6 +197,8 @@ export default async function Home() {
               A student-led initiative sending diaspora youth to Punjab — to
               listen to village leaders, families, and educators first, then
               build projects that last. Community-informed. Student-driven.
+              This is what it looks like when Gurmat principles meet real-world
+              seva.
             </p>
             <a
               href="https://dvnetwork.org/projects/khudrang-roots"
@@ -243,10 +249,11 @@ export default async function Home() {
           }}
         />
         <FadeUp className="relative mx-auto max-w-2xl px-5">
-          <h2 className="font-display text-4xl md:text-5xl font-bold">Your sangat is waiting.</h2>
+          <h2 className="font-display text-4xl md:text-5xl font-bold">Join the movement.</h2>
           <p className="mt-4 text-white/75">
-            No Sikh student should have to build community alone — and with 40
-            active chapters, you won't have to.
+            Whether you're a student looking for sangat, an SSA seeking support,
+            or a professional ready to give back — there is a place for you in
+            USM.
           </p>
           <div className="mt-8 flex justify-center gap-4 flex-wrap">
             <Button href="/ssas">Find Your SSA</Button>
@@ -255,7 +262,14 @@ export default async function Home() {
               variant="ghost"
               className="!border-gold !text-gold hover:!bg-gold hover:!text-teal-ink"
             >
-              Give the Gift of Sangat
+              Support Our Work
+            </Button>
+            <Button
+              href="mailto:info@unitedsikhmovement.org?subject=Becoming%20a%20USM%20Mentor"
+              variant="ghost"
+              className="!border-white !text-white hover:!bg-white hover:!text-teal"
+            >
+              Become a Mentor
             </Button>
           </div>
         </FadeUp>

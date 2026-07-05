@@ -10,7 +10,7 @@ const body = Albert_Sans({ subsets: ['latin'], variable: '--font-body' });
 export const metadata: Metadata = {
   title: { default: 'United Sikh Movement', template: '%s · United Sikh Movement' },
   description:
-    "America's largest Sikh student network — helping Sikh youth excel professionally, personally, and spiritually across 75 campuses.",
+    "America's largest Sikh student network — helping Sikh youth excel professionally, personally, and spiritually across 40 active chapters nationwide.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

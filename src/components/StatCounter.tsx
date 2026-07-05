@@ -2,8 +2,8 @@
 // Counts up when scrolled into view. Respects reduced motion.
 import { useEffect, useRef, useState } from 'react';
 
-export default function StatCounter({ value, suffix = '', label }:
-  { value: number; suffix?: string; label: string }) {
+export default function StatCounter({ value, prefix = '', suffix = '', label }:
+  { value: number; prefix?: string; suffix?: string; label: string }) {
   const [n, setN] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function StatCounter({ value, suffix = '', label }:
   }, [value]);
   return (
     <div ref={ref} className="text-center">
-      <div className="font-display text-5xl md:text-6xl font-semibold text-teal">{n}{suffix}</div>
+      <div className="font-display text-5xl md:text-6xl font-semibold text-teal">{prefix}{n.toLocaleString()}{suffix}</div>
       <div className="mt-1 text-sm uppercase tracking-widest text-teal-soft">{label}</div>
     </div>
   );

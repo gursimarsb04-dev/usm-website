@@ -5,10 +5,10 @@ import Button from '@/components/Button';
 export const metadata = { title: 'About' };
 
 const fourS = [
-  { s: 'Simran', body: 'Remembrance at the center — prayer, reflection, and a connection to Vaheguru that grounds everything else.' },
+  { s: 'Simran', body: 'Remembrance at the center — prayer, reflection, and a connection to Maharaj that grounds everything else.' },
   { s: 'Seva', body: 'Selfless service, from langar on campus to boots on the ground in Punjab. The work is the worship.' },
   { s: 'Sangat', body: 'Community that holds you. No Sikh student should have to build it alone — so we built it together.' },
-  { s: 'Academics', body: 'Excellence as a form of seva. Mentorship, LSAT prep, career panels — ambition rooted in identity.' },
+  { s: 'Academics', body: 'Excellence as a form of seva. Mentorship, LSAT prep, hackathons, and career mentorship — ambition rooted in identity.' },
 ];
 
 export default function About() {
@@ -50,11 +50,20 @@ export default function About() {
             the second largest in the world.
           </p>
           <p className="mt-5">
-            This year alone, USM invested $12,600+ directly into Sikh students —
-            chapter stipends, retreats, free LSAT prep, awareness trainings for
-            university administrators, and students on the ground in Punjab
-            through Khudrang Roots. We are not just supporting the system.
-            We are shaping it.
+            This year alone, USM invested $13,000+ directly into Sikh students —
+            SSA chapter funds, leadership trainings, regional events, speaker
+            tours, awareness training for university administrators, and
+            programming to enrich Sikh life on campus. We are not just supporting
+            the system. We are shaping it.
+          </p>
+          <p className="mt-5">
+            What started as a local network became an ecosystem. Today USM
+            doesn't just connect SSAs — it invests in them, builds leaders
+            within them, and surrounds Sikh youth with the mentorship,
+            programming, and community they need to thrive in every arena they
+            enter. From the largest Sikh hackathon in America to Gurbani
+            workshops on UC campuses, USM is building something no one built
+            for us.
           </p>
         </FadeUp>
 
@@ -80,11 +89,12 @@ export default function About() {
           <div className="rounded-3xl bg-teal text-white p-8">
             <p className="text-gold font-display tracking-widest uppercase text-xs mb-3">Our mission</p>
             <p className="font-display text-xl leading-relaxed">
-              United Sikh Movement is a structured ecosystem for Sikh youth
-              grounded in Gurmat. By cultivating purpose, deepening spiritual
-              knowledge, developing core competencies, and forging powerful
-              networks, we aim to spark a movement of Sikh changemakers who
-              carry Gurmat into every arena.
+              USM is a national ecosystem forging the next generation of Sikh
+              youth through Gurmat-rooted leadership, professional mentorship,
+              and transformative community programming. By deepening roots and
+              expanding what Sikh excellence looks like, we are sparking a
+              movement of Sikh changemakers who carry Gurmat into every arena
+              they enter.
             </p>
           </div>
         </FadeUp>
@@ -102,7 +112,8 @@ export default function About() {
           {/* TODO(interns): full team grid — names, roles, photos, pending roster from Simar */}
           <p className="mt-4 text-base text-teal-soft">
             Behind her: regional teams across the West Coast, Midwest, and East
-            Coast, and student sevadaars on 40 campuses.
+            Coast, and student sevadaars on 40 campuses. USM is 100%
+            volunteer-led — every dollar goes straight to students.
           </p>
         </FadeUp>
 

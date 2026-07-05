@@ -3,6 +3,14 @@ import FadeUp from '@/components/FadeUp';
 import Button from '@/components/Button';
 import Phulkari from '@/components/Phulkari';
 import { getImpactStats } from '@/lib/sanity';
+import { spiritualImpact } from '@/lib/program-fallbacks';
+
+const testimonials = [
+  {
+    quote: 'Ever since Camp Kudrat my life has changed. I started doing Kirtan Sohila before sleeping and let go of my anxiety pills. When my parents saw the change in me, they also started following the Sikh path.',
+    who: 'Camp Kudrat attendee',
+  },
+];
 
 export const revalidate = 3600;
 export const metadata = { title: 'Our Impact' };
@@ -36,9 +44,9 @@ export default async function Impact() {
   if (stats.length === 0) {
     stats = [
       { label: 'Active chapters', value: '40' },
-      { label: 'SSAs in the network', value: '75' },
-      { label: 'Invested in students this year', value: '$12,600+' },
-      { label: 'Engaged in Sikh Awareness Week', value: '500+' },
+      { label: 'Students reached annually', value: '2,500+' },
+      { label: 'Invested in students this year', value: '$13,000+' },
+      { label: 'SSA leaders more confident after USM', value: '95%' },
     ];
   }
 
@@ -74,12 +82,48 @@ export default async function Impact() {
           ))}
         </FadeUp>
         {/* TODO(interns): Humans of USM stories from Sanity (newsPost where isHumansOfUSM == true) */}
+
+        <FadeUp className="mt-16 rounded-3xl bg-teal text-white p-8">
+          <p className="text-gold font-display tracking-widest uppercase text-xs mb-5">
+            The Sikhi impact, in numbers
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {spiritualImpact.map((s) => (
+              <div key={s.label}>
+                <div className="font-display text-4xl font-semibold text-gold">{s.value}</div>
+                <div className="mt-1 text-sm text-white/80 leading-snug">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </FadeUp>
+
+        <FadeUp className="mt-10 grid gap-6 md:grid-cols-2 items-start">
+          <div className="rounded-3xl bg-sand border border-teal/10 p-7">
+            <p className="text-[11px] uppercase tracking-widest text-gold-deep font-semibold">
+              Professional pipeline
+            </p>
+            <h2 className="font-display text-xl font-bold text-teal-ink mt-2">
+              From hackathon to startups
+            </h2>
+            <p className="mt-3 text-teal-ink/75 leading-relaxed">
+              4 teams from 13Hacks are now building startups — with 85.7% of
+              participants reporting they gained a new skill. Proof that Sikhi
+              and professional ambition belong in the same room.
+            </p>
+          </div>
+          {testimonials.map((t) => (
+            <blockquote key={t.who} className="rounded-3xl bg-white border border-teal/10 p-7">
+              <p className="font-display text-lg text-teal-ink leading-relaxed">“{t.quote}”</p>
+              <footer className="mt-3 text-sm text-gold-deep">— {t.who}</footer>
+            </blockquote>
+          ))}
+        </FadeUp>
       </section>
 
       <section className="py-16 text-center">
         <FadeUp>
           <h2 className="font-display text-3xl font-bold text-teal">Powered by sangat like you</h2>
-          <Button href="/donate" className="mt-6">Give the Gift of Sangat</Button>
+          <Button href="/donate" className="mt-6">Support Our Work</Button>
         </FadeUp>
       </section>
     </>

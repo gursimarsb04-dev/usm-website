@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import FadeUp from '@/components/FadeUp';
 import { sanity, urlFor } from '@/lib/sanity';
-import { programFallbacks, programDescriptions } from '@/lib/program-fallbacks';
+import { programFallbacks } from '@/lib/program-fallbacks';
 
 export const revalidate = 3600;
 
@@ -16,7 +16,8 @@ export default async function ProgramPage({ params }: { params: { slug: string }
   if (!p) {
     const fb = programFallbacks.find((f) => f.slug === params.slug);
     if (!fb) notFound();
-    p = { ...fb, description: [{ _type: 'block', children: [{ text: programDescriptions[params.slug] || '' }] }] };
+    // Render the fallback body as a single description block.
+    p = { ...fb, description: [{ _type: 'block', children: [{ text: fb.body }] }] };
   }
 
   return (
@@ -42,6 +43,24 @@ export default async function ProgramPage({ params }: { params: { slug: string }
               : null
           )}
         </div>
+
+        {p.stats?.length > 0 && (
+          <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {p.stats.map((s: any) => (
+              <div key={s.label} className="rounded-2xl bg-mist border border-teal/10 p-5 text-center">
+                <div className="font-display text-3xl font-semibold text-teal">{s.value}</div>
+                <div className="mt-1 text-xs uppercase tracking-widest text-teal-soft leading-snug">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {p.testimonial && (
+          <blockquote className="mt-8 rounded-3xl bg-teal text-white p-7">
+            <p className="font-display text-lg leading-relaxed">“{p.testimonial}”</p>
+            <footer className="mt-3 text-sm text-gold">— A USM student</footer>
+          </blockquote>
+        )}
       </FadeUp>
     </div>
   );

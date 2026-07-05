@@ -26,7 +26,7 @@ export default async function Donate() {
         </h1>
         <p className="mt-5 text-lg text-teal-ink/75 leading-relaxed">
           No Sikh student should have to build community alone — and with your
-          support, they won't have to. This year your dasvandh put $12,600+
+          support, they won't have to. This year your dasvandh put $13,000+
           directly into students: chapter grants, retreats, free LSAT prep, and
           seva from campus to Punjab.
         </p>

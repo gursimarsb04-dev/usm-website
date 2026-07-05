@@ -7,7 +7,7 @@ export const metadata = { title: 'Start an SSA' };
 const steps = [
   { t: 'Tell us about your campus', b: 'Fill out the form below — takes two minutes.' },
   { t: 'We reach out within a week', b: 'A USM coordinator walks you through the starter kit: constitution template, first-event playbook, and funding guide.' },
-  { t: 'Launch with the network behind you', b: 'Your chapter joins 75 SSAs nationwide — with speakers, funding support, and a sangat from day one.' },
+  { t: 'Launch with the network behind you', b: 'Your chapter joins a national network of 40 active chapters — with speakers, funding support, and a sangat from day one.' },
 ];
 
 export default function StartAnSSA() {

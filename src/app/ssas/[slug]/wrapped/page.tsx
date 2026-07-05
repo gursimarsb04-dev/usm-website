@@ -87,7 +87,7 @@ export default async function WrappedPage({ params }: { params: { slug: string }
         <FadeUp className="text-center space-y-4">
           <Phulkari className="text-gold/50" />
           <p className="text-white/60 text-sm">
-            One chapter of a 75-campus movement.
+            One chapter of a 40-chapter movement.
           </p>
           <Link href={`/ssas/${s.slug}`} className="inline-block text-gold font-semibold underline underline-offset-4">
             Visit {s.name} →

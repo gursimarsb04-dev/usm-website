@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import FadeUp from '@/components/FadeUp';
 import { getPrograms, urlFor } from '@/lib/sanity';
-import { programFallbacks } from '@/lib/program-fallbacks';
+import { programFallbacks, spiritualImpact } from '@/lib/program-fallbacks';
 
 export const revalidate = 3600;
 export const metadata = { title: 'Programs' };
@@ -50,6 +50,23 @@ export default async function Programs() {
                 </Link>
               ))}
             </div>
+
+            {/* Spiritual-impact callout — lives under Sikhi Development */}
+            {pillar === 'Sikhi Development' && (
+              <div className="mt-8 rounded-3xl bg-teal text-white p-8">
+                <p className="text-gold font-display tracking-widest uppercase text-xs mb-5">
+                  The Sikhi impact, in numbers
+                </p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  {spiritualImpact.map((s) => (
+                    <div key={s.label}>
+                      <div className="font-display text-4xl font-semibold text-gold">{s.value}</div>
+                      <div className="mt-1 text-sm text-white/80 leading-snug">{s.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </FadeUp>
         );
       })}
