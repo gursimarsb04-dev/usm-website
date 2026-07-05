@@ -25,11 +25,15 @@ export default async function ProgramPage({ params }: { params: { slug: string }
         <p className="text-gold-deep font-display tracking-widest uppercase text-xs">{p.pillar}</p>
         <h1 className="font-display text-5xl font-bold text-teal mt-2">{p.title}</h1>
         {p.tagline && <p className="mt-2 text-xl text-teal-soft">{p.tagline}</p>}
-        {p.coverImage && (
+        {p.coverImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={urlFor(p.coverImage).width(1200).url()} alt={p.title}
             className="mt-8 rounded-3xl w-full" />
-        )}
+        ) : p.image ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={p.image} alt={p.title}
+            className="mt-8 rounded-3xl w-full" />
+        ) : null}
         <div className="prose mt-8 text-teal-ink/85 leading-relaxed">
           {/* Simple block renderer — interns can upgrade to @portabletext/react later */}
           {(p.description || []).map((block: any, i: number) =>

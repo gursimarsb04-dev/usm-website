@@ -33,11 +33,15 @@ export default async function Programs() {
                 <Link key={p.slug} href={`/programs/${p.slug}`}
                   className="group rounded-3xl bg-white border border-teal/10 overflow-hidden hover:border-gold transition-colors">
                   <div className="aspect-[16/8] bg-mist overflow-hidden">
-                    {p.coverImage && (
+                    {p.coverImage ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={urlFor(p.coverImage).width(800).height(400).url()} alt=""
                         className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform" />
-                    )}
+                    ) : p.image ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={p.image} alt=""
+                        className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform" />
+                    ) : null}
                   </div>
                   <div className="p-6">
                     <h3 className="font-display text-xl font-semibold text-teal-ink">{p.title}</h3>

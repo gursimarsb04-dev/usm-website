@@ -15,18 +15,21 @@ const pillars = [
     line: 'Stay rooted while you grow.',
     body: 'Camp Kudrat, Gurbani Study, and student-built spaces for kirtan and reflection — like the interfaith reflection room UCSB students opened this year.',
     href: '/programs',
+    img: '/photos/pillar-sikhi.jpg',
   },
   {
     title: 'Professional Development',
     line: 'Learn from Sikhs who made it.',
     body: 'Safal Summit at the World Trade Center, the Kadam Career Panel, free LSAT prep with top-decile Sikh mentors, and the first Sikh-focused hackathon.',
     href: '/programs',
+    img: '/photos/pillar-professional.jpg',
   },
   {
     title: 'SSA Network',
     line: '75 chapters. One sangat.',
     body: 'Regional teams from NorCal to the East Coast, $1,000 chapter stipends, leadership retreats, and a national conference — so no board builds alone.',
     href: '/ssas',
+    img: '/photos/pillar-network.jpg',
   },
 ];
 
@@ -54,8 +57,14 @@ export default async function Home() {
     <>
       {/* ── HERO ── */}
       <section className="relative min-h-[88vh] flex items-center bg-teal text-white overflow-hidden">
-        {/* TODO(interns): real hero photo from Flickr → /public/hero.jpg, gradient becomes overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-teal-ink via-teal to-teal-soft" />
+        {/* Real hero photo — 7th Annual Inter-SSA Conference sangat */}
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/photos/hero.jpg')" }}
+        />
+        {/* Teal gradient overlay keeps the headline readable over the photo */}
+        <div className="absolute inset-0 bg-gradient-to-r from-teal-ink/95 via-teal-ink/75 to-teal/40" />
         {/* Signature texture, barely there */}
         <div
           aria-hidden
@@ -128,19 +137,15 @@ export default async function Home() {
                 Explore →
               </Link>
             </div>
-            {/* TODO(interns): pillar photos from Flickr → /public/pillar-{1,2,3}.jpg */}
-            <div className="aspect-[4/3] rounded-3xl bg-gradient-to-br from-teal to-teal-soft relative overflow-hidden grid place-items-center">
-              <div
-                aria-hidden
-                className="absolute inset-0 opacity-10"
-                style={{
-                  backgroundImage:
-                    "url(\"data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14 2 L26 14 L14 26 L2 14 Z' fill='none' stroke='%23F5D78C' stroke-width='1'/%3E%3C/svg%3E\")",
-                }}
+            {/* Real pillar photo */}
+            <div className="aspect-[4/3] rounded-3xl bg-teal-soft relative overflow-hidden shadow-sm">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={p.img}
+                alt={p.title}
+                className="absolute inset-0 w-full h-full object-cover"
               />
-              <span className="relative text-gold/80 font-display text-sm tracking-widest uppercase">
-                {p.title} — photo coming
-              </span>
+              <div className="absolute inset-0 bg-gradient-to-t from-teal-ink/40 to-transparent" />
             </div>
           </FadeUp>
         </section>
