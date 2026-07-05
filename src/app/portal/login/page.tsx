@@ -1,108 +1,30 @@
 'use client';
-import { useRef, useState, useCallback } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-
-function PinInput({
-  value,
-  onChange,
-  error,
-}: {
-  value: string;
-  onChange: (v: string) => void;
-  error: boolean;
-}) {
-  const refs = Array.from({ length: 6 }, () => useRef<HTMLInputElement>(null));
-
-  function handleChange(i: number, e: React.ChangeEvent<HTMLInputElement>) {
-    const char = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(-1);
-    const arr = value.padEnd(6, ' ').split('');
-    arr[i] = char || ' ';
-    const next = arr.join('').trimEnd();
-    onChange(next);
-    if (char && i < 5) refs[i + 1].current?.focus();
-  }
-
-  function handleKeyDown(i: number, e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === 'Backspace') {
-      const arr = value.padEnd(6, ' ').split('');
-      if (arr[i].trim()) {
-        arr[i] = ' ';
-        onChange(arr.join('').trimEnd());
-      } else if (i > 0) {
-        refs[i - 1].current?.focus();
-        const prev = value.padEnd(6, ' ').split('');
-        prev[i - 1] = ' ';
-        onChange(prev.join('').trimEnd());
-      }
-    } else if (e.key === 'ArrowLeft' && i > 0) {
-      refs[i - 1].current?.focus();
-    } else if (e.key === 'ArrowRight' && i < 5) {
-      refs[i + 1].current?.focus();
-    }
-  }
-
-  function handlePaste(e: React.ClipboardEvent) {
-    e.preventDefault();
-    const chars = e.clipboardData.getData('text').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
-    onChange(chars);
-    const focusIdx = Math.min(chars.length, 5);
-    refs[focusIdx].current?.focus();
-  }
-
-  const boxBase =
-    'w-11 h-14 text-center text-xl font-bold rounded-xl border-2 transition-all duration-150 focus:outline-none caret-transparent uppercase';
-  const boxIdle = 'border-teal/20 bg-white focus:border-teal focus:shadow-[0_0_0_3px_rgba(35,84,112,0.12)]';
-  const boxError = 'border-red-400 bg-red-50 focus:border-red-500';
-
-  return (
-    <div className="flex gap-2 justify-center" onPaste={handlePaste}>
-      {[0, 1, 2, 3, 4, 5].map(i => (
-        <input
-          key={i}
-          ref={refs[i]}
-          type="text"
-          inputMode="text"
-          maxLength={1}
-          value={value[i]?.trim() || ''}
-          onChange={e => handleChange(i, e)}
-          onKeyDown={e => handleKeyDown(i, e)}
-          onClick={() => refs[i].current?.select()}
-          className={`${boxBase} ${error ? boxError : boxIdle}`}
-          autoFocus={i === 0}
-        />
-      ))}
-    </div>
-  );
-}
 
 export default function PortalLogin() {
   const router = useRouter();
-  const [pin, setPin] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [state, setState] = useState<'idle' | 'loading' | 'error'>('idle');
-
-  const handlePinChange = useCallback((v: string) => {
-    setPin(v);
-    if (state === 'error') setState('idle');
-  }, [state]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (pin.replace(/\s/g, '').length < 6) return;
     setState('loading');
     const res = await fetch('/api/portal/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: 'admin', pin: pin.trim() }),
+      body: JSON.stringify({ username, pin: password }),
     });
     if (res.ok) {
       router.push('/portal/dashboard');
     } else {
       setState('error');
-      setPin('');
+      setPassword('');
     }
   }
 
-  const pinComplete = pin.replace(/\s/g, '').length === 6;
+  const inp = 'w-full rounded-xl border border-teal/20 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 transition-shadow';
 
   return (
     <div className="flex min-h-[calc(100vh-65px)]">
@@ -143,21 +65,46 @@ export default function PortalLogin() {
           </div>
 
           <h2 className="font-display text-2xl font-bold text-teal">Welcome back</h2>
-          <p className="text-teal-soft text-sm mt-1">Enter your chapter's access code to continue.</p>
+          <p className="text-teal-soft text-sm mt-1">Sign in to manage your chapter.</p>
 
-          <form onSubmit={handleSubmit} className="mt-8">
-            <PinInput value={pin} onChange={handlePinChange} error={state === 'error'} />
+          <form onSubmit={handleSubmit} className="mt-8 grid gap-4">
+            <label className="text-sm font-medium text-teal-ink">
+              Username
+              <input
+                type="text"
+                value={username}
+                onChange={e => { setUsername(e.target.value); setState('idle'); }}
+                required
+                autoComplete="username"
+                autoFocus
+                placeholder="admin"
+                className={`mt-1 ${inp}`}
+              />
+            </label>
+
+            <label className="text-sm font-medium text-teal-ink">
+              Password
+              <input
+                type="password"
+                value={password}
+                onChange={e => { setPassword(e.target.value); setState('idle'); }}
+                required
+                autoComplete="current-password"
+                placeholder="••••••"
+                className={`mt-1 ${inp}`}
+              />
+            </label>
 
             {state === 'error' && (
-              <p className="mt-4 text-center text-sm text-red-600 font-medium">
-                Incorrect code — try again or contact USM.
+              <p className="text-sm text-red-600 font-medium">
+                Incorrect username or password — try again or contact USM.
               </p>
             )}
 
             <button
               type="submit"
-              disabled={!pinComplete || state === 'loading'}
-              className="mt-6 w-full rounded-full bg-teal text-white py-3.5 font-display font-semibold text-base hover:bg-teal-ink transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed"
+              disabled={!username || !password || state === 'loading'}
+              className="mt-2 w-full rounded-full bg-teal text-white py-3.5 font-display font-semibold text-base hover:bg-teal-ink transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {state === 'loading' ? (
                 <span className="flex items-center justify-center gap-2">
@@ -169,7 +116,7 @@ export default function PortalLogin() {
           </form>
 
           <p className="mt-8 text-center text-xs text-teal-soft leading-relaxed">
-            New chapter or need your access code?<br />
+            New chapter or forgot your credentials?<br />
             <a href="mailto:info@unitedsikhmovement.org" className="text-teal underline underline-offset-4">
               Contact your USM coordinator
             </a>
