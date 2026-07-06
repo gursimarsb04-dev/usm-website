@@ -112,7 +112,7 @@ export default async function Home() {
 
       {/* ── PROOF: the numbers, counting up ── */}
       <section className="py-20 bg-sand">
-        <FadeUp className="mx-auto max-w-wrap px-5 grid grid-cols-2 md:grid-cols-5 gap-10">
+        <FadeUp className="mx-auto max-w-wrap px-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-x-6 gap-y-10">
           <StatCounter value={40} label="Active chapters" />
           <StatCounter value={75} label="SSAs in the network" />
           <StatCounter value={95} suffix="%" label="SSA leaders more confident after USM" />

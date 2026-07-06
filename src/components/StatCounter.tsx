@@ -27,8 +27,8 @@ export default function StatCounter({ value, prefix = '', suffix = '', label }:
   }, [value]);
   return (
     <div ref={ref} className="text-center">
-      <div className="font-display text-5xl md:text-6xl font-semibold text-teal">{prefix}{n.toLocaleString()}{suffix}</div>
-      <div className="mt-1 text-sm uppercase tracking-widest text-teal-soft">{label}</div>
+      <div className="font-display text-4xl font-semibold text-teal tracking-tight tabular-nums whitespace-nowrap">{prefix}{n.toLocaleString()}{suffix}</div>
+      <div className="mt-2 text-xs uppercase tracking-widest text-teal-soft leading-snug">{label}</div>
     </div>
   );
 }
