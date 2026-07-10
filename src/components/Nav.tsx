@@ -1,7 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import { supabaseBrowser } from '@/lib/supabase';
+import { useState } from 'react';
 
 const links = [
   { href: '/about', label: 'About' },
@@ -13,22 +12,6 @@ const links = [
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
-  const [unread, setUnread] = useState(0);
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const sb = supabaseBrowser();
-    sb.auth.getUser().then(async ({ data: { user } }) => {
-      if (!user) return;
-      setLoggedIn(true);
-      const { count } = await sb
-        .from('notifications')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', user.id)
-        .eq('read', false);
-      setUnread(count ?? 0);
-    });
-  }, []);
 
   return (
     <header className="sticky top-0 z-50 bg-sand/90 backdrop-blur border-b border-teal/10">
@@ -43,19 +26,6 @@ export default function Nav() {
               {l.label}
             </Link>
           ))}
-          <Link href={loggedIn ? '/auth/dashboard' : '/auth/login'}
-            className="relative text-xs text-teal-soft hover:text-teal transition-colors">
-            {loggedIn ? (
-              <>
-                Account
-                {unread > 0 && (
-                  <span className="absolute -top-1.5 -right-3 min-w-[16px] h-4 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center px-0.5">
-                    {unread > 9 ? '9+' : unread}
-                  </span>
-                )}
-              </>
-            ) : 'Sign in'}
-          </Link>
           <Link href="/portal/login" className="text-xs text-teal-soft hover:text-teal">
             SSA Login
           </Link>
@@ -69,10 +39,6 @@ export default function Nav() {
             <Link key={l.href} href={l.href} onClick={() => setOpen(false)}
               className="font-medium text-teal-ink">{l.label}</Link>
           ))}
-          <Link href={loggedIn ? '/auth/dashboard' : '/auth/login'} onClick={() => setOpen(false)}
-            className="text-sm text-teal-soft">
-            {loggedIn ? `Account${unread > 0 ? ` (${unread})` : ''}` : 'Sign in'}
-          </Link>
           <Link href="/portal/login" onClick={() => setOpen(false)} className="text-sm text-teal-soft">SSA Login</Link>
         </div>
       )}

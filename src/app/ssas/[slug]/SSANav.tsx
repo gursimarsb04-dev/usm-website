@@ -9,7 +9,6 @@ export default function SSANav({ ssaName, ssaSlug }: { ssaName: string; ssaSlug:
   const links = [
     { href: base, label: 'Homepage' },
     { href: `${base}/programs`, label: 'Programs' },
-    { href: `${base}/members`, label: 'Members Only' },
   ];
 
   function isActive(href: string) {

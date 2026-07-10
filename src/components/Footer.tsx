@@ -32,8 +32,6 @@ export default function Footer() {
             <li><Link href="/opportunities" className="hover:text-gold">Opportunities</Link></li>
             <li><Link href="/resources" className="hover:text-gold">Resources</Link></li>
             <li><Link href="/donate" className="hover:text-gold">Donate</Link></li>
-            <li><Link href="/auth/signup" className="hover:text-gold">Create account</Link></li>
-            <li><Link href="/auth/login" className="hover:text-gold">Sign in</Link></li>
             <li><Link href="/portal/login" className="hover:text-gold">SSA Portal</Link></li>
           </ul>
         </div>

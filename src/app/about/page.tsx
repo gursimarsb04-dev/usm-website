@@ -1,8 +1,10 @@
 import FadeUp from '@/components/FadeUp';
 import Phulkari from '@/components/Phulkari';
 import Button from '@/components/Button';
+import { supabasePublic } from '@/lib/supabase-public';
 
 export const metadata = { title: 'About' };
+export const revalidate = 300;
 
 const fourS = [
   { s: 'Simran', body: 'Remembrance at the center — prayer, reflection, and a connection to Maharaj that grounds everything else.' },
@@ -11,7 +13,15 @@ const fourS = [
   { s: 'Academics', body: 'Excellence as a form of seva. Mentorship, LSAT prep, hackathons, and career mentorship — ambition rooted in identity.' },
 ];
 
-export default function About() {
+export default async function About() {
+  let ssaCount = 85; // fallback if the count query fails
+  try {
+    const { count } = await supabasePublic()
+      .from('ssas')
+      .select('*', { count: 'exact', head: true })
+      .neq('status', 'inactive');
+    if (count) ssaCount = count;
+  } catch {}
   return (
     <>
       <section className="bg-teal text-white py-24 relative overflow-hidden">
@@ -45,7 +55,7 @@ export default function About() {
             So a handful of students decided the islands should be a network.
             What began as Southern California SSAs gathering for divaans and
             conferences became United Sikh Movement — today{' '}
-            <strong className="text-teal">40 active chapters, 75 SSAs in the
+            <strong className="text-teal">40 active chapters, {ssaCount} SSAs in the
             network</strong>, the largest Sikh student network in America and
             the second largest in the world.
           </p>

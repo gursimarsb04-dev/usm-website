@@ -44,6 +44,7 @@ const receipts = [
 
 export default async function Home() {
   let events: any[] = [];
+  let ssaCount = 85; // fallback if the count query fails
   try {
     const sb = supabasePublic();
     const { data } = await sb
@@ -53,6 +54,11 @@ export default async function Home() {
       .order('starts_at')
       .limit(3);
     events = data ?? [];
+    const { count } = await sb
+      .from('ssas')
+      .select('*', { count: 'exact', head: true })
+      .neq('status', 'inactive');
+    if (count) ssaCount = count;
   } catch {}
 
   return (
@@ -114,7 +120,7 @@ export default async function Home() {
       <section className="py-20 bg-sand">
         <FadeUp className="mx-auto max-w-wrap px-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-x-6 gap-y-10">
           <StatCounter value={40} label="Active chapters" />
-          <StatCounter value={75} label="SSAs in the network" />
+          <StatCounter value={ssaCount} label="SSAs in the network" />
           <StatCounter value={95} suffix="%" label="SSA leaders more confident after USM" />
           <StatCounter value={13000} prefix="$" suffix="+" label="Invested in students this year" />
           <StatCounter value={2500} suffix="+" label="Students reached annually" />
