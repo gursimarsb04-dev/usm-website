@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import { ssaUsername } from '@/lib/portal-username';
 
 export default function EditSSA() {
   const { id } = useParams<{ id: string }>();
@@ -64,7 +65,7 @@ export default function EditSSA() {
       <div className="mt-4 flex items-center gap-4 rounded-xl bg-gold/20 px-5 py-3">
         <div>
           <p className="text-xs text-teal-soft">Admin login</p>
-          <p className="text-sm">Username: <code className="font-bold text-teal">admin</code> &nbsp; PIN: <code className="font-bold text-teal text-lg">{ssa.pin ?? '—'}</code></p>
+          <p className="text-sm">Username: <code className="font-bold text-teal">{ssaUsername(ssa.school) || '—'}</code> &nbsp; PIN: <code className="font-bold text-teal text-lg">{ssa.pin ?? '—'}</code></p>
         </div>
         <button onClick={resetPin} disabled={resettingPin}
           className="ml-auto text-xs text-teal underline underline-offset-4 disabled:opacity-50">

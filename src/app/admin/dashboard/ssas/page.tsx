@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { getAdminSession } from '@/lib/admin-session';
 import { supabaseAdmin } from '@/lib/supabase-admin';
+import { ssaUsername } from '@/lib/portal-username';
 
 const statusColor: Record<string, string> = {
   live: 'bg-green-100 text-green-800',
@@ -25,7 +26,7 @@ export default async function AdminSSAList() {
         <div>
           <Link href="/admin/dashboard" className="text-xs text-teal-soft underline">← Dashboard</Link>
           <h1 className="font-display text-3xl font-bold text-teal mt-2">All SSAs</h1>
-          <p className="text-sm text-teal-soft">{ssas?.length ?? 0} chapters — login: username <code className="bg-teal/10 px-1 rounded">admin</code> + PIN</p>
+          <p className="text-sm text-teal-soft">{ssas?.length ?? 0} chapters — each logs in with its university username + PIN</p>
         </div>
         <Link href="/admin/dashboard/ssas/new"
           className="rounded-full bg-gold px-5 py-2.5 text-sm font-display font-semibold text-teal-ink hover:bg-gold-deep transition-colors">
@@ -40,6 +41,7 @@ export default async function AdminSSAList() {
               <th className="text-left px-5 py-3 text-xs font-semibold text-teal-soft uppercase tracking-wide">Chapter</th>
               <th className="text-left px-5 py-3 text-xs font-semibold text-teal-soft uppercase tracking-wide">State</th>
               <th className="text-left px-5 py-3 text-xs font-semibold text-teal-soft uppercase tracking-wide">Status</th>
+              <th className="text-left px-5 py-3 text-xs font-semibold text-teal-soft uppercase tracking-wide">Username</th>
               <th className="text-left px-5 py-3 text-xs font-semibold text-teal-soft uppercase tracking-wide">PIN</th>
               <th className="px-5 py-3" />
             </tr>
@@ -57,6 +59,7 @@ export default async function AdminSSAList() {
                     {ssa.status}
                   </span>
                 </td>
+                <td className="px-5 py-3 font-mono text-teal-ink">{ssaUsername(ssa.school) || '—'}</td>
                 <td className="px-5 py-3 font-mono font-semibold text-teal">{ssa.pin ?? '—'}</td>
                 <td className="px-5 py-3 text-right">
                   <Link href={`/admin/dashboard/ssas/${ssa.id}`}

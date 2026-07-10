@@ -77,7 +77,7 @@ export default function PortalLogin() {
                 required
                 autoComplete="username"
                 autoFocus
-                placeholder="admin"
+                placeholder="e.g. georgetown"
                 className={`mt-1 ${inp}`}
               />
             </label>

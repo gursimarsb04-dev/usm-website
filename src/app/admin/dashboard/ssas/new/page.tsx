@@ -2,12 +2,13 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { ssaUsername } from '@/lib/portal-username';
 
 export default function NewSSA() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [created, setCreated] = useState<{ name: string; pin: string } | null>(null);
+  const [created, setCreated] = useState<{ name: string; pin: string; username: string } | null>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -32,7 +33,7 @@ export default function NewSSA() {
     setLoading(false);
     if (res.ok) {
       const data = await res.json();
-      setCreated({ name: data.name, pin: data.pin });
+      setCreated({ name: data.name, pin: data.pin, username: ssaUsername(String(body.school ?? '')) });
     } else {
       const data = await res.json();
       setError(data.error ?? 'Something went wrong');
@@ -50,7 +51,7 @@ export default function NewSSA() {
           <p className="text-teal-soft mt-2 text-sm">Share these credentials with the SSA leader.</p>
           <div className="mt-6 rounded-xl bg-gold/20 p-5 text-left">
             <p className="text-sm text-teal-soft">Login at <strong>/portal/login</strong></p>
-            <p className="mt-2 text-sm">Username: <code className="font-bold text-teal">admin</code></p>
+            <p className="mt-2 text-sm">Username: <code className="font-bold text-teal">{created.username || '—'}</code></p>
             <p className="text-sm">PIN: <code className="font-bold text-teal text-lg">{created.pin}</code></p>
           </div>
           <div className="mt-6 flex gap-3 justify-center">

@@ -1,18 +1,17 @@
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase-admin';
 import { PORTAL_COOKIE } from '@/lib/portal-session';
+import { ssaUsername } from '@/lib/portal-username';
 
 export async function POST(req: Request) {
   const { username, pin } = await req.json();
-  if (username !== 'admin') {
-    return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
-  }
   const { data: ssa } = await supabaseAdmin()
     .from('ssas')
-    .select('id')
+    .select('id, school')
     .eq('pin', pin)
     .single();
-  if (!ssa) {
+  // The username is derived from the chapter's university and must match.
+  if (!ssa || ssaUsername(ssa.school) !== String(username ?? '').trim().toLowerCase()) {
     return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
   }
   const res = NextResponse.json({ ok: true });
