@@ -5,5 +5,8 @@ node_modules
 .vercel
 *.tsbuildinfo
 
+# credential sheet — never commit
+USM-portal-logins.pdf
+
 # macOS
 .DS_Store

@@ -43,9 +43,9 @@ export default async function Impact() {
   try { stats = await getImpactStats(); } catch {}
   if (stats.length === 0) {
     stats = [
-      { label: 'Active chapters', value: '40' },
+      { label: 'SSAs in the network', value: '40' },
+      { label: 'Leaders trained annually', value: '100+' },
       { label: 'Students reached annually', value: '2,500+' },
-      { label: 'Invested in students this year', value: '$13,000+' },
       { label: 'SSA leaders more confident after USM', value: '95%' },
     ];
   }

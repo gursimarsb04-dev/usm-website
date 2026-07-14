@@ -24,8 +24,8 @@ export default async function SSADirectory() {
       <FadeUp>
         <h1 className="font-display text-5xl font-bold text-teal">Find your SSA</h1>
         <p className="mt-3 text-lg text-teal-ink/75 max-w-xl">
-          {ssas.length} Sikh Student Associations across North America. Gold pins are
-          chapters with live pages — tap yours.
+          {ssas.length} active Sikh Student Association chapters across the nation.
+          Gold pins are chapters with live pages — tap yours.
         </p>
       </FadeUp>
 
