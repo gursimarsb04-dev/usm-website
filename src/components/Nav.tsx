@@ -7,6 +7,7 @@ const links = [
   { href: '/programs', label: 'Programs' },
   { href: '/ssas', label: 'Find Your SSA' },
   { href: '/events', label: 'Events' },
+  { href: '/contact', label: 'Contact' },
   { href: '/donate', label: 'Donate' },
 ];
 

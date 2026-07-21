@@ -5,15 +5,17 @@ import FadeUp from '@/components/FadeUp';
 import EventCard from '@/components/EventCard';
 import Phulkari from '@/components/Phulkari';
 import { supabasePublic } from '@/lib/supabase-public';
+import { SSA_PUBLIC_COLUMNS } from '@/lib/ssa-columns';
 import type { SSA, USMEvent, Wrapped } from '@/lib/types';
 
 export const revalidate = 300;
 
 export default async function SSAPage({ params }: { params: { slug: string } }) {
   const sb = supabasePublic();
-  const { data: ssa } = await sb.from('ssas').select('*').eq('slug', params.slug).single();
+  const { data } = await sb.from('ssas').select(SSA_PUBLIC_COLUMNS).eq('slug', params.slug).single();
+  const ssa = data as unknown as SSA | null;
   if (!ssa || ssa.status !== 'live') notFound();
-  const s = ssa as SSA;
+  const s = ssa;
 
   const [{ data: events }, { data: wrapped }, { data: photos }] = await Promise.all([
     sb.from('events').select('*').eq('ssa_id', s.id).gte('starts_at', new Date().toISOString()).order('starts_at').limit(6),

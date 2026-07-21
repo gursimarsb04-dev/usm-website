@@ -4,6 +4,7 @@ import FadeUp from '@/components/FadeUp';
 import Button from '@/components/Button';
 import Link from 'next/link';
 import { supabasePublic } from '@/lib/supabase-public';
+import { SSA_PUBLIC_COLUMNS } from '@/lib/ssa-columns';
 import type { SSA } from '@/lib/types';
 
 export const revalidate = 300;
@@ -13,8 +14,8 @@ export default async function SSADirectory() {
   let ssas: SSA[] = [];
   try {
     const sb = supabasePublic();
-    const { data } = await sb.from('ssas').select('*').neq('status', 'inactive').order('name');
-    ssas = (data as SSA[]) ?? [];
+    const { data } = await sb.from('ssas').select(SSA_PUBLIC_COLUMNS).neq('status', 'inactive').order('name');
+    ssas = (data as unknown as SSA[]) ?? [];
   } catch {}
 
   const live = ssas.filter((s) => s.status === 'live');

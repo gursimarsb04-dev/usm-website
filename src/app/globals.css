@@ -17,17 +17,70 @@ body {
 
 h1, h2, h3, .display { @apply font-display; }
 
-/* ── One animation pattern, used everywhere: fade-up ── */
-.fade-up {
+/* ── Scroll-reveal system ──────────────────────────────────
+   One <FadeUp variant> component drives these. Each variant sets a
+   starting transform/filter; .in-view (added by IntersectionObserver)
+   settles to rest. A shared cubic-bezier gives everything the same
+   confident, slightly-overshooting ease. */
+.reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    clip-path 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
 }
+.reveal.in-view { opacity: 1; transform: none; filter: none; clip-path: inset(0 0 0 0); }
+
+.reveal-up      { transform: translateY(28px); }
+.reveal-down    { transform: translateY(-28px); }
+.reveal-left    { transform: translateX(-40px); }
+.reveal-right   { transform: translateX(40px); }
+.reveal-scale   { transform: scale(0.92); }
+.reveal-blur    { filter: blur(12px); transform: translateY(20px); }
+.reveal-rise    { transform: translateY(60px) scale(0.97); }
+.reveal-clip    { clip-path: inset(0 0 100% 0); transform: translateY(20px); }
+
+/* Backwards-compat alias — older markup still says .fade-up */
+.fade-up { opacity: 0; transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease; }
 .fade-up.in-view { opacity: 1; transform: none; }
+
+/* Thin scroll-progress bar (gold) fixed to the top of the viewport */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 60;
+  transform-origin: 0 50%; transform: scaleX(var(--p, 0));
+  background: linear-gradient(90deg, var(--gold), #E0B860);
+  box-shadow: 0 0 12px rgba(245, 215, 140, 0.6);
+  pointer-events: none;
+}
+
+/* Parallax layer — JS sets --y from scroll position */
+.parallax { will-change: transform; transform: translate3d(0, var(--y, 0), 0); }
+
+/* Ambient float for accent marks */
+@keyframes floaty { 0%,100% { transform: translateY(0) rotate(45deg); }
+  50% { transform: translateY(-8px) rotate(45deg); } }
+.floaty { animation: floaty 6s ease-in-out infinite; }
+
+/* Gold shimmer sweep for eyebrow labels / underlines */
+@keyframes shimmer { to { background-position: 200% center; } }
+.shimmer {
+  background: linear-gradient(90deg, currentColor 40%, var(--gold) 50%, currentColor 60%);
+  background-size: 200% auto; background-clip: text; -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; animation: shimmer 4s linear infinite;
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .fade-up { opacity: 1; transform: none; transition: none; }
+  .reveal, .fade-up {
+    opacity: 1 !important; transform: none !important;
+    filter: none !important; clip-path: none !important; transition: none !important;
+  }
+  .parallax { transform: none !important; }
+  .floaty, .shimmer { animation: none !important; }
+  .scroll-progress { display: none; }
 }
 
 /* Visible keyboard focus */

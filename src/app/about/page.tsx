@@ -18,7 +18,7 @@ export default async function About() {
   try {
     const { count } = await supabasePublic()
       .from('ssas')
-      .select('*', { count: 'exact', head: true })
+      .select('id', { count: 'exact', head: true })
       .neq('status', 'inactive');
     if (count) ssaCount = count;
   } catch {}

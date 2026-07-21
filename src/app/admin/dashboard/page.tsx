@@ -8,15 +8,21 @@ export default async function AdminDashboard() {
   if (!getAdminSession()) redirect('/admin/login');
 
   const sb = supabaseAdmin();
-  const [{ count: ssaCount }, { count: pendingCount }, { count: userCount }] = await Promise.all([
+  const [{ count: ssaCount }, { count: pendingCount }, { count: appCount }, { count: userCount }] = await Promise.all([
     sb.from('ssas').select('*', { count: 'exact', head: true }),
     sb.from('affiliation_requests').select('*', { count: 'exact', head: true }).eq('status', 'pending'),
+    sb.from('ssa_applications').select('*', { count: 'exact', head: true }).eq('status', 'new'),
     sb.from('profiles').select('*', { count: 'exact', head: true }),
   ]);
+  const { count: subCount } = await sb
+    .from('newsletter_subscribers')
+    .select('*', { count: 'exact', head: true });
 
   const cards = [
     { href: '/admin/dashboard/ssas', label: 'Manage SSAs', value: ssaCount ?? 0, sub: 'chapters' },
+    { href: '/admin/dashboard/applications', label: 'SSA Applications', value: appCount ?? 0, sub: 'new' },
     { href: '/admin/dashboard/requests', label: 'Affiliation Requests', value: pendingCount ?? 0, sub: 'pending' },
+    { href: '/admin/dashboard/subscribers', label: 'Subscribers', value: subCount ?? 0, sub: 'newsletter' },
     { href: '/admin/dashboard/ssas/new', label: 'Add New SSA', value: '+', sub: 'create chapter' },
   ];
 
@@ -26,7 +32,7 @@ export default async function AdminDashboard() {
       <h1 className="font-display text-3xl font-bold text-teal mt-1">Admin Dashboard</h1>
       <p className="text-sm text-teal-soft mt-1">{userCount ?? 0} registered users across all chapters.</p>
 
-      <div className="mt-10 grid gap-4 sm:grid-cols-3">
+      <div className="mt-10 grid gap-4 grid-cols-2 md:grid-cols-4">
         {cards.map(c => (
           <Link key={c.href} href={c.href}
             className="rounded-2xl bg-white border border-teal/10 p-6 hover:border-gold transition-colors">

@@ -5,6 +5,7 @@ import StatCounter from '@/components/StatCounter';
 import Phulkari from '@/components/Phulkari';
 import EventCard from '@/components/EventCard';
 import ChapterMarquee from '@/components/ChapterMarquee';
+import Parallax from '@/components/Parallax';
 import { supabasePublic } from '@/lib/supabase-public';
 
 export const revalidate = 300;
@@ -59,12 +60,15 @@ export default async function Home() {
     <>
       {/* ── HERO ── */}
       <section className="relative min-h-[88vh] flex items-center bg-teal text-white overflow-hidden">
-        {/* Real hero photo — 7th Annual Inter-SSA Conference sangat */}
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/photos/hero.jpg')" }}
-        />
+        {/* Real hero photo — 7th Annual Inter-SSA Conference sangat.
+            Parallax drifts it slowly as you scroll off the hero. */}
+        <Parallax speed={0.25} className="absolute inset-0">
+          <div
+            aria-hidden
+            className="absolute inset-0 scale-110 bg-cover bg-center"
+            style={{ backgroundImage: "url('/photos/hero.jpg')" }}
+          />
+        </Parallax>
         {/* Teal gradient overlay keeps the headline readable over the photo */}
         <div className="absolute inset-0 bg-gradient-to-r from-teal-ink/95 via-teal-ink/75 to-teal/40" />
         {/* Signature texture, barely there */}
@@ -77,15 +81,20 @@ export default async function Home() {
           }}
         />
         <div className="relative mx-auto max-w-wrap px-5 py-24">
-          <FadeUp>
-            <p className="text-gold font-display tracking-widest uppercase text-sm mb-5">
+          <FadeUp variant="left" delay={0}>
+            <p className="text-gold font-display tracking-widest uppercase text-sm mb-5 flex items-center gap-2">
+              <span className="inline-block w-2 h-2 bg-gold floaty" aria-hidden />
               United Sikh Movement
             </p>
+          </FadeUp>
+          <FadeUp variant="up" delay={120}>
             <h1 className="font-display text-5xl md:text-7xl font-bold leading-[1.05] max-w-3xl">
               Success and Sikhi.
               <br />
               <span className="text-gold">Never one or the other.</span>
             </h1>
+          </FadeUp>
+          <FadeUp variant="up" delay={260}>
             <p className="mt-6 max-w-xl text-lg text-white/80 leading-relaxed">
               Sikh students are navigating systems that were never built with
               them in mind — searching for sangat, mentors who get it, and a
@@ -93,6 +102,8 @@ export default async function Home() {
               ecosystem that changes that. 40 chapters. Mentors in every field.
               A movement behind you.
             </p>
+          </FadeUp>
+          <FadeUp variant="up" delay={400}>
             <div className="mt-10 flex flex-wrap gap-4">
               <Button href="/ssas">Find Your Sangat</Button>
               <Button
@@ -112,12 +123,18 @@ export default async function Home() {
 
       {/* ── PROOF: the numbers, counting up ── */}
       <section className="py-20 bg-sand">
-        <FadeUp className="mx-auto max-w-wrap px-5 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
-          <StatCounter value={40} label="SSAs in the network" />
-          <StatCounter value={100} suffix="+" label="Leaders trained annually" />
-          <StatCounter value={95} suffix="%" label="SSA leaders more confident after USM" />
-          <StatCounter value={2500} suffix="+" label="Students reached annually" />
-        </FadeUp>
+        <div className="mx-auto max-w-wrap px-5 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
+          {[
+            { value: 40, label: 'SSAs in the network' },
+            { value: 100, suffix: '+', label: 'Leaders trained annually' },
+            { value: 95, suffix: '%', label: 'SSA leaders more confident after USM' },
+            { value: 2500, suffix: '+', label: 'Students reached annually' },
+          ].map((s, i) => (
+            <FadeUp key={s.label} variant="scale" delay={i * 120}>
+              <StatCounter value={s.value} suffix={s.suffix} label={s.label} />
+            </FadeUp>
+          ))}
+        </div>
       </section>
 
       <Phulkari className="text-teal/15" />
@@ -125,10 +142,10 @@ export default async function Home() {
       {/* ── PILLARS ── */}
       {pillars.map((p, i) => (
         <section key={p.title} className={`py-24 ${i % 2 ? 'bg-mist' : 'bg-sand'}`}>
-          <FadeUp className="mx-auto max-w-wrap px-5 grid md:grid-cols-2 gap-12 items-center">
-            <div className={i % 2 ? 'md:order-2' : ''}>
+          <div className="mx-auto max-w-wrap px-5 grid md:grid-cols-2 gap-12 items-center">
+            <FadeUp variant={i % 2 ? 'right' : 'left'} className={i % 2 ? 'md:order-2' : ''}>
               <p className="text-gold-deep font-display tracking-widest uppercase text-xs mb-3 flex items-center gap-2">
-                <span className="inline-block w-2 h-2 rotate-45 bg-gold" aria-hidden />
+                <span className="inline-block w-2 h-2 rotate-45 bg-gold floaty" aria-hidden />
                 {p.title}
               </p>
               <h2 className="font-display text-4xl md:text-5xl font-bold text-teal">{p.line}</h2>
@@ -139,18 +156,22 @@ export default async function Home() {
               >
                 Explore →
               </Link>
-            </div>
-            {/* Real pillar photo */}
-            <div className="aspect-[4/3] rounded-3xl bg-teal-soft relative overflow-hidden shadow-sm">
+            </FadeUp>
+            {/* Real pillar photo — reveals with a soft scale + clip */}
+            <FadeUp
+              variant="scale"
+              delay={140}
+              className="aspect-[4/3] rounded-3xl bg-teal-soft relative overflow-hidden shadow-sm group"
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={p.img}
                 alt={p.title}
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-teal-ink/40 to-transparent" />
-            </div>
-          </FadeUp>
+            </FadeUp>
+          </div>
         </section>
       ))}
 
@@ -165,11 +186,16 @@ export default async function Home() {
               Sikh youth are not waiting for change. They are the catalyst for it.
             </h2>
             <div className="mt-10 grid gap-4 md:grid-cols-2">
-              {receipts.map((r) => (
-                <div key={r.what} className="rounded-2xl bg-white/5 border border-white/10 p-6">
+              {receipts.map((r, i) => (
+                <FadeUp
+                  key={r.what}
+                  variant={i % 2 ? 'right' : 'left'}
+                  delay={(i % 2) * 80}
+                  className="rounded-2xl bg-white/5 border border-white/10 p-6 transition-colors hover:bg-white/10 hover:border-gold/30"
+                >
                   <p className="font-display font-semibold text-lg leading-snug">{r.what}</p>
                   <p className="mt-2 text-sm text-gold">{r.who}</p>
-                </div>
+                </FadeUp>
               ))}
             </div>
             <p className="mt-8 text-white/70 max-w-xl">
@@ -183,10 +209,10 @@ export default async function Home() {
 
       {/* ── BEYOND CAMPUS: Khudrang Roots ── */}
       <section className="py-24 bg-sand">
-        <FadeUp className="mx-auto max-w-wrap px-5 grid md:grid-cols-2 gap-12 items-center">
-          <div>
+        <div className="mx-auto max-w-wrap px-5 grid md:grid-cols-2 gap-12 items-center">
+          <FadeUp variant="left">
             <p className="text-gold-deep font-display tracking-widest uppercase text-xs mb-3 flex items-center gap-2">
-              <span className="inline-block w-2 h-2 rotate-45 bg-gold" aria-hidden />
+              <span className="inline-block w-2 h-2 rotate-45 bg-gold floaty" aria-hidden />
               Khudrang Roots
             </p>
             <h2 className="font-display text-4xl md:text-5xl font-bold text-teal">
@@ -207,14 +233,14 @@ export default async function Home() {
             >
               Support the mission →
             </a>
-          </div>
+          </FadeUp>
           {/* TODO(interns): Khudrang photo from the summer trip */}
-          <div className="aspect-[4/3] rounded-3xl bg-gradient-to-br from-teal to-teal-soft relative overflow-hidden grid place-items-center">
+          <FadeUp variant="right" delay={120} className="aspect-[4/3] rounded-3xl bg-gradient-to-br from-teal to-teal-soft relative overflow-hidden grid place-items-center">
             <span className="text-gold/80 font-display text-sm tracking-widest uppercase">
               Punjab — photo coming
             </span>
-          </div>
-        </FadeUp>
+          </FadeUp>
+        </div>
       </section>
 
       {/* ── UPCOMING EVENTS ── */}
@@ -224,7 +250,11 @@ export default async function Home() {
             <h2 className="font-display text-4xl font-bold text-teal">Happening soon</h2>
             <div className="mt-8 grid gap-5 md:grid-cols-3">
               {events.length > 0 ? (
-                events.map((e) => <EventCard key={e.id} event={e} />)
+                events.map((e, i) => (
+                  <FadeUp key={e.id} variant="rise" delay={i * 120}>
+                    <EventCard event={e} />
+                  </FadeUp>
+                ))
               ) : (
                 <p className="text-teal-soft md:col-span-3">
                   Safal Summit hits the World Trade Center June 19–21 — and the

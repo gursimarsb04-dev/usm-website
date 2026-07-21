@@ -1,6 +1,5 @@
 'use client';
 import { useState } from 'react';
-import { supabaseBrowser } from '@/lib/supabase';
 
 export default function ApplyForm() {
   const [state, setState] = useState<'idle' | 'sending' | 'done' | 'error'>('idle');
@@ -9,15 +8,19 @@ export default function ApplyForm() {
     e.preventDefault();
     setState('sending');
     const f = new FormData(e.currentTarget);
-    const { error } = await supabaseBrowser().from('ssa_applications').insert({
-      applicant_name: f.get('name'),
-      email: f.get('email'),
-      school: f.get('school'),
-      city: f.get('city'),
-      state: f.get('state'),
-      message: f.get('message'),
+    const res = await fetch('/api/apply', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: f.get('name'),
+        email: f.get('email'),
+        school: f.get('school'),
+        city: f.get('city'),
+        state: f.get('state'),
+        message: f.get('message'),
+      }),
     });
-    setState(error ? 'error' : 'done');
+    setState(res.ok ? 'done' : 'error');
   }
 
   if (state === 'done')

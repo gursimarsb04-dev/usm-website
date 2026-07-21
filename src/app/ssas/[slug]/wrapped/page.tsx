@@ -6,15 +6,16 @@ import FadeUp from '@/components/FadeUp';
 import StatCounter from '@/components/StatCounter';
 import Phulkari from '@/components/Phulkari';
 import { supabasePublic } from '@/lib/supabase-public';
+import { SSA_PUBLIC_COLUMNS } from '@/lib/ssa-columns';
 import type { SSA, Wrapped } from '@/lib/types';
 
 export const revalidate = 300;
 
 export default async function WrappedPage({ params }: { params: { slug: string } }) {
   const sb = supabasePublic();
-  const { data: ssa } = await sb.from('ssas').select('*').eq('slug', params.slug).single();
+  const { data: ssa } = await sb.from('ssas').select(SSA_PUBLIC_COLUMNS).eq('slug', params.slug).single();
   if (!ssa) notFound();
-  const s = ssa as SSA;
+  const s = ssa as unknown as SSA;
 
   const { data } = await sb
     .from('wrapped_submissions')
