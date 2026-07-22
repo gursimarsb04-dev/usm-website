@@ -2,6 +2,7 @@
 import FadeUp from '@/components/FadeUp';
 import Link from 'next/link';
 import { getResources } from '@/lib/sanity';
+import { resourceFallbacks } from '@/lib/resource-fallbacks';
 
 export const revalidate = 600;
 export const metadata = { title: 'Resources' };
@@ -9,6 +10,7 @@ export const metadata = { title: 'Resources' };
 export default async function Resources() {
   let resources: any[] = [];
   try { resources = await getResources(false); } catch {}
+  if (!resources || resources.length === 0) resources = resourceFallbacks.filter((r) => !r.gated);
   const categories = Array.from(new Set(resources.map((r) => r.category))).filter(Boolean);
 
   return (

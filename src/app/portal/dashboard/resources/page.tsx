@@ -2,6 +2,7 @@
 import { redirect } from 'next/navigation';
 import { supabaseServer } from '@/lib/supabase-server';
 import { getResources } from '@/lib/sanity';
+import { resourceFallbacks } from '@/lib/resource-fallbacks';
 
 export default async function LeaderResources() {
   const sb = supabaseServer();
@@ -10,6 +11,7 @@ export default async function LeaderResources() {
 
   let resources: any[] = [];
   try { resources = await getResources(true); } catch {}
+  if (!resources || resources.length === 0) resources = resourceFallbacks;
   const gated = resources.filter((r) => r.gated);
   const categories = Array.from(new Set(gated.map((r) => r.category))).filter(Boolean);
 

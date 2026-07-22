@@ -27,8 +27,8 @@ export const programFallbacks: Program[] = [
     testimonial: 'Ever since Camp Kudrat my life has changed. I started doing Kirtan Sohila before sleeping and let go of my anxiety pills. When my parents saw the change in me, they also started following the Sikh path.',
   },
   {
-    slug: 'gurbani-study',
-    title: 'Gurbani Study',
+    slug: 'gurmat-sangeet',
+    title: 'Gurmat Sangeet Initiative',
     pillar: 'Sikhi Development',
     tagline: 'Deepen your connection, line by line.',
     body: 'Structured Gurmat study that takes students beyond translation into a real, personal relationship with Bani. Our 10-week Gurmat Sangeet course is now an official UC Davis offering — with 250+ attendees in Fall 2025 and expansion to a second UC campus in Fall 2026.',
