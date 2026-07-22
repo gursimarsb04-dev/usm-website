@@ -6,10 +6,10 @@ const styles = {
   ghost: 'border-2 border-teal text-teal hover:bg-teal hover:text-white',
 };
 
-export default function Button({ href, children, variant = 'gold', className = '' }:
-  { href: string; children: React.ReactNode; variant?: keyof typeof styles; className?: string }) {
+export default function Button({ href, children, variant = 'gold', className = '', target, rel }:
+  { href: string; children: React.ReactNode; variant?: keyof typeof styles; className?: string; target?: string; rel?: string }) {
   return (
-    <Link href={href}
+    <Link href={href} target={target} rel={rel}
       className={`inline-block rounded-full px-7 py-3 font-display font-semibold transition-colors ${styles[variant]} ${className}`}>
       {children}
     </Link>

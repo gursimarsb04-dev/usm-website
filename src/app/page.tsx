@@ -7,6 +7,7 @@ import EventCard from '@/components/EventCard';
 import ChapterMarquee from '@/components/ChapterMarquee';
 import Parallax from '@/components/Parallax';
 import { supabasePublic } from '@/lib/supabase-public';
+import { START_SSA_FORM_URL } from '@/lib/site';
 
 export const revalidate = 300;
 
@@ -107,7 +108,9 @@ export default async function Home() {
             <div className="mt-10 flex flex-wrap gap-4">
               <Button href="/ssas">Find Your Sangat</Button>
               <Button
-                href="/start-an-ssa"
+                href={START_SSA_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 variant="ghost"
                 className="!border-white !text-white hover:!bg-white hover:!text-teal"
               >

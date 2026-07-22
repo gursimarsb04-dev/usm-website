@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Phulkari from './Phulkari';
 import SocialLinks from './SocialLinks';
 import NewsletterSignup from './NewsletterSignup';
-import { EIN, CONTACT_EMAIL } from '@/lib/site';
+import { EIN, CONTACT_EMAIL, START_SSA_FORM_URL } from '@/lib/site';
 
 export default function Footer() {
   return (
@@ -39,7 +39,7 @@ export default function Footer() {
           <div className="font-display font-semibold mb-3 text-gold">Explore</div>
           <ul className="space-y-2 text-sm text-white/80">
             <li><Link href="/ssas" className="hover:text-gold">Find Your SSA</Link></li>
-            <li><Link href="/start-an-ssa" className="hover:text-gold">Start an SSA</Link></li>
+            <li><a href={START_SSA_FORM_URL} target="_blank" rel="noopener noreferrer" className="hover:text-gold">Start an SSA</a></li>
             <li><Link href="/impact" className="hover:text-gold">Our Impact</Link></li>
             <li><Link href="/gallery" className="hover:text-gold">Gallery</Link></li>
             <li><Link href="/news" className="hover:text-gold">News</Link></li>

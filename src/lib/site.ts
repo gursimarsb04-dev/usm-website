@@ -9,6 +9,10 @@ export const CONTACT_EMAIL = process.env.CONTACT_EMAIL ?? 'abhijyotschadha@gmail
 // 501(c)(3) tax ID — from the legacy unitedsikhmovement.org footer.
 export const EIN = '81-5233460';
 
+// External Google Forms — used everywhere a "Join an SSA" / "Start an SSA" CTA appears.
+export const JOIN_SSA_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSf-RLofmj5BBcJa7At8q_uvxLuIB2wUadHY5Zbdm1dtvaZOZA/viewform?usp=publish-editor';
+export const START_SSA_FORM_URL = 'https://forms.gle/wHkPjPA8JVDuFSXE8';
+
 export const SOCIALS = [
   { name: 'Instagram', href: 'https://www.instagram.com/unitedsikhmovement/' },
   { name: 'LinkedIn', href: 'https://www.linkedin.com/company/unitedsikhmovement' },

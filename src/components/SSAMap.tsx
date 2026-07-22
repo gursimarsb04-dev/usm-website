@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import type { SSA } from '@/lib/types';
+import { JOIN_SSA_FORM_URL } from '@/lib/site';
 
 const MapContainer = dynamic(() => import('react-leaflet').then(m => m.MapContainer), { ssr: false });
 const TileLayer = dynamic(() => import('react-leaflet').then(m => m.TileLayer), { ssr: false });
@@ -86,13 +87,14 @@ export default function SSAMap({ ssas }: { ssas: SSA[] }) {
               )}
 
               <div className="mt-3 flex items-center gap-2">
-                {/* Join button — no functionality wired up yet */}
-                <button
-                  type="button"
+                <a
+                  href={JOIN_SSA_FORM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="rounded-full bg-gold px-4 py-2 text-xs font-display font-semibold text-teal-ink hover:bg-gold-deep transition-colors"
                 >
                   Join SSA →
-                </button>
+                </a>
                 {s.status === 'live' ? (
                   <Link href={`/ssas/${s.slug}`} className="text-xs font-semibold text-teal underline">
                     View chapter →
