@@ -13,6 +13,7 @@ export type Program = {
   image?: string;
   stats?: ProgramStat[];
   testimonial?: string;
+  hidden?: boolean;
 };
 
 export const programFallbacks: Program[] = [
@@ -32,6 +33,7 @@ export const programFallbacks: Program[] = [
     pillar: 'Sikhi Development',
     tagline: 'Deepen your connection, line by line.',
     body: 'Structured Gurmat study that takes students beyond translation into a real, personal relationship with Bani. Our 10-week Gurmat Sangeet course is now an official UC Davis offering — with 250+ attendees in Fall 2025 and expansion to a second UC campus in Fall 2026.',
+    image: '/photos/prog-gurmat-sangeet.jpg',
     stats: [
       { value: '250+', label: 'Attendees, Fall 2025' },
       { value: '2nd', label: 'UC campus joining Fall 2026' },
@@ -43,6 +45,7 @@ export const programFallbacks: Program[] = [
     pillar: 'Sikhi Development',
     tagline: "Guru Teg Bahadur Ji's teachings, led by youth.",
     body: "In collaboration with Sikh Dharmsal, USM trained 6 youth facilitators to lead workshops on Guru Teg Bahadur Ji's Salok Mahala 9. The series is now expanding to SSAs across the West Coast.",
+    image: '/photos/prog-salok-mahala-9.jpg',
     stats: [{ value: '6', label: 'Youth facilitators trained' }],
   },
 
@@ -86,6 +89,7 @@ export const programFallbacks: Program[] = [
     pillar: 'Professional Development',
     tagline: 'Mentorship, curated and community-backed.',
     body: 'A platform connecting Sikh youth to Sikh professionals for 1:1 mentorship, career navigation, and internship opportunities. Not cold outreach — curated, community-backed connection.',
+    hidden: true,
   },
   {
     slug: 'case-competitions',
@@ -93,6 +97,7 @@ export const programFallbacks: Program[] = [
     pillar: 'Professional Development',
     tagline: 'Hands-on skill building for law, business, and beyond.',
     body: 'Hands-on case competitions and mock trial experiences that build real, résumé-ready skills for careers in law, business, and beyond.',
+    hidden: true,
   },
 
   // ── SSA Network ──
@@ -115,6 +120,7 @@ export const programFallbacks: Program[] = [
     pillar: 'SSA Network',
     tagline: 'Where SSA boards recharge and level up.',
     body: 'Annual retreats for SSA board members across the West Coast, Midwest, and East Coast. This year: 65+ participants from 18 SSAs, with 95% feeling more confident leading their SSA after attending.',
+    image: '/photos/prog-leadership-retreat.jpg',
     stats: [
       { value: '65+', label: 'Participants' },
       { value: '18', label: 'SSAs represented' },
@@ -127,6 +133,7 @@ export const programFallbacks: Program[] = [
     pillar: 'SSA Network',
     tagline: 'A dedicated USM coordinator for every SSA.',
     body: 'Every SSA in the network has a dedicated USM coordinator for guidance, resources, programming support, and accountability — so no board is ever left to figure it out alone.',
+    image: '/photos/prog-ssa-coordination.jpg',
   },
   {
     slug: 'national-network',
@@ -134,6 +141,7 @@ export const programFallbacks: Program[] = [
     pillar: 'SSA Network',
     tagline: '120+ board members, coast to coast.',
     body: '120+ board members connected coast to coast, sharing resources, ideas, and support in real time.',
+    image: '/photos/prog-national-network.jpg',
     stats: [{ value: '120+', label: 'Board members connected' }],
   },
   {
@@ -142,6 +150,7 @@ export const programFallbacks: Program[] = [
     pillar: 'SSA Network',
     tagline: 'Showing up when it matters.',
     body: 'After the SJSU hate crime, USM mobilized West Coast schools toward Sikh awareness trainings with UC and CSU administrators and university police.',
+    image: '/photos/prog-advocacy.jpg',
   },
   {
     slug: 'khudrang-roots',

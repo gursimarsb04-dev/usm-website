@@ -23,7 +23,7 @@ export default async function Programs() {
       </FadeUp>
 
       {pillarOrder.map((pillar) => {
-        const items = programs.filter((p) => p.pillar === pillar);
+        const items = programs.filter((p) => p.pillar === pillar && !p.hidden);
         if (!items.length) return null;
         return (
           <FadeUp key={pillar} className="mt-14">
