@@ -17,7 +17,12 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
   }
 
-  const { slug, name, email, phone } = body ?? {};
+  const { slug, name, email, phone, returnPath } = body ?? {};
+  // Only allow same-site relative paths, never a full URL, to avoid an open redirect.
+  const cancelPath =
+    typeof returnPath === 'string' && returnPath.startsWith('/') && !returnPath.startsWith('//')
+      ? returnPath
+      : `/events/${slug}/register`;
   const quantity = Math.max(1, Math.min(10, parseInt(body?.quantity, 10) || 1));
 
   if (!slug || !name || !email) {
@@ -78,7 +83,7 @@ export async function POST(req: Request) {
         quantity: String(quantity),
       },
       success_url: `${origin}/events/register/success?event=${encodeURIComponent(event.slug)}`,
-      cancel_url: `${origin}/events/${event.slug}/register?canceled=1`,
+      cancel_url: `${origin}${cancelPath}?canceled=1`,
     });
 
     return NextResponse.json({ url: session.url });

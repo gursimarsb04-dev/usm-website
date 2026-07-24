@@ -25,6 +25,7 @@ export default function RegistrationForm({
       email: form.get('email'),
       phone: form.get('phone'),
       quantity: form.get('quantity'),
+      returnPath: window.location.pathname,
     };
 
     try {

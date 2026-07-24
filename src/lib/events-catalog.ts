@@ -42,6 +42,15 @@ export const eventsCatalog: CatalogEvent[] = [
     priceCents: 0, // free RSVP — demonstrates the no-payment path
     currency: 'usd',
   },
+  {
+    slug: 'east-coast-retreat-2026',
+    title: 'East Coast SSA Retreat',
+    date: 'August 21–23, 2026',
+    location: 'Poconos Mountains, PA',
+    blurb: 'SSA Collective presents the East Coast SSA Retreat — three days in the Poconos for SSA members and leaders from across the East Coast.',
+    priceCents: 7000,
+    currency: 'usd',
+  },
 ];
 
 export function getCatalogEvent(slug: string): CatalogEvent | undefined {
