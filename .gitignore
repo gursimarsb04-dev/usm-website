@@ -10,3 +10,4 @@ USM-portal-logins.pdf
 
 # macOS
 .DS_Store
+.env*
