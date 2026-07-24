@@ -10,6 +10,8 @@ export default function RetreatRegistrationForm({
 }) {
   const [state, setState] = useState<'idle' | 'loading' | 'error'>('idle');
   const [message, setMessage] = useState('');
+  const [needsRide, setNeedsRide] = useState(false);
+  const [canOfferRide, setCanOfferRide] = useState(false);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -30,6 +32,9 @@ export default function RetreatRegistrationForm({
         emergency_contact_phone: form.get('emergencyContactPhone'),
         goals: form.get('goals'),
         dietary: form.get('dietary'),
+        needs_ride: needsRide ? 'Yes' : '',
+        can_offer_ride: canOfferRide ? 'Yes' : '',
+        carpool_area: needsRide || canOfferRide ? String(form.get('carpoolArea') || '') : '',
         media_consent: form.get('mediaConsent') ? 'Yes I agree' : '',
       },
     };
@@ -100,6 +105,38 @@ export default function RetreatRegistrationForm({
         Dietary restrictions or allergies?
         <textarea name="dietary" required rows={2} placeholder="Let us know, or write 'None'" className={input} />
       </label>
+
+      <div className="grid gap-2">
+        <span className="text-sm font-medium text-teal-ink">Carpool</span>
+        <label className="flex items-center gap-3 text-sm text-teal-ink/90">
+          <input
+            name="needsRide"
+            type="checkbox"
+            checked={needsRide}
+            onChange={(e) => setNeedsRide(e.target.checked)}
+            className="h-4 w-4 rounded border-teal/30"
+          />
+          I need a ride / carpool
+        </label>
+        <label className="flex items-center gap-3 text-sm text-teal-ink/90">
+          <input
+            name="canOfferRide"
+            type="checkbox"
+            checked={canOfferRide}
+            onChange={(e) => setCanOfferRide(e.target.checked)}
+            className="h-4 w-4 rounded border-teal/30"
+          />
+          I can offer a ride to others
+        </label>
+        {(needsRide || canOfferRide) && (
+          <input
+            name="carpoolArea"
+            required
+            placeholder="What area are you coming from?"
+            className={input}
+          />
+        )}
+      </div>
 
       <label className="flex items-start gap-3 text-sm text-teal-ink/90">
         <input name="mediaConsent" type="checkbox" required className="mt-1 h-4 w-4 rounded border-teal/30" />
