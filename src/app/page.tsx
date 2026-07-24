@@ -237,11 +237,11 @@ export default async function Home() {
               Support the mission →
             </a>
           </FadeUp>
-          {/* TODO(interns): Khudrang photo from the summer trip */}
-          <FadeUp variant="right" delay={120} className="aspect-[4/3] rounded-3xl bg-gradient-to-br from-teal to-teal-soft relative overflow-hidden grid place-items-center">
-            <span className="text-gold/80 font-display text-sm tracking-widest uppercase">
-              Punjab — photo coming
-            </span>
+          <FadeUp variant="right" delay={120} className="aspect-[4/3] rounded-3xl overflow-hidden">
+            <div
+              className="w-full h-full bg-contain bg-center bg-no-repeat"
+              style={{ backgroundImage: "url('/photos/khudrang-roots-logo.jpg')", backgroundColor: '#1D3F62' }}
+            />
           </FadeUp>
         </div>
       </section>

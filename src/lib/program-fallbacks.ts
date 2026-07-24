@@ -82,6 +82,7 @@ export const programFallbacks: Program[] = [
     pillar: 'Professional Development',
     tagline: 'Free prep with 97th-percentile Sikh mentors.',
     body: 'Free LSAT preparation led by Sikhs who scored in the 97th percentile and above. Launching May 2026 in partnership with the Sikh Legal Society. MCAT and DAT prep are coming next.',
+    image: '/photos/prog-lsat-prep.jpg',
   },
   {
     slug: 'fateh-collective',
@@ -158,6 +159,7 @@ export const programFallbacks: Program[] = [
     pillar: 'SSA Network',
     tagline: 'Where students grow, Punjab thrives.',
     body: 'A student-led initiative sending diaspora youth to Punjab — listening to village leaders, families, and educators first, then building projects that last. Community-informed, student-driven, built to last. This is what it looks like when Gurmat principles meet real-world seva.',
+    image: '/photos/prog-khudrang-roots.jpg',
   },
 ];
 
