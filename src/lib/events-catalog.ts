@@ -44,10 +44,10 @@ export const eventsCatalog: CatalogEvent[] = [
   },
   {
     slug: 'east-coast-retreat-2026',
-    title: 'East Coast SSA Retreat',
+    title: 'East Coast SSA Leadership Retreat',
     date: 'August 21–23, 2026',
-    location: 'Poconos Mountains, PA',
-    blurb: 'SSA Collective presents the East Coast SSA Retreat — three days in the Poconos for SSA members and leaders from across the East Coast.',
+    location: 'Valhalla River Haven, Pocono Mountains, PA',
+    blurb: 'A leadership getaway for SSA board members across the region — workshops, sangat, and recharging together at Valhalla River Haven. Space limited to 30.',
     priceCents: 7000,
     currency: 'usd',
   },

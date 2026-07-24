@@ -17,7 +17,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
   }
 
-  const { slug, name, email, phone, returnPath } = body ?? {};
+  const { slug, name, email, phone, returnPath, extra } = body ?? {};
   // Only allow same-site relative paths, never a full URL, to avoid an open redirect.
   const cancelPath =
     typeof returnPath === 'string' && returnPath.startsWith('/') && !returnPath.startsWith('//')
@@ -38,6 +38,18 @@ export async function POST(req: Request) {
   }
   if (event.soldOut) {
     return NextResponse.json({ error: 'This event is sold out.' }, { status: 409 });
+  }
+
+  // Optional extra metadata (e.g. per-event custom fields like emergency contact,
+  // school, dietary notes). Sanitized to Stripe's metadata limits: string values only,
+  // capped length, capped key count — never trusted to affect price or line items.
+  const extraMetadata: Record<string, string> = {};
+  if (extra && typeof extra === 'object') {
+    for (const [key, value] of Object.entries(extra).slice(0, 20)) {
+      if (typeof value === 'string' && value.trim()) {
+        extraMetadata[key.slice(0, 40)] = value.slice(0, 500);
+      }
+    }
   }
 
   const stripe = getStripe();
@@ -81,6 +93,7 @@ export async function POST(req: Request) {
         attendee_name: name,
         attendee_phone: phone || '',
         quantity: String(quantity),
+        ...extraMetadata,
       },
       success_url: `${origin}/events/register/success?event=${encodeURIComponent(event.slug)}`,
       cancel_url: `${origin}${cancelPath}?canceled=1`,
