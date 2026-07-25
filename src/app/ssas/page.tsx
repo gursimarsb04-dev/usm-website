@@ -5,7 +5,7 @@ import Button from '@/components/Button';
 import Link from 'next/link';
 import { supabasePublic } from '@/lib/supabase-public';
 import { SSA_PUBLIC_COLUMNS } from '@/lib/ssa-columns';
-import { START_SSA_FORM_URL } from '@/lib/site';
+import { SSA_COLLECTIVE_FORM_URL } from '@/lib/site';
 import type { SSA } from '@/lib/types';
 
 export const revalidate = 300;
@@ -66,7 +66,18 @@ export default async function SSADirectory() {
       <FadeUp className="mt-16 rounded-3xl bg-teal text-white p-10 text-center">
         <h2 className="font-display text-3xl font-bold">No SSA at your school?</h2>
         <p className="mt-2 text-white/75">We'll help you start one — starter kit included.</p>
-        <Button href={START_SSA_FORM_URL} target="_blank" rel="noopener noreferrer" className="mt-6">Start an SSA</Button>
+        <div className="mt-6 flex flex-wrap justify-center gap-4">
+          <Button href="/start-an-ssa">Start an SSA</Button>
+          <Button
+            href={SSA_COLLECTIVE_FORM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="ghost"
+            className="!border-white !text-white hover:!bg-white hover:!text-teal"
+          >
+            Join the Network
+          </Button>
+        </div>
       </FadeUp>
     </div>
   );
