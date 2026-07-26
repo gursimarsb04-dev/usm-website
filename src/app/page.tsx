@@ -6,6 +6,9 @@ import Phulkari from '@/components/Phulkari';
 import EventCard from '@/components/EventCard';
 import ChapterMarquee from '@/components/ChapterMarquee';
 import Parallax from '@/components/Parallax';
+import Card from '@/components/Card';
+import EmptyState from '@/components/EmptyState';
+import { Section, Eyebrow, SectionHeading } from '@/components/Section';
 import { supabasePublic } from '@/lib/supabase-public';
 import { SSA_COLLECTIVE_FORM_URL } from '@/lib/site';
 
@@ -132,8 +135,8 @@ export default async function Home() {
       <ChapterMarquee />
 
       {/* ── PROOF: the numbers, counting up ── */}
-      <section className="py-20 bg-sand">
-        <div className="mx-auto max-w-wrap px-5 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
+      <Section tone="sand">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
           {[
             { value: 40, label: 'SSAs in the network' },
             { value: 100, suffix: '+', label: 'Leaders trained annually' },
@@ -145,20 +148,17 @@ export default async function Home() {
             </FadeUp>
           ))}
         </div>
-      </section>
+      </Section>
 
       <Phulkari className="text-teal/15" />
 
       {/* ── PILLARS ── */}
       {pillars.map((p, i) => (
-        <section key={p.title} className={`py-24 ${i % 2 ? 'bg-mist' : 'bg-sand'}`}>
-          <div className="mx-auto max-w-wrap px-5 grid md:grid-cols-2 gap-12 items-center">
+        <Section key={p.title} tone={i % 2 ? 'mist' : 'sand'} size="feature">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
             <FadeUp variant={i % 2 ? 'right' : 'left'} className={i % 2 ? 'md:order-2' : ''}>
-              <p className="text-gold-deep font-display tracking-widest uppercase text-xs mb-3 flex items-center gap-2">
-                <span className="inline-block w-2 h-2 rotate-45 bg-gold floaty" aria-hidden />
-                {p.title}
-              </p>
-              <h2 className="font-display text-4xl md:text-5xl font-bold text-teal">{p.line}</h2>
+              <Eyebrow className="mb-3">{p.title}</Eyebrow>
+              <SectionHeading size="lg">{p.line}</SectionHeading>
               <p className="mt-5 text-lg text-teal-ink/80 leading-relaxed max-w-md">{p.body}</p>
               <Link
                 href={p.href}
@@ -182,52 +182,42 @@ export default async function Home() {
               <div className="absolute inset-0 bg-gradient-to-t from-teal-ink/40 to-transparent" />
             </FadeUp>
           </div>
-        </section>
+        </Section>
       ))}
 
       {/* ── RECEIPTS: students are the catalyst ── */}
-      <section className="py-24 bg-teal text-white">
-        <div className="mx-auto max-w-wrap px-5">
-          <FadeUp>
-            <p className="text-gold font-display tracking-widest uppercase text-xs mb-3">
-              This year alone
-            </p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold max-w-2xl leading-tight">
-              Sikh youth are not waiting for change. They are the catalyst for it.
-            </h2>
-            <div className="mt-10 grid gap-4 md:grid-cols-2">
-              {receipts.map((r, i) => (
-                <FadeUp
-                  key={r.what}
-                  variant={i % 2 ? 'right' : 'left'}
-                  delay={(i % 2) * 80}
-                  className="rounded-2xl bg-white/5 border border-white/10 p-6 transition-colors hover:bg-white/10 hover:border-gold/30"
-                >
+      <Section tone="teal" size="feature">
+        <FadeUp>
+          <Eyebrow inverse className="mb-3">This year alone</Eyebrow>
+          <SectionHeading size="lg" inverse className="max-w-2xl leading-tight">
+            Sikh youth are not waiting for change. They are the catalyst for it.
+          </SectionHeading>
+          <div className="mt-10 grid gap-4 md:grid-cols-2">
+            {receipts.map((r, i) => (
+              <FadeUp key={r.what} variant={i % 2 ? 'right' : 'left'} delay={(i % 2) * 80}>
+                <Card tone="inverse" interactive className="h-full">
                   <p className="font-display font-semibold text-lg leading-snug">{r.what}</p>
                   <p className="mt-2 text-sm text-gold">{r.who}</p>
-                </FadeUp>
-              ))}
-            </div>
-            <p className="mt-8 text-white/70 max-w-xl">
-              From reflection rooms to resolutions, none of it came from the top
-              down. It came from students who showed up — with the movement
-              behind them. <Link href="/impact" className="text-gold underline underline-offset-4">See the full impact →</Link>
-            </p>
-          </FadeUp>
-        </div>
-      </section>
+                </Card>
+              </FadeUp>
+            ))}
+          </div>
+          <p className="mt-8 text-white/70 max-w-xl">
+            From reflection rooms to resolutions, none of it came from the top
+            down. It came from students who showed up — with the movement
+            behind them. <Link href="/impact" className="text-gold underline underline-offset-4">See the full impact →</Link>
+          </p>
+        </FadeUp>
+      </Section>
 
       {/* ── BEYOND CAMPUS: Khudrang Roots ── */}
-      <section className="py-24 bg-sand">
-        <div className="mx-auto max-w-wrap px-5 grid md:grid-cols-2 gap-12 items-center">
+      <Section tone="sand" size="feature">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
           <FadeUp variant="left">
-            <p className="text-gold-deep font-display tracking-widest uppercase text-xs mb-3 flex items-center gap-2">
-              <span className="inline-block w-2 h-2 rotate-45 bg-gold floaty" aria-hidden />
-              Khudrang Roots
-            </p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-teal">
+            <Eyebrow className="mb-3">Khudrang Roots</Eyebrow>
+            <SectionHeading size="lg">
               Where students grow, Punjab thrives.
-            </h2>
+            </SectionHeading>
             <p className="mt-5 text-lg text-teal-ink/80 leading-relaxed max-w-md">
               A student-led initiative sending diaspora youth to Punjab — to
               listen to village leaders, families, and educators first, then
@@ -251,32 +241,35 @@ export default async function Home() {
             />
           </FadeUp>
         </div>
-      </section>
+      </Section>
 
       {/* ── UPCOMING EVENTS ── */}
-      <section className="py-24 bg-mist">
-        <div className="mx-auto max-w-wrap px-5">
-          <FadeUp>
-            <h2 className="font-display text-4xl font-bold text-teal">Happening soon</h2>
+      <Section tone="mist" size="feature">
+        <FadeUp>
+          <SectionHeading>Happening soon</SectionHeading>
+          {events.length > 0 ? (
             <div className="mt-8 grid gap-5 md:grid-cols-3">
-              {events.length > 0 ? (
-                events.map((e, i) => (
-                  <FadeUp key={e.id} variant="rise" delay={i * 120}>
-                    <EventCard event={e} />
-                  </FadeUp>
-                ))
-              ) : (
-                <p className="text-teal-soft md:col-span-3">
-                  New events are added throughout the year.{' '}
-                  <Link href="/events" className="underline">See all events →</Link>
-                </p>
-              )}
+              {events.map((e, i) => (
+                <FadeUp key={e.id} variant="rise" delay={i * 120}>
+                  <EventCard event={e} />
+                </FadeUp>
+              ))}
             </div>
-          </FadeUp>
-        </div>
-      </section>
+          ) : (
+            <EmptyState
+              className="mt-8"
+              title="No events on the calendar right now"
+              body="New chapter and national events are added throughout the year — subscribe to the calendar so the next one lands in your phone automatically."
+              actionLabel="See all events →"
+              actionHref="/events"
+            />
+          )}
+        </FadeUp>
+      </Section>
 
-      {/* ── FINAL CTA ── */}
+      {/* ── FINAL CTA ──
+          Kept as a raw <section> rather than <Section>: the texture layer is
+          full-bleed, and Section's inner max-w-wrap container would clip it. */}
       <section className="py-24 bg-teal text-white text-center relative overflow-hidden">
         <div
           aria-hidden
@@ -287,7 +280,7 @@ export default async function Home() {
           }}
         />
         <FadeUp className="relative mx-auto max-w-2xl px-5">
-          <h2 className="font-display text-4xl md:text-5xl font-bold">Join the movement.</h2>
+          <SectionHeading size="lg" inverse>Join the movement.</SectionHeading>
           <p className="mt-4 text-white/75">
             Whether you're a student looking for sangat, an SSA seeking support,
             or a professional ready to give back — there is a place for you in
