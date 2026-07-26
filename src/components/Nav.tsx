@@ -22,8 +22,14 @@ export default function Nav() {
     // Floating pill nav (Maxima Therapy reference) rather than an edge-to-edge
     // bar: the header itself stays transparent with breathing room on all
     // sides, and the pill underneath carries the surface/shadow/border.
+    //
+    // Frosted-glass treatment: low-opacity sand + heavy blur so whatever sits
+    // behind (the homepage hero photo, or a flat page background elsewhere)
+    // shows through tinted rather than being hidden under a near-opaque pill.
+    // border-white/40 + shadow keep the pill's edge visible even against a
+    // busy photo where the fill alone wouldn't read as a distinct shape.
     <header className="sticky top-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4">
-      <nav className="mx-auto max-w-wrap flex items-center justify-between gap-4 rounded-full border border-teal/10 bg-sand/95 backdrop-blur shadow-[0_2px_16px_-4px_rgba(22,56,76,0.12)] px-5 py-3 sm:px-6">
+      <nav className="mx-auto max-w-wrap flex items-center justify-between gap-4 rounded-full border border-white/40 bg-sand/50 backdrop-blur-xl shadow-[0_4px_24px_-4px_rgba(22,56,76,0.18)] px-5 py-3 sm:px-6">
         <Link href="/" className="font-display text-lg sm:text-xl font-bold text-teal shrink-0">
           United Sikh Movement
         </Link>
