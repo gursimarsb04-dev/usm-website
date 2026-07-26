@@ -74,7 +74,7 @@ export default async function NewsPostPage({ params }: { params: { slug: string 
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={urlFor(post.coverImage).width(1200).url()}
-            alt=""
+            alt={post.title}
             className="mt-8 rounded-3xl w-full"
           />
         )}

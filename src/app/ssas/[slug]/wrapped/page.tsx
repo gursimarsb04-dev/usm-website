@@ -71,7 +71,7 @@ export default async function WrappedPage({ params }: { params: { slug: string }
           <FadeUp className="grid grid-cols-2 gap-3">
             {photos.slice(0, 6).map((url, i) => (
               // eslint-disable-next-line @next/next/no-img-element
-              <img key={i} src={url} alt="" className="aspect-square object-cover rounded-2xl" />
+              <img key={i} src={url} alt={`${s.name} — ${w.school_year} highlight ${i + 1}`} className="aspect-square object-cover rounded-2xl" />
             ))}
           </FadeUp>
         )}
