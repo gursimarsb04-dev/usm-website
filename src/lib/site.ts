@@ -28,7 +28,6 @@ export type Album = { title: string; cover: string; flickr: string; blurb?: stri
 export const GALLERY_ALBUMS: Album[] = [
   { title: 'Inter-SSA National Conference', cover: '/photos/prog-national-conference.jpg', flickr: 'https://www.flickr.com/photos/unitedsikhmovement/albums', blurb: 'Chapters from across the country, one sangat.' },
   { title: 'Camp Kudrat', cover: '/photos/prog-camp-kudrat.jpg', flickr: 'https://www.flickr.com/photos/unitedsikhmovement/albums', blurb: 'Reflect. Connect. Renew.' },
-  { title: 'Safal Summit', cover: '/photos/prog-safal-summit.jpg', flickr: 'https://www.flickr.com/photos/unitedsikhmovement/albums', blurb: 'Where ambition meets identity.' },
   { title: '13Hacks', cover: '/photos/prog-hackathon.jpg', flickr: 'https://www.flickr.com/photos/unitedsikhmovement/albums', blurb: 'The Sikh innovation sprint.' },
   { title: 'Leadership Retreat', cover: '/photos/pillar-network.jpg', flickr: 'https://www.flickr.com/photos/unitedsikhmovement/albums', blurb: 'Lead, organize, serve.' },
   { title: 'Sikhi Development', cover: '/photos/pillar-sikhi.jpg', flickr: 'https://www.flickr.com/photos/unitedsikhmovement/albums', blurb: 'Staying rooted while we grow.' },

@@ -16,15 +16,6 @@ export type CatalogEvent = {
 
 export const eventsCatalog: CatalogEvent[] = [
   {
-    slug: 'safal-summit-2026',
-    title: 'Safal Summit 2026',
-    date: 'Spring 2026 · New York City',
-    location: 'New York City (in partnership with SikhTeens)',
-    blurb: "USM's annual professional development summit — mentors across tech, finance, healthcare, and law, including Forbes 30 Under 30 honorees.",
-    priceCents: 4500,
-    currency: 'usd',
-  },
-  {
     slug: '13hacks-2026',
     title: '13Hacks 2026',
     date: 'January 2026',

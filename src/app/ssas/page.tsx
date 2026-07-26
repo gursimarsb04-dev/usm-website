@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { supabasePublic } from '@/lib/supabase-public';
 import { SSA_PUBLIC_COLUMNS } from '@/lib/ssa-columns';
 import { SSA_COLLECTIVE_FORM_URL } from '@/lib/site';
+import { ssaFallbacks } from '@/lib/ssa-fallback';
 import type { SSA } from '@/lib/types';
 
 export const revalidate = 300;
@@ -18,6 +19,9 @@ export default async function SSADirectory() {
     const { data } = await sb.from('ssas').select(SSA_PUBLIC_COLUMNS).neq('status', 'inactive').order('name');
     ssas = (data as unknown as SSA[]) ?? [];
   } catch {}
+  // No DB configured yet, or table is empty — fall back to the known roster
+  // so the map and directory show every chapter regardless.
+  if (ssas.length === 0) ssas = ssaFallbacks;
 
   const live = ssas.filter((s) => s.status === 'live');
 

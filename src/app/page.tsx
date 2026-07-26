@@ -22,7 +22,7 @@ const pillars = [
   {
     title: 'Professional Development',
     line: 'Learn from Sikhs who made it.',
-    body: '13Hacks, the Safal Summit, LSAT prep with 97th-percentile Sikh mentors, case competitions, and the Fateh Collective mentorship platform connecting you to Sikh professionals in every industry — because you shouldn’t have to choose between your career and your values.',
+    body: '13Hacks, LSAT prep with 97th-percentile Sikh mentors, case competitions, and the Fateh Collective mentorship platform connecting you to Sikh professionals in every industry — because you shouldn’t have to choose between your career and your values.',
     href: '/programs',
     img: '/photos/pillar-professional.jpg',
   },
@@ -267,8 +267,7 @@ export default async function Home() {
                 ))
               ) : (
                 <p className="text-teal-soft md:col-span-3">
-                  Safal Summit hits the World Trade Center June 19–21 — and the
-                  fall calendar is loading.{' '}
+                  New events are added throughout the year.{' '}
                   <Link href="/events" className="underline">See all events →</Link>
                 </p>
               )}

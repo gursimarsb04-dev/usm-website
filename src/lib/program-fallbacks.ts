@@ -51,19 +51,6 @@ export const programFallbacks: Program[] = [
 
   // ── Professional Development ──
   {
-    slug: 'safal-summit',
-    title: 'Safal Summit',
-    pillar: 'Professional Development',
-    tagline: 'Shaping the Sikh leaders of tomorrow.',
-    body: "USM's annual professional development summit. In 2025: 46 mentors across tech, finance, healthcare, and law — including 4 Forbes 30 Under 30 honorees. The 2026 Summit heads to NYC, in partnership with SikhTeens.",
-    image: '/photos/prog-safal-summit.jpg',
-    stats: [
-      { value: '46', label: 'Mentors in 2025' },
-      { value: '4', label: 'Forbes 30 Under 30 honorees' },
-      { value: '51%', label: 'Made 3–5 mentor connections' },
-    ],
-  },
-  {
     slug: 'hackathon',
     title: '13Hacks',
     pillar: 'Professional Development',
