@@ -12,10 +12,11 @@
 //   h3 card title    → text-xl
 //   eyebrow          → text-xs uppercase tracking-widest
 
-type Tone = 'sand' | 'mist' | 'white' | 'teal';
+type Tone = 'sand' | 'mist' | 'white' | 'teal' | 'gold';
 
 const TONES: Record<Tone, string> = {
   sand: 'bg-sand',
+  gold: 'bg-gold',
   mist: 'bg-mist',
   white: 'bg-white',
   teal: 'bg-teal text-white',

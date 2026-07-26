@@ -134,9 +134,12 @@ export default async function Home() {
       {/* ── CHAPTER MARQUEE: proof of scale you can feel ── */}
       <ChapterMarquee />
 
-      {/* ── PROOF: the numbers, counting up ── */}
-      <Section tone="sand">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
+      {/* ── PROOF: the numbers, counting up ──
+          Full-bleed gold band, oversized numerals — a confident claim rather
+          than a small data table. Mobbin ref: Employment Hero
+          https://mobbin.com/sites/sections/3ca84297-a513-46e4-a14a-d7170df4a1ff */}
+      <Section tone="gold">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12">
           {[
             { value: 40, label: 'SSAs in the network' },
             { value: 100, suffix: '+', label: 'Leaders trained annually' },
@@ -144,7 +147,7 @@ export default async function Home() {
             { value: 2500, suffix: '+', label: 'Students reached annually' },
           ].map((s, i) => (
             <FadeUp key={s.label} variant="scale" delay={i * 120}>
-              <StatCounter value={s.value} suffix={s.suffix} label={s.label} />
+              <StatCounter value={s.value} suffix={s.suffix} label={s.label} size="band" />
             </FadeUp>
           ))}
         </div>
