@@ -2,16 +2,26 @@ import { notFound } from 'next/navigation';
 import FadeUp from '@/components/FadeUp';
 import Phulkari from '@/components/Phulkari';
 import { supabasePublic } from '@/lib/supabase-public';
+import { ssaFallbacks } from '@/lib/ssa-fallback';
 
 export const revalidate = 300;
 
 export default async function ProgramsPage({ params }: { params: { slug: string } }) {
-  const { data: ssa } = await supabasePublic()
-    .from('ssas')
-    .select('id, name, slug, status, programs_content')
-    .eq('slug', params.slug)
-    .single();
-  if (!ssa || ssa.status !== 'live') notFound();
+  // Supabase first, then the static roster (same resolution as the chapter page).
+  let ssa: { name: string; programs_content?: string | null } | null = null;
+  try {
+    const { data } = await supabasePublic()
+      .from('ssas')
+      .select('id, name, slug, status, programs_content')
+      .eq('slug', params.slug)
+      .single();
+    if (data && data.status === 'live') ssa = data;
+  } catch {}
+  if (!ssa) {
+    const fb = ssaFallbacks.find((f) => f.slug === params.slug);
+    if (fb) ssa = { name: fb.name, programs_content: null };
+  }
+  if (!ssa) notFound();
 
   return (
     <>

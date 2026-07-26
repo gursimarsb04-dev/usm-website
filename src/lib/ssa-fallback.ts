@@ -40,29 +40,29 @@ function ssa(
 
 export const ssaFallbacks: SSA[] = [
   // ── Northern California ──
-  ssa('fresno-gurbani-club', 'Fresno Gurbani Club', 'CSU Fresno', 'Fresno', 'CA', 36.7378, -119.7871, 'fresnostate_gurbani_club'),
-  ssa('fresno-state-ssa', 'Fresno State SSA', 'CSU Fresno', 'Fresno', 'CA', 36.7378, -119.7871, 'fresnostate_ssa'),
-  ssa('sac-state', 'SSA Sac State', 'CSU Sacramento', 'Sacramento', 'CA', 38.5816, -121.4944, 'ssasacstate'),
-  ssa('stan-state', 'SSA Stan State', 'CSU Stanislaus', 'Turlock', 'CA', 37.4947, -120.8466, 'stanstatessa'),
-  ssa('uc-davis', 'UCD SSA', 'UC Davis', 'Davis', 'CA', 38.5449, -121.7405, 'ssaucd'),
-  ssa('uc-merced', 'SSA UCM', 'UC Merced', 'Merced', 'CA', 37.3022, -120.4830, 'ssaucm'),
+  ssa('fresno-gurbani', 'Fresno Gurbani Club', 'CSU Fresno', 'Fresno', 'CA', 36.7378, -119.7871, 'fresnostate_gurbani_club'),
+  ssa('fresno-state', 'Fresno State SSA', 'CSU Fresno', 'Fresno', 'CA', 36.7378, -119.7871, 'fresnostate_ssa'),
+  ssa('sacstate', 'SSA Sac State', 'CSU Sacramento', 'Sacramento', 'CA', 38.5816, -121.4944, 'ssasacstate'),
+  ssa('stanstate', 'SSA Stan State', 'CSU Stanislaus', 'Turlock', 'CA', 37.4947, -120.8466, 'stanstatessa'),
+  ssa('ucdavis', 'UCD SSA', 'UC Davis', 'Davis', 'CA', 38.5449, -121.7405, 'ssaucd'),
+  ssa('ucmerced', 'SSA UCM', 'UC Merced', 'Merced', 'CA', 37.3022, -120.4830, 'ssaucm'),
   ssa('uop', 'UOP SSA', 'University of the Pacific', 'Stockton', 'CA', 37.9577, -121.2908, 'ssa_uop'),
 
   // ── Bay Area ──
-  ssa('csu-east-bay', 'SSAEB', 'CSU East Bay', 'Hayward', 'CA', 37.6688, -122.0808, 'ssa.eastbay'),
+  ssa('csueastbay', 'SSAEB', 'CSU East Bay', 'Hayward', 'CA', 37.6688, -122.0808, 'ssa.eastbay'),
   ssa('ohlone', 'SSA Ohlone', 'Ohlone College', 'Fremont', 'CA', 37.5485, -121.9886, 'ssaohlone'),
   ssa('stanford', 'Stanford University SSA', 'Stanford University', 'Stanford', 'CA', 37.4275, -122.1697, 'stanfordsikhs'),
   ssa('sfsu', 'SFSU SSA', 'San Francisco State University', 'San Francisco', 'CA', 37.7749, -122.4194, 'sfsu_ssa'),
   ssa('sjsu', 'SJSU SSA', 'San Jose State University', 'San Jose', 'CA', 37.3382, -121.8863, 'ssasjsu'),
-  ssa('santa-clara', 'Sikhs of Santa Clara', 'Santa Clara University', 'Santa Clara', 'CA', 37.3541, -121.9552, 'scusikhs'),
+  ssa('santaclara', 'Sikhs of Santa Clara', 'Santa Clara University', 'Santa Clara', 'CA', 37.3541, -121.9552, 'scusikhs'),
   ssa('berkeley', 'UCBSSA', 'UC Berkeley', 'Berkeley', 'CA', 37.8715, -122.2730, 'ucbssa'),
-  ssa('uc-santa-cruz', 'SSA UC Santa Cruz', 'UC Santa Cruz', 'Santa Cruz', 'CA', 36.9741, -122.0308, 'ucsc_ssa'),
-  ssa('usfca', 'SSA USFCA', 'University of San Francisco', 'San Francisco', 'CA', 37.7749, -122.4380, 'ssa.usfca'),
+  ssa('ucsc', 'SSA UC Santa Cruz', 'UC Santa Cruz', 'Santa Cruz', 'CA', 36.9741, -122.0308, 'ucsc_ssa'),
+  ssa('usf', 'SSA USFCA', 'University of San Francisco', 'San Francisco', 'CA', 37.7749, -122.4380, 'ssa.usfca'),
 
   // ── Southern California ──
-  ssa('cal-poly-pomona', 'CPP Sikh Student Association', 'Cal Poly Pomona', 'Pomona', 'CA', 34.0551, -117.7500, 'cppssa'),
-  ssa('cal-poly-slo', 'Cal Poly SSA', 'Cal Poly SLO', 'San Luis Obispo', 'CA', 35.2828, -120.6596, 'calpolyssa'),
-  ssa('csuf', 'SSA CSUF', 'CSU Fullerton', 'Fullerton', 'CA', 33.8704, -117.9243, 'csufssa'),
+  ssa('calpolypomona', 'CPP Sikh Student Association', 'Cal Poly Pomona', 'Pomona', 'CA', 34.0551, -117.7500, 'cppssa'),
+  ssa('calpolyslo', 'Cal Poly SSA', 'Cal Poly SLO', 'San Luis Obispo', 'CA', 35.2828, -120.6596, 'calpolyssa'),
+  ssa('csufullerton', 'SSA CSUF', 'CSU Fullerton', 'Fullerton', 'CA', 33.8704, -117.9243, 'csufssa'),
   ssa('csulb', 'CSULB SSA', 'CSU Long Beach', 'Long Beach', 'CA', 33.7701, -118.1937, 'ssa_csulb'),
   ssa('csun', 'CSUN SSA', 'CSU Northridge', 'Los Angeles', 'CA', 34.2381, -118.5301, 'csun_ssa'),
   ssa('csusb', 'CSUSB SSA', 'CSU San Bernardino', 'San Bernardino', 'CA', 34.1083, -117.2898, 'csusbssa'),

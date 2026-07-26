@@ -6,12 +6,19 @@
 export type CatalogEvent = {
   slug: string;
   title: string;
-  date: string;        // human-readable
+  date: string;        // human-readable, for display ("Fall 2026")
   location: string;
   blurb: string;
   priceCents: number;  // 0 = free RSVP
   currency: string;    // 'usd'
   soldOut?: boolean;
+  // Machine-readable dates for the calendar feed (/api/calendar.ics).
+  // Only set these once the real date is known — an event without `startsAt`
+  // is simply omitted from the feed. Do NOT try to derive these from `date`:
+  // "Fall 2026" parses to Jan 1 and "August 21–23, 2026" doesn't parse at all,
+  // so guessing produces either wrong entries or silently dropped ones.
+  startsAt?: string;   // ISO 8601, e.g. '2026-08-21T17:00:00Z'
+  endsAt?: string;     // ISO 8601
 };
 
 export const eventsCatalog: CatalogEvent[] = [
@@ -41,6 +48,10 @@ export const eventsCatalog: CatalogEvent[] = [
     blurb: 'A leadership getaway for SSA board members across the region — workshops, sangat, and recharging together at Valhalla River Haven. Space limited to 30.',
     priceCents: 7000,
     currency: 'usd',
+    // Arrival Fri Aug 21, departure Sun Aug 23 (times are placeholders —
+    // adjust once the schedule is set).
+    startsAt: '2026-08-21T21:00:00Z',
+    endsAt: '2026-08-23T19:00:00Z',
   },
 ];
 

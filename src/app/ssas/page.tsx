@@ -43,22 +43,20 @@ export default async function SSADirectory() {
       <FadeUp className="mt-14">
         <h2 className="font-display text-2xl font-semibold text-teal mb-5">All chapters</h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {ssas.map((s) =>
-            s.status === 'live' ? (
-              <Link key={s.id} href={`/ssas/${s.slug}`}
-                className="rounded-xl bg-white border border-teal/10 p-4 hover:border-gold transition-colors">
-                <div className="font-display font-semibold text-teal-ink">{s.name}</div>
-                <div className="text-sm text-teal-soft">{s.school}</div>
-              </Link>
-            ) : (
-              <div key={s.id} className="rounded-xl bg-mist/60 p-4">
-                <div className="font-display font-semibold text-teal-ink/60">{s.name}</div>
-                <div className="text-xs text-teal-soft">
-                  On the network · <Link href="/portal/login" className="underline">claim your page</Link>
+          {/* Every chapter links to its page; unclaimed ones just note that
+              their board can still claim and fill it in. */}
+          {ssas.map((s) => (
+            <Link key={s.id} href={`/ssas/${s.slug}`}
+              className="rounded-xl bg-white border border-teal/10 p-4 hover:border-gold transition-colors">
+              <div className="font-display font-semibold text-teal-ink">{s.name}</div>
+              <div className="text-sm text-teal-soft">{s.school}</div>
+              {s.status !== 'live' && (
+                <div className="text-[11px] uppercase tracking-widest text-gold-deep mt-1">
+                  Unclaimed
                 </div>
-              </div>
-            )
-          )}
+              )}
+            </Link>
+          ))}
           {ssas.length === 0 && (
             <p className="text-teal-soft sm:col-span-3">
               Chapter data loads from Supabase — run the seed script (README step 5).

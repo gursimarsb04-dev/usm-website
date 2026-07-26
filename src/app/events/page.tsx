@@ -4,6 +4,7 @@ import FadeUp from '@/components/FadeUp';
 import EventCard from '@/components/EventCard';
 import { supabasePublic } from '@/lib/supabase-public';
 import { eventsCatalog, formatPrice } from '@/lib/events-catalog';
+import CalendarSubscribeButton from '@/components/CalendarSubscribeButton';
 
 export const revalidate = 300;
 export const metadata = { title: 'Events' };
@@ -27,6 +28,11 @@ export default async function Events() {
         <p className="mt-3 text-lg text-teal-ink/75">
           Everything happening across the movement — national events and every chapter's.
         </p>
+        {/* webcal:// so one tap subscribes in the OS calendar app; the .ics
+            fallback link covers desktop browsers that don't register webcal. */}
+        <div className="mt-5 flex flex-wrap items-center gap-3">
+          <CalendarSubscribeButton />
+        </div>
       </FadeUp>
 
       {/* Register-now events (server catalog with ticketing) */}
