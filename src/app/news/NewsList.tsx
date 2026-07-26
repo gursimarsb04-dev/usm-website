@@ -2,7 +2,10 @@
 // Client half of /news: owns the category filter, renders the card grid.
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import FilterPills from '@/components/FilterPills';
+import Card from '@/components/Card';
+import EmptyState from '@/components/EmptyState';
 import { NEWS_CATEGORIES } from '@/lib/news-fallbacks';
 
 export default function NewsList({ posts }: { posts: any[] }) {
@@ -27,13 +30,20 @@ export default function NewsList({ posts }: { posts: any[] }) {
 
       <div className="mt-8 grid gap-6 md:grid-cols-3">
         {shown.map((p) => (
-          <article
-            key={p.slug}
-            className="rounded-3xl bg-white border border-teal/10 overflow-hidden hover:border-gold transition-colors"
-          >
+          <Card key={p.slug} interactive padded={false} className="flex flex-col">
             {p.coverImageUrl && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={p.coverImageUrl} alt="" className="w-full aspect-[16/9] object-cover" />
+              // `fill` + `sizes` so Next serves a correctly-sized, lazy-loaded
+              // image per breakpoint. alt="" is deliberate: the post title sits
+              // directly below, so describing the image repeats it.
+              <div className="relative w-full aspect-[16/9]">
+                <Image
+                  src={p.coverImageUrl}
+                  alt=""
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover"
+                />
+              </div>
             )}
             <div className="p-6">
               {p.category && (
@@ -58,12 +68,18 @@ export default function NewsList({ posts }: { posts: any[] }) {
                   })}
               </p>
             </div>
-          </article>
+          </Card>
         ))}
       </div>
 
       {shown.length === 0 && (
-        <p className="mt-8 text-teal-soft">No posts in this category yet.</p>
+        <EmptyState
+          className="mt-8"
+          title="No posts in this category yet"
+          body="Stories from across the movement — chapter wins, student research, and guest speakers — land here as they're published."
+          actionLabel="Read all stories →"
+          actionHref="/news"
+        />
       )}
     </>
   );

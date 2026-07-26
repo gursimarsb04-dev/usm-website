@@ -2,7 +2,8 @@
 import SSAMap from '@/components/SSAMap';
 import FadeUp from '@/components/FadeUp';
 import Button from '@/components/Button';
-import Link from 'next/link';
+import Card from '@/components/Card';
+import { PageHeader, SectionHeading } from '@/components/Section';
 import { supabasePublic } from '@/lib/supabase-public';
 import { SSA_PUBLIC_COLUMNS } from '@/lib/ssa-columns';
 import { SSA_COLLECTIVE_FORM_URL } from '@/lib/site';
@@ -23,16 +24,13 @@ export default async function SSADirectory() {
   // so the map and directory show every chapter regardless.
   if (ssas.length === 0) ssas = ssaFallbacks;
 
-  const live = ssas.filter((s) => s.status === 'live');
-
   return (
     <div className="mx-auto max-w-wrap px-5 py-16">
       <FadeUp>
-        <h1 className="font-display text-5xl font-bold text-teal">Find your SSA</h1>
-        <p className="mt-3 text-lg text-teal-ink/75 max-w-xl">
-          {ssas.length} active Sikh Student Association chapters across the nation.
-          Gold pins are chapters with live pages — tap yours.
-        </p>
+        <PageHeader
+          title="Find your SSA"
+          intro={`${ssas.length} active Sikh Student Association chapters across the nation. Gold pins are chapters with live pages — tap yours.`}
+        />
       </FadeUp>
 
       <FadeUp className="mt-10">
@@ -41,13 +39,12 @@ export default async function SSADirectory() {
 
       {/* List view for accessibility + SEO */}
       <FadeUp className="mt-14">
-        <h2 className="font-display text-2xl font-semibold text-teal mb-5">All chapters</h2>
+        <SectionHeading className="mb-5">All chapters</SectionHeading>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {/* Every chapter links to its page; unclaimed ones just note that
               their board can still claim and fill it in. */}
           {ssas.map((s) => (
-            <Link key={s.id} href={`/ssas/${s.slug}`}
-              className="rounded-xl bg-white border border-teal/10 p-4 hover:border-gold transition-colors">
+            <Card key={s.id} href={`/ssas/${s.slug}`} className="p-4" padded={false}>
               <div className="font-display font-semibold text-teal-ink">{s.name}</div>
               <div className="text-sm text-teal-soft">{s.school}</div>
               {s.status !== 'live' && (
@@ -55,13 +52,8 @@ export default async function SSADirectory() {
                   Unclaimed
                 </div>
               )}
-            </Link>
+            </Card>
           ))}
-          {ssas.length === 0 && (
-            <p className="text-teal-soft sm:col-span-3">
-              Chapter data loads from Supabase — run the seed script (README step 5).
-            </p>
-          )}
         </div>
       </FadeUp>
 

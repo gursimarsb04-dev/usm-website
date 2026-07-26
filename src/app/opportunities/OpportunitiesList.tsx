@@ -4,6 +4,8 @@
 // server (Sanity first, static fallback second).
 import { useMemo, useState } from 'react';
 import FilterPills from '@/components/FilterPills';
+import Card from '@/components/Card';
+import EmptyState from '@/components/EmptyState';
 import { OPPORTUNITY_TYPES, type Opportunity } from '@/lib/opportunity-fallbacks';
 
 export default function OpportunitiesList({ items }: { items: Opportunity[] }) {
@@ -28,12 +30,12 @@ export default function OpportunitiesList({ items }: { items: Opportunity[] }) {
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         {shown.map((o, i) => (
-          <a
+          <Card
             key={`${o.title}-${i}`}
             href={o.url || '#'}
             target="_blank"
             rel="noreferrer"
-            className="group flex flex-col rounded-2xl bg-white border border-teal/10 p-5 hover:border-gold transition-colors"
+            className="flex flex-col h-full"
           >
             <div className="flex items-start justify-between gap-3">
               <span className="text-[10px] uppercase tracking-widest text-gold-deep font-semibold">
@@ -60,14 +62,18 @@ export default function OpportunitiesList({ items }: { items: Opportunity[] }) {
             {o.blurb && (
               <p className="text-sm text-teal-ink/70 mt-2 flex-1">{o.blurb}</p>
             )}
-          </a>
+          </Card>
         ))}
       </div>
 
       {shown.length === 0 && (
-        <p className="mt-8 text-teal-soft">
-          No {type?.toLowerCase()} listings right now — check back soon.
-        </p>
+        <EmptyState
+          className="mt-8"
+          title={`No ${type?.toLowerCase() ?? ''} listings right now`}
+          body="New internships, scholarships, and roles are posted as the USM team finds them worth your time."
+          actionLabel="Browse all opportunities →"
+          actionHref="/opportunities"
+        />
       )}
     </>
   );

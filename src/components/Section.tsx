@@ -61,6 +61,31 @@ export function Eyebrow({
   );
 }
 
+/**
+ * Standard page title + intro. Repeated near-identically on ~10 pages before
+ * this (`text-5xl` flat, which is oversized on small phones) — `text-4xl
+ * md:text-5xl` keeps the impact on desktop without overflowing mobile.
+ */
+export function PageHeader({
+  title,
+  intro,
+  className = '',
+  children,
+}: {
+  title: string;
+  intro?: React.ReactNode;
+  className?: string;
+  children?: React.ReactNode;
+}) {
+  return (
+    <div className={className}>
+      <h1 className="font-display text-4xl md:text-5xl font-bold text-teal">{title}</h1>
+      {intro && <p className="mt-3 text-lg text-teal-ink/75 max-w-xl leading-relaxed">{intro}</p>}
+      {children}
+    </div>
+  );
+}
+
 export function SectionHeading({
   children,
   size = 'default',
