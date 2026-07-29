@@ -85,7 +85,7 @@ export default function WrappedForm() {
           <div className="flex gap-2 flex-wrap">
             {photos.map((u, i) => (
               // eslint-disable-next-line @next/next/no-img-element
-              <img key={i} src={u} alt="" className="w-16 h-16 object-cover rounded-lg" />
+              <img key={i} src={u} alt={`Uploaded photo ${i + 1} preview`} className="w-16 h-16 object-cover rounded-lg" />
             ))}
           </div>
         )}

@@ -2,6 +2,14 @@
 // matching the setup already used by the portal email-blast route. When
 // MAILCHIMP_API_KEY is not configured it logs instead of sending, so local dev
 // and un-provisioned deploys don't error.
+//
+// TODO(usm): newsletter audience sync hooks in here. Note this file uses the
+// *Transactional* (Mandrill) API — one-off sends. Adding subscribers to a
+// segmented Mailchimp audience is a different product and API surface
+// (Marketing API: POST /lists/{list_id}/members, with `tags` for the
+// student vs. alumni_donor split), and needs its own MAILCHIMP_MARKETING_API_KEY
+// + MAILCHIMP_AUDIENCE_ID. Until those exist, /api/newsletter stores signups in
+// Supabase and the admin dashboard exports a per-segment CSV for manual import.
 type SendArgs = { to: string; subject: string; html: string; replyTo?: string };
 
 export async function sendEmail({ to, subject, html, replyTo }: SendArgs): Promise<{ ok: boolean; skipped?: boolean; error?: string }> {

@@ -1,17 +1,17 @@
 // Single source of truth for org-wide contact details, socials, and the gallery
 // album list. Update the placeholders here and every page picks it up.
 
-// TODO(usm): PLACEHOLDER — swap for the real USM inbox when it's decided. Used on
-// the Contact page (shown publicly) and as the recipient for new "Start an SSA"
-// application notifications. Can be overridden per-environment with CONTACT_EMAIL.
-export const CONTACT_EMAIL = process.env.CONTACT_EMAIL ?? 'abhijyotschadha@gmail.com';
+// Used on the Contact page (shown publicly) and as the recipient for new "Start
+// an SSA" application notifications. Can be overridden per-environment with CONTACT_EMAIL.
+export const CONTACT_EMAIL = process.env.CONTACT_EMAIL ?? 'contact@unitedsikhmovement.org';
 
 // 501(c)(3) tax ID — from the legacy unitedsikhmovement.org footer.
 export const EIN = '81-5233460';
 
-// External Google Forms — used everywhere a "Join an SSA" / "Start an SSA" CTA appears.
+// Per-chapter "Join SSA" CTA (SSAMap pins) — joining one specific existing chapter.
 export const JOIN_SSA_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSf-RLofmj5BBcJa7At8q_uvxLuIB2wUadHY5Zbdm1dtvaZOZA/viewform?usp=publish-editor';
-export const START_SSA_FORM_URL = 'https://forms.gle/wHkPjPA8JVDuFSXE8';
+// SSA Collective's own signup form — used by the site-wide "Join the Network" CTA.
+export const SSA_COLLECTIVE_FORM_URL = 'https://forms.gle/wHkPjPA8JVDuFSXE8';
 
 export const SOCIALS = [
   { name: 'Instagram', href: 'https://www.instagram.com/unitedsikhmovement/' },
@@ -28,7 +28,6 @@ export type Album = { title: string; cover: string; flickr: string; blurb?: stri
 export const GALLERY_ALBUMS: Album[] = [
   { title: 'Inter-SSA National Conference', cover: '/photos/prog-national-conference.jpg', flickr: 'https://www.flickr.com/photos/unitedsikhmovement/albums', blurb: 'Chapters from across the country, one sangat.' },
   { title: 'Camp Kudrat', cover: '/photos/prog-camp-kudrat.jpg', flickr: 'https://www.flickr.com/photos/unitedsikhmovement/albums', blurb: 'Reflect. Connect. Renew.' },
-  { title: 'Safal Summit', cover: '/photos/prog-safal-summit.jpg', flickr: 'https://www.flickr.com/photos/unitedsikhmovement/albums', blurb: 'Where ambition meets identity.' },
   { title: '13Hacks', cover: '/photos/prog-hackathon.jpg', flickr: 'https://www.flickr.com/photos/unitedsikhmovement/albums', blurb: 'The Sikh innovation sprint.' },
   { title: 'Leadership Retreat', cover: '/photos/pillar-network.jpg', flickr: 'https://www.flickr.com/photos/unitedsikhmovement/albums', blurb: 'Lead, organize, serve.' },
   { title: 'Sikhi Development', cover: '/photos/pillar-sikhi.jpg', flickr: 'https://www.flickr.com/photos/unitedsikhmovement/albums', blurb: 'Staying rooted while we grow.' },

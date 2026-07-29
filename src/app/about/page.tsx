@@ -2,6 +2,7 @@ import FadeUp from '@/components/FadeUp';
 import Phulkari from '@/components/Phulkari';
 import Button from '@/components/Button';
 import { supabasePublic } from '@/lib/supabase-public';
+import { ssaFallbacks } from '@/lib/ssa-fallback';
 
 export const metadata = { title: 'About' };
 export const revalidate = 300;
@@ -14,7 +15,7 @@ const fourS = [
 ];
 
 export default async function About() {
-  let ssaCount = 85; // fallback if the count query fails
+  let ssaCount = ssaFallbacks.length; // fallback if the count query fails
   try {
     const { count } = await supabasePublic()
       .from('ssas')

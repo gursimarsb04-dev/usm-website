@@ -2,8 +2,12 @@
 import Link from 'next/link';
 import FadeUp from '@/components/FadeUp';
 import EventCard from '@/components/EventCard';
+import Card from '@/components/Card';
+import EmptyState from '@/components/EmptyState';
+import { PageHeader, SectionHeading } from '@/components/Section';
 import { supabasePublic } from '@/lib/supabase-public';
-import { eventsCatalog, formatPrice } from '@/lib/events-catalog';
+import { activeEvents, archivedEvents, formatPrice, registerHref } from '@/lib/events-catalog';
+import CalendarSubscribeButton from '@/components/CalendarSubscribeButton';
 
 export const revalidate = 300;
 export const metadata = { title: 'Events' };
@@ -23,19 +27,25 @@ export default async function Events() {
   return (
     <div className="mx-auto max-w-wrap px-5 py-16">
       <FadeUp>
-        <h1 className="font-display text-5xl font-bold text-teal">Events</h1>
-        <p className="mt-3 text-lg text-teal-ink/75">
-          Everything happening across the movement — national events and every chapter's.
-        </p>
+        <PageHeader
+          title="Events"
+          intro="Everything happening across the movement — national events and every chapter's."
+        >
+          {/* webcal:// so one tap subscribes in the OS calendar app; the .ics
+              fallback link covers desktop browsers that don't register webcal. */}
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <CalendarSubscribeButton />
+          </div>
+        </PageHeader>
       </FadeUp>
 
       {/* Register-now events (server catalog with ticketing) */}
-      {eventsCatalog.length > 0 && (
+      {activeEvents.length > 0 && (
         <FadeUp className="mt-10">
-          <h2 className="font-display text-2xl font-bold text-teal mb-5">Open for registration</h2>
+          <SectionHeading className="mb-5">Open for registration</SectionHeading>
           <div className="grid gap-5 md:grid-cols-2">
-            {eventsCatalog.map((e) => (
-              <div key={e.slug} className="rounded-3xl bg-white border border-teal/10 p-6 flex flex-col">
+            {activeEvents.map((e) => (
+              <Card key={e.slug} className="flex flex-col">
                 <div className="flex items-center justify-between gap-3">
                   <span className="text-xs uppercase tracking-widest text-gold-deep font-semibold">USM National</span>
                   <span className="rounded-full bg-mist px-3 py-1 text-xs font-semibold text-teal">
@@ -46,24 +56,31 @@ export default async function Events() {
                 <p className="text-sm text-teal-soft mt-0.5">{e.date}</p>
                 <p className="text-sm text-teal-ink/75 mt-2 flex-1">{e.blurb}</p>
                 <Link
-                  href={`/events/${e.slug}/register`}
+                  href={registerHref(e)}
                   className="mt-4 inline-block rounded-full bg-teal text-white text-center py-2.5 font-display font-semibold text-sm hover:bg-teal-ink transition-colors"
                 >
                   {e.priceCents > 0 ? 'Register' : 'RSVP — free'}
                 </Link>
-              </div>
+              </Card>
             ))}
           </div>
         </FadeUp>
       )}
 
       <FadeUp className="mt-12">
-        <h2 className="font-display text-2xl font-bold text-teal mb-5">Across the network</h2>
-        <div className="grid gap-5 md:grid-cols-2">
-          {upcoming.length > 0
-            ? upcoming.map((e) => <EventCard key={e.id} event={e} ssaName={e.ssas?.name} />)
-            : <p className="text-teal-soft">More chapter events are added all year — check back soon.</p>}
-        </div>
+        <SectionHeading className="mb-5">Across the network</SectionHeading>
+        {upcoming.length > 0 ? (
+          <div className="grid gap-5 md:grid-cols-2">
+            {upcoming.map((e) => <EventCard key={e.id} event={e} ssaName={e.ssas?.name} />)}
+          </div>
+        ) : (
+          <EmptyState
+            title="No chapter events posted yet"
+            body="Chapters post their own events through the SSA portal — they'll show up here and in the calendar feed as soon as they do."
+            actionLabel="SSA leaders: post an event →"
+            actionHref="/portal/login"
+          />
+        )}
       </FadeUp>
 
       {past.length > 0 && (
@@ -80,6 +97,17 @@ export default async function Events() {
               </div>
             ))}
           </div>
+        </FadeUp>
+      )}
+
+      {archivedEvents.length > 0 && (
+        <FadeUp className="mt-16 text-center">
+          <Link
+            href="/events/archive"
+            className="font-semibold text-teal underline decoration-gold decoration-2 underline-offset-8 hover:text-gold-deep"
+          >
+            Browse past USM events →
+          </Link>
         </FadeUp>
       )}
     </div>

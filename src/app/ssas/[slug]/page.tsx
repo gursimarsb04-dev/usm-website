@@ -6,23 +6,41 @@ import EventCard from '@/components/EventCard';
 import Phulkari from '@/components/Phulkari';
 import { supabasePublic } from '@/lib/supabase-public';
 import { SSA_PUBLIC_COLUMNS } from '@/lib/ssa-columns';
+import { ssaFallbacks } from '@/lib/ssa-fallback';
 import type { SSA, USMEvent, Wrapped } from '@/lib/types';
 
 export const revalidate = 300;
 
 export default async function SSAPage({ params }: { params: { slug: string } }) {
-  const sb = supabasePublic();
-  const { data } = await sb.from('ssas').select(SSA_PUBLIC_COLUMNS).eq('slug', params.slug).single();
-  const ssa = data as unknown as SSA | null;
-  if (!ssa || ssa.status !== 'live') notFound();
+  // Supabase first; fall back to the static roster so every chapter has a real
+  // page even before the database is seeded/configured. Mirrors /ssas.
+  let ssa: SSA | null = null;
+  try {
+    const { data } = await supabasePublic()
+      .from('ssas')
+      .select(SSA_PUBLIC_COLUMNS)
+      .eq('slug', params.slug)
+      .single();
+    if (data && (data as unknown as SSA).status === 'live') ssa = data as unknown as SSA;
+  } catch {}
+  if (!ssa) ssa = ssaFallbacks.find((f) => f.slug === params.slug) ?? null;
+  if (!ssa) notFound();
   const s = ssa;
 
-  const [{ data: events }, { data: wrapped }, { data: photos }] = await Promise.all([
-    sb.from('events').select('*').eq('ssa_id', s.id).gte('starts_at', new Date().toISOString()).order('starts_at').limit(6),
-    sb.from('wrapped_submissions').select('*').eq('ssa_id', s.id).eq('published', true).order('school_year', { ascending: false }).limit(1),
-    sb.from('ssa_photos').select('*').eq('ssa_id', s.id).order('created_at', { ascending: false }).limit(8),
-  ]);
-  const w = (wrapped?.[0] as Wrapped) || null;
+  // Chapter-scoped content only exists for DB-backed chapters (fallback rows
+  // carry the slug as their id, so these queries would never match).
+  let events: USMEvent[] = [], photos: any[] = [], w: Wrapped | null = null;
+  try {
+    const sb = supabasePublic();
+    const [{ data: ev }, { data: wr }, { data: ph }] = await Promise.all([
+      sb.from('events').select('*').eq('ssa_id', s.id).gte('starts_at', new Date().toISOString()).order('starts_at').limit(6),
+      sb.from('wrapped_submissions').select('*').eq('ssa_id', s.id).eq('published', true).order('school_year', { ascending: false }).limit(1),
+      sb.from('ssa_photos').select('*').eq('ssa_id', s.id).order('created_at', { ascending: false }).limit(8),
+    ]);
+    events = (ev as USMEvent[]) ?? [];
+    photos = ph ?? [];
+    w = (wr?.[0] as Wrapped) ?? null;
+  } catch {}
 
   return (
     <>
@@ -60,12 +78,12 @@ export default async function SSAPage({ params }: { params: { slug: string } }) 
           <FadeUp>
             <h2 className="font-display text-2xl font-semibold text-teal mb-4">Upcoming events</h2>
             <div className="grid gap-4">
-              {(events as USMEvent[] | null)?.length
-                ? (events as USMEvent[]).map((e) => <EventCard key={e.id} event={e} ssaName={s.name} />)
+              {events.length
+                ? events.map((e) => <EventCard key={e.id} event={e} ssaName={s.name} />)
                 : <p className="text-teal-soft">Nothing scheduled yet — follow us for updates.</p>}
             </div>
           </FadeUp>
-          {photos && photos.length > 0 && (
+          {photos.length > 0 && (
             <FadeUp>
               <h2 className="font-display text-2xl font-semibold text-teal mb-4">Gallery</h2>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">

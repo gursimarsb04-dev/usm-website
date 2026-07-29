@@ -11,7 +11,7 @@ export async function GET() {
   if (!isAdmin()) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const { data } = await supabaseAdmin()
     .from('newsletter_subscribers')
-    .select('id, email, source, created_at')
+    .select('id, email, source, segment, phone, sms_consent, created_at')
     .order('created_at', { ascending: false });
   return NextResponse.json(data ?? []);
 }

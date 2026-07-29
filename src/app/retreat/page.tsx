@@ -1,9 +1,13 @@
 import Link from 'next/link';
 import FadeUp from '@/components/FadeUp';
 import { getCatalogEvent, formatPrice } from '@/lib/events-catalog';
-import RetreatRegistrationForm from './RetreatRegistrationForm';
+import { CONTACT_EMAIL } from '@/lib/site';
 
 const SLUG = 'east-coast-retreat-2026';
+
+// Registration + payment both happen inside this Google Form.
+const RETREAT_FORM_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLSdn_rPuv8aRjspyfa3FSOwoFy9srRlxms22zPTM6GGcs2RvoQ/viewform';
 
 export const metadata = { title: 'East Coast SSA Retreat' };
 
@@ -72,14 +76,43 @@ export default function RetreatPage({
       <FadeUp className="mt-14">
         <h2 className="font-display text-2xl font-bold text-teal">Register &amp; reserve your spot</h2>
         <p className="mt-2 text-teal-ink/75">
-          Fill out the form below — submitting takes you straight to payment ({price}) to lock in
-          your spot.
+          Registration and the {price} payment are both handled in the form below. Space is limited
+          to 30 — register by August 10, 2026.
         </p>
-        <div className="mt-5">
-          <RetreatRegistrationForm slug={event.slug} priceLabel={price} />
+
+        {/* Embedded Google Form handles both registration and payment.
+            NOTE: the embed requires attendees to be signed in to a Google
+            account. That barrier is why this was swapped for a native Stripe
+            form in 4a634e7 — restored at USM's request so payment stays in the
+            form. The prominent "open in a new tab" link below is the fallback
+            for anyone the embed blocks. */}
+        <div className="mt-5 overflow-hidden rounded-3xl border border-teal/10 bg-white">
+          <iframe
+            src={`${RETREAT_FORM_URL}?embedded=true`}
+            title="East Coast SSA Leadership Retreat registration form"
+            className="w-full"
+            height={1200}
+            loading="lazy"
+          >
+            Loading…
+          </iframe>
         </div>
-        <p className="mt-4 text-xs text-teal-soft text-center">
-          Payments are processed securely by Stripe. USM is a registered 501(c)(3).
+
+        <p className="mt-4 text-sm text-teal-ink/75 text-center">
+          Form not loading, or asking you to sign in?{' '}
+          <a
+            href={RETREAT_FORM_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="font-semibold text-teal underline decoration-gold decoration-2 underline-offset-4 hover:text-gold-deep"
+          >
+            Open the registration form in a new tab →
+          </a>
+        </p>
+        <p className="mt-3 text-xs text-teal-soft text-center">
+          Questions about registration or payment? Email{' '}
+          <a href={`mailto:${CONTACT_EMAIL}`} className="underline">{CONTACT_EMAIL}</a>. USM is a
+          registered 501(c)(3).
         </p>
       </FadeUp>
 

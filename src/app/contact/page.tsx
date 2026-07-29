@@ -3,12 +3,13 @@ import FadeUp from '@/components/FadeUp';
 import Phulkari from '@/components/Phulkari';
 import SocialLinks from '@/components/SocialLinks';
 import NewsletterSignup from '@/components/NewsletterSignup';
-import { CONTACT_EMAIL, EIN, START_SSA_FORM_URL } from '@/lib/site';
+import { CONTACT_EMAIL, EIN, SSA_COLLECTIVE_FORM_URL } from '@/lib/site';
 
 export const metadata = { title: 'Contact' };
 
 const routes = [
-  { who: 'Start a chapter', body: 'No SSA at your school? Apply and a coordinator reaches out within a week.', href: START_SSA_FORM_URL, cta: 'Apply to start an SSA', external: true },
+  { who: 'Start a chapter', body: 'No SSA at your school? Apply and a coordinator reaches out within a week.', href: '/start-an-ssa', cta: 'Apply to start an SSA' },
+  { who: 'Join the network', body: 'Already a board member or looking to get involved with SSA Collective? Sign up here.', href: SSA_COLLECTIVE_FORM_URL, cta: 'Join the network', external: true },
   { who: 'Find your SSA', body: 'Already have a chapter? Find it on the map and get connected.', href: '/ssas', cta: 'Find your SSA' },
   { who: 'Partner or sponsor', body: 'Organizations and gurdwaras supporting Sikh students — we’d love to work together.', href: `mailto:${CONTACT_EMAIL}?subject=Partnership%20with%20USM`, cta: 'Email the team' },
   { who: 'Become a mentor', body: 'Sikh professionals ready to give back to the next generation.', href: `mailto:${CONTACT_EMAIL}?subject=Becoming%20a%20USM%20Mentor`, cta: 'Email the team' },
