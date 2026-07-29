@@ -69,10 +69,10 @@ export default function OpportunitiesList({ items }: { items: Opportunity[] }) {
       {shown.length === 0 && (
         <EmptyState
           className="mt-8"
-          title={`No ${type?.toLowerCase() ?? ''} listings right now`}
-          body="New internships, scholarships, and roles are posted as the USM team finds them worth your time."
-          actionLabel="Browse all opportunities →"
-          actionHref="/opportunities"
+          title={type ? `No ${type.toLowerCase()} listings right now` : 'No listings posted yet'}
+          body="The USM team posts internships, scholarships, grants, and roles here as they find ones worth your time. Subscribe to the newsletter and you'll hear when the first batch lands."
+          actionLabel={type ? 'Browse all opportunities →' : 'Get notified →'}
+          actionHref={type ? '/opportunities' : '/contact'}
         />
       )}
     </>

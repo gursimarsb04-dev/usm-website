@@ -85,3 +85,17 @@ export const opportunityFallbacks: Opportunity[] = [
     blurb: 'Placeholder listing — replace with a real program listing.',
   },
 ];
+
+// ── Public visibility ────────────────────────────────────────────────────────
+// The entries above are structure placeholders, not real listings — every one
+// is "[Sample]"-prefixed and points at a dead URL. Showing them publicly makes
+// the page look fake, so they're filtered out of what the site renders.
+//
+// To bring listings back: replace the samples with real ones (drop the
+// "[Sample]" prefix and set a real `url`) — they'll appear automatically. Set
+// SHOW_SAMPLE_OPPORTUNITIES to true only for previewing the layout locally.
+const SHOW_SAMPLE_OPPORTUNITIES = false;
+
+export const visibleOpportunities: Opportunity[] = SHOW_SAMPLE_OPPORTUNITIES
+  ? opportunityFallbacks
+  : opportunityFallbacks.filter((o) => !o.title.startsWith('[Sample]'));

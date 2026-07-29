@@ -2,7 +2,7 @@
 // Sanity wins when configured; otherwise the static roster keeps the page real.
 import FadeUp from '@/components/FadeUp';
 import { getOpportunities } from '@/lib/sanity';
-import { opportunityFallbacks, type Opportunity } from '@/lib/opportunity-fallbacks';
+import { visibleOpportunities, type Opportunity } from '@/lib/opportunity-fallbacks';
 import OpportunitiesList from './OpportunitiesList';
 
 export const revalidate = 600;
@@ -17,7 +17,7 @@ export default async function Opportunities() {
   try {
     opps = (await getOpportunities()) ?? [];
   } catch {}
-  if (opps.length === 0) opps = opportunityFallbacks;
+  if (opps.length === 0) opps = visibleOpportunities;
 
   return (
     <div className="mx-auto max-w-wrap px-5 py-16">

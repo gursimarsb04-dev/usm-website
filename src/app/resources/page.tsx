@@ -5,7 +5,7 @@ import Card from '@/components/Card';
 import EmptyState from '@/components/EmptyState';
 import { PageHeader } from '@/components/Section';
 import { getResources } from '@/lib/sanity';
-import { resourceFallbacks } from '@/lib/resource-fallbacks';
+import { visibleResources } from '@/lib/resource-fallbacks';
 
 export const revalidate = 600;
 export const metadata = { title: 'Resources' };
@@ -13,7 +13,7 @@ export const metadata = { title: 'Resources' };
 export default async function Resources() {
   let resources: any[] = [];
   try { resources = await getResources(false); } catch {}
-  if (!resources || resources.length === 0) resources = resourceFallbacks.filter((r) => !r.gated);
+  if (!resources || resources.length === 0) resources = visibleResources.filter((r) => !r.gated);
   const categories = Array.from(new Set(resources.map((r) => r.category))).filter(Boolean);
 
   return (

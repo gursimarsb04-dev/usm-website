@@ -49,3 +49,14 @@ export const resourceFallbacks: Resource[] = [
     gated: false,
   },
 ];
+
+// ── Public visibility ────────────────────────────────────────────────────────
+// Same rule as opportunity-fallbacks: "[Sample]" entries are placeholder
+// structure, not real guides, so they're hidden from the public site. Replace
+// them with real resources (drop the prefix, set a real URL) and they show up
+// automatically. Flip the flag only to preview the layout locally.
+const SHOW_SAMPLE_RESOURCES = false;
+
+export const visibleResources: Resource[] = SHOW_SAMPLE_RESOURCES
+  ? resourceFallbacks
+  : resourceFallbacks.filter((r) => !r.title.startsWith('[Sample]'));
