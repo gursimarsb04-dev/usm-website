@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
 import FadeUp from '@/components/FadeUp';
 import { getCatalogEvent, formatPrice } from '@/lib/events-catalog';
@@ -15,6 +15,12 @@ export default function RegisterPage({
 }) {
   const event = getCatalogEvent(params.slug);
   if (!event) notFound();
+
+  // Events with a bespoke registration page (e.g. the retreat's Google Form,
+  // which collects payment) must not also be registerable through this generic
+  // form — that path doesn't take payment, so a paid event would silently
+  // register people for free. Send them to the real one.
+  if (event.registerPath) redirect(event.registerPath);
 
   const price = formatPrice(event.priceCents, event.currency);
 
