@@ -19,6 +19,12 @@ export const metadata = {
   title: 'Sikhi 101: What Is Sikhism?',
   description:
     'A plain-language introduction to Sikhi (Sikhism): what Sikhs believe, why Sikhs wear turbans, the Five Ks, the Khalsa, and how Sikhi differs from Islam.',
+  // Hidden until USM reviews the content. This is a concept draft, and it's
+  // religious content — indexing unreviewed material risks it ranking (and
+  // being cited) before anyone has checked it for accuracy. The page stays
+  // reachable by direct link so the team can review it; remove this block
+  // and add the nav link once it's approved.
+  robots: { index: false, follow: false },
 };
 
 // FAQPage structured data — these sections are already question-shaped, and FAQ
