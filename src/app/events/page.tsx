@@ -6,7 +6,7 @@ import Card from '@/components/Card';
 import EmptyState from '@/components/EmptyState';
 import { PageHeader, SectionHeading } from '@/components/Section';
 import { supabasePublic } from '@/lib/supabase-public';
-import { eventsCatalog, formatPrice } from '@/lib/events-catalog';
+import { activeEvents, archivedEvents, formatPrice, registerHref } from '@/lib/events-catalog';
 import CalendarSubscribeButton from '@/components/CalendarSubscribeButton';
 
 export const revalidate = 300;
@@ -40,11 +40,11 @@ export default async function Events() {
       </FadeUp>
 
       {/* Register-now events (server catalog with ticketing) */}
-      {eventsCatalog.length > 0 && (
+      {activeEvents.length > 0 && (
         <FadeUp className="mt-10">
           <SectionHeading className="mb-5">Open for registration</SectionHeading>
           <div className="grid gap-5 md:grid-cols-2">
-            {eventsCatalog.map((e) => (
+            {activeEvents.map((e) => (
               <Card key={e.slug} className="flex flex-col">
                 <div className="flex items-center justify-between gap-3">
                   <span className="text-xs uppercase tracking-widest text-gold-deep font-semibold">USM National</span>
@@ -56,7 +56,7 @@ export default async function Events() {
                 <p className="text-sm text-teal-soft mt-0.5">{e.date}</p>
                 <p className="text-sm text-teal-ink/75 mt-2 flex-1">{e.blurb}</p>
                 <Link
-                  href={`/events/${e.slug}/register`}
+                  href={registerHref(e)}
                   className="mt-4 inline-block rounded-full bg-teal text-white text-center py-2.5 font-display font-semibold text-sm hover:bg-teal-ink transition-colors"
                 >
                   {e.priceCents > 0 ? 'Register' : 'RSVP — free'}
@@ -97,6 +97,17 @@ export default async function Events() {
               </div>
             ))}
           </div>
+        </FadeUp>
+      )}
+
+      {archivedEvents.length > 0 && (
+        <FadeUp className="mt-16 text-center">
+          <Link
+            href="/events/archive"
+            className="font-semibold text-teal underline decoration-gold decoration-2 underline-offset-8 hover:text-gold-deep"
+          >
+            Browse past USM events →
+          </Link>
         </FadeUp>
       )}
     </div>
