@@ -1,8 +1,6 @@
 import FadeUp from '@/components/FadeUp';
 import Phulkari from '@/components/Phulkari';
 import Button from '@/components/Button';
-import { supabasePublic } from '@/lib/supabase-public';
-import { ssaFallbacks } from '@/lib/ssa-fallback';
 
 export const metadata = { title: 'About' };
 export const revalidate = 300;
@@ -14,15 +12,7 @@ const fourS = [
   { s: 'Academics', body: 'Excellence as a form of seva. Mentorship, LSAT prep, hackathons, and career mentorship — ambition rooted in identity.' },
 ];
 
-export default async function About() {
-  let ssaCount = ssaFallbacks.length; // fallback if the count query fails
-  try {
-    const { count } = await supabasePublic()
-      .from('ssas')
-      .select('id', { count: 'exact', head: true })
-      .neq('status', 'inactive');
-    if (count) ssaCount = count;
-  } catch {}
+export default function About() {
   return (
     <>
       <section className="bg-teal text-white py-24 relative overflow-hidden">
@@ -56,16 +46,9 @@ export default async function About() {
             So a handful of students decided the islands should be a network.
             What began as Southern California SSAs gathering for divaans and
             conferences became United Sikh Movement — today{' '}
-            <strong className="text-teal">40 active chapters, {ssaCount} SSAs in the
+            <strong className="text-teal">40 active chapters in the
             network</strong>, the largest Sikh student network in America and
             the second largest in the world.
-          </p>
-          <p className="mt-5">
-            This year alone, USM invested $13,000+ directly into Sikh students —
-            SSA chapter funds, leadership trainings, regional events, speaker
-            tours, awareness training for university administrators, and
-            programming to enrich Sikh life on campus. We are not just supporting
-            the system. We are shaping it.
           </p>
           <p className="mt-5">
             What started as a local network became an ecosystem. Today USM

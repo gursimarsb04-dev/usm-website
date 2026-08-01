@@ -14,6 +14,8 @@ export type Program = {
   stats?: ProgramStat[];
   testimonial?: string;
   hidden?: boolean;
+  formUrl?: string;
+  formLabel?: string;
 };
 
 export const programFallbacks: Program[] = [
@@ -47,20 +49,29 @@ export const programFallbacks: Program[] = [
     body: "In collaboration with Sikh Dharmsal, USM trained 6 youth facilitators to lead workshops on Guru Teg Bahadur Ji's Salok Mahala 9. The series is now expanding to SSAs across the West Coast.",
     image: '/photos/prog-salok-mahala-9.jpg',
     stats: [{ value: '6', label: 'Youth facilitators trained' }],
+    formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdr5lWWHYE-tkRGZxwjiLFxpFGdObIwPBPKJUUNY4ScPwYQVw/viewform',
+    formLabel: 'Apply for the summer cohort',
   },
 
   // ── Professional Development ──
+  {
+    slug: 'safal-summit',
+    title: 'Safal Summit',
+    pillar: 'Professional Development',
+    tagline: 'A flagship professional development summit in NYC.',
+    body: 'An annual flagship summit for professional development — hosted by USM and Sikhteens at the World Trade Center in NYC.',
+  },
   {
     slug: 'hackathon',
     title: '13Hacks',
     pillar: 'Professional Development',
     tagline: 'The first and largest Sikh-focused hackathon in America.',
-    body: 'January 2026: participants from 9 states, with mentors from Nvidia, Tesla, Rippling, Kaiser, Accenture, and GE Healthcare, plus 8 founders. 85.7% of participants gained a new skill — and 4 teams are now building startups.',
+    body: 'In January, 13Hacks became the first ever Sikh hosted hackathon. Bringing in 100+ attendees, across 9 states, and 30 mentors, it became a place for students and young professionals to grow their skills, innovate, and connect with mentors across tech industries. Keep an eye out for 13Hacks 2027.',
     image: '/photos/prog-hackathon.jpg',
     stats: [
+      { value: '100+', label: 'Attendees' },
       { value: '9', label: 'States represented' },
-      { value: '85.7%', label: 'Gained a new skill' },
-      { value: '4', label: 'Teams now building startups' },
+      { value: '30', label: 'Mentors' },
     ],
   },
   {
@@ -70,6 +81,8 @@ export const programFallbacks: Program[] = [
     tagline: 'Free prep with 97th-percentile Sikh mentors.',
     body: 'Free LSAT preparation led by Sikhs who scored in the 97th percentile and above. Launching May 2026 in partnership with the Sikh Legal Society. MCAT and DAT prep are coming next.',
     image: '/photos/prog-lsat-prep.jpg',
+    formUrl: 'https://forms.gle/NSWRwTXwppjZMbRi6',
+    formLabel: 'Sign up for LSAT prep',
   },
   {
     slug: 'fateh-collective',
@@ -94,12 +107,12 @@ export const programFallbacks: Program[] = [
     title: 'Inter-SSA Conferences',
     pillar: 'SSA Network',
     tagline: 'Every chapter, one room.',
-    body: "Three annual Inter-SSA Conferences — one national (California) and two regional (Midwest and East Coast). West Coast drew 100+ attendees and 11 expert speakers; the Midwest brought 80+ attendees from 5+ campuses, pioneering USM's first inter-SSA event in the region.",
+    body: "Three annual Inter-SSA Conferences — one national (California) and two regional (Midwest and East Coast). Together they drew 300+ attendees across the nation (110 West Coast, 110 East Coast, 80 Midwest) and 23 top speakers.",
     image: '/photos/prog-national-conference.jpg',
     stats: [
-      { value: '3', label: 'Annual conferences' },
-      { value: '100+', label: 'West Coast attendees' },
-      { value: '11', label: 'Expert speakers' },
+      { value: '300+', label: 'Attendees nationwide' },
+      { value: '110 / 110 / 80', label: 'West Coast / East Coast / Midwest' },
+      { value: '23', label: 'Top speakers' },
     ],
   },
   {
@@ -122,6 +135,7 @@ export const programFallbacks: Program[] = [
     tagline: 'A dedicated USM coordinator for every SSA.',
     body: 'Every SSA in the network has a dedicated USM coordinator for guidance, resources, programming support, and accountability — so no board is ever left to figure it out alone.',
     image: '/photos/prog-ssa-coordination.jpg',
+    hidden: true,
   },
   {
     slug: 'national-network',

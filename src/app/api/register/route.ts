@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getStripe } from '@/lib/stripe';
 import { getCatalogEvent, formatPrice } from '@/lib/events-catalog';
+import { CONTACT_EMAIL } from '@/lib/site';
 
 // POST /api/register
 // Body: { slug, name, email, phone?, quantity }
@@ -58,16 +59,26 @@ export async function POST(req: Request) {
     process.env.NEXT_PUBLIC_BASE_URL ||
     new URL(req.url).origin;
 
-  // Free event, or Stripe not configured → free RSVP path.
-  if (event.priceCents === 0 || !stripe) {
+  // Free event → free RSVP path.
+  if (event.priceCents === 0) {
     // Best-effort: a real deployment would persist this to the DB here.
     return NextResponse.json({
       free: true,
-      message:
-        event.priceCents === 0
-          ? `You're registered for ${event.title}. See you there!`
-          : `Registration received for ${event.title}. We'll follow up by email.`,
+      message: `You're registered for ${event.title}. See you there!`,
     });
+  }
+
+  // Paid ticket but Stripe isn't configured → do NOT silently register for free.
+  // Without this guard a paid ($70) ticket would fall through and let anyone
+  // reserve a paid spot for nothing. Surface a clear, actionable message instead.
+  // Goes live for real the moment STRIPE_SECRET_KEY is added — no code change.
+  if (!stripe) {
+    return NextResponse.json(
+      {
+        error: `Online registration for ${event.title} isn't available just yet. Please email ${CONTACT_EMAIL} to reserve your spot.`,
+      },
+      { status: 503 }
+    );
   }
 
   // Paid ticket → Stripe Checkout.

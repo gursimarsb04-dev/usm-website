@@ -44,6 +44,17 @@ export default async function ProgramPage({ params }: { params: { slug: string }
           )}
         </div>
 
+        {p.formUrl && (
+          <a
+            href={p.formUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 inline-flex items-center rounded-full bg-gold px-6 py-3 font-display font-semibold text-teal-ink transition hover:bg-gold-deep"
+          >
+            {p.formLabel || 'Apply now'}
+          </a>
+        )}
+
         {p.stats?.length > 0 && (
           <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-4">
             {p.stats.map((s: any) => (

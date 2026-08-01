@@ -25,7 +25,7 @@ const pillars = [
   {
     title: 'Professional Development',
     line: 'Learn from Sikhs who made it.',
-    body: '13Hacks, LSAT prep with 97th-percentile Sikh mentors, case competitions, and the Fateh Collective mentorship platform connecting you to Sikh professionals in every industry — because you shouldn’t have to choose between your career and your values.',
+    body: '13Hacks, LSAT prep with 97th-percentile Sikh mentors, speaker panels nationwide and more, connecting you to Sikh professionals and opportunities to build your skills across every industry.',
     href: '/programs',
     img: '/photos/pillar-professional.jpg',
   },
