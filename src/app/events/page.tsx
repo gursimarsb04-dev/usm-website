@@ -1,45 +1,44 @@
-// Unified calendar: USM national + every SSA's events, one feed.
+// Unified calendar: USM national + every SSA's events, one filterable feed.
 import Link from 'next/link';
 import FadeUp from '@/components/FadeUp';
-import EventCard from '@/components/EventCard';
 import Card from '@/components/Card';
-import EmptyState from '@/components/EmptyState';
 import { PageHeader, SectionHeading } from '@/components/Section';
-import { supabasePublic } from '@/lib/supabase-public';
 import { activeEvents, archivedEvents, formatPrice, registerHref } from '@/lib/events-catalog';
+import { getUpcomingCalendarEvents, chapterOptions, typeOptions } from '@/lib/calendar';
 import CalendarSubscribeButton from '@/components/CalendarSubscribeButton';
+import EventsExplorer from './EventsExplorer';
 
 export const revalidate = 300;
 export const metadata = { title: 'Events' };
 
 export default async function Events() {
-  let upcoming: any[] = [], past: any[] = [];
-  try {
-    const sb = supabasePublic();
-    const now = new Date().toISOString();
-    const [{ data: up }, { data: pa }] = await Promise.all([
-      sb.from('events').select('*, ssas(name)').gte('starts_at', now).order('starts_at').limit(50),
-      sb.from('events').select('*, ssas(name)').lt('starts_at', now).not('archive_summary', 'is', null).order('starts_at', { ascending: false }).limit(12),
-    ]);
-    upcoming = up ?? []; past = pa ?? [];
-  } catch {}
+  const events = await getUpcomingCalendarEvents();
+  const chapters = chapterOptions(events);
+  const types = typeOptions(events);
 
   return (
     <div className="mx-auto max-w-wrap px-5 py-16">
       <FadeUp>
         <PageHeader
           title="Events"
-          intro="Everything happening across the movement — national events and every chapter's."
+          intro="Everything happening across the movement — national events and every chapter's, in one place."
         >
           {/* webcal:// so one tap subscribes in the OS calendar app; the .ics
               fallback link covers desktop browsers that don't register webcal. */}
           <div className="mt-5 flex flex-wrap items-center gap-3">
             <CalendarSubscribeButton />
+            <Link
+              href="/events/submit"
+              className="rounded-full border border-teal/20 px-5 py-2.5 text-sm font-semibold text-teal hover:border-gold transition-colors"
+            >
+              Submit an event
+            </Link>
           </div>
         </PageHeader>
       </FadeUp>
 
-      {/* Register-now events (server catalog with ticketing) */}
+      {/* Register-now events (server catalog with ticketing) stay highlighted up
+          top — these are the paid USM national events with a firm date. */}
       {activeEvents.length > 0 && (
         <FadeUp className="mt-10">
           <SectionHeading className="mb-5">Open for registration</SectionHeading>
@@ -67,38 +66,11 @@ export default async function Events() {
         </FadeUp>
       )}
 
-      <FadeUp className="mt-12">
+      {/* The unified, filterable calendar — every chapter + national. */}
+      <FadeUp className="mt-14">
         <SectionHeading className="mb-5">Across the network</SectionHeading>
-        {upcoming.length > 0 ? (
-          <div className="grid gap-5 md:grid-cols-2">
-            {upcoming.map((e) => <EventCard key={e.id} event={e} ssaName={e.ssas?.name} />)}
-          </div>
-        ) : (
-          <EmptyState
-            title="No chapter events posted yet"
-            body="Chapters post their own events through the SSA portal — they'll show up here and in the calendar feed as soon as they do."
-            actionLabel="SSA leaders: post an event →"
-            actionHref="/portal/login"
-          />
-        )}
+        <EventsExplorer events={events} chapters={chapters} types={types} />
       </FadeUp>
-
-      {past.length > 0 && (
-        <FadeUp className="mt-20">
-          <h2 className="font-display text-3xl font-bold text-teal mb-6">From the archive</h2>
-          <div className="grid gap-4 md:grid-cols-3">
-            {past.map((e) => (
-              <div key={e.id} className="rounded-2xl bg-mist p-6">
-                <div className="text-xs uppercase tracking-widest text-teal-soft">
-                  {new Date(e.starts_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
-                </div>
-                <h3 className="font-display font-semibold text-teal-ink mt-1">{e.title}</h3>
-                <p className="text-sm text-teal-ink/70 mt-2">{e.archive_summary}</p>
-              </div>
-            ))}
-          </div>
-        </FadeUp>
-      )}
 
       {archivedEvents.length > 0 && (
         <FadeUp className="mt-16 text-center">

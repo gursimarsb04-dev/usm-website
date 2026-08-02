@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { EVENT_TYPES } from '@/lib/event-types';
 
 export default function PortalEvents() {
   const [ssaId, setSsaId] = useState<string | null>(null);
@@ -37,6 +38,7 @@ export default function PortalEvents() {
         description: f.get('description'),
         starts_at: new Date(f.get('starts_at') as string).toISOString(),
         location: f.get('location'),
+        type: f.get('type') || null,
         registration_url: f.get('registration_url') || null,
       }),
     });
@@ -60,6 +62,10 @@ export default function PortalEvents() {
         <input name="title" required placeholder="Event title" className={input} />
         <input name="starts_at" required type="datetime-local" className={input} />
         <input name="location" placeholder="Location" className={input} />
+        <select name="type" defaultValue="" className={input}>
+          <option value="" disabled>Event type…</option>
+          {EVENT_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+        </select>
         <input name="registration_url" type="url" placeholder="Registration link (optional)" className={input} />
         <textarea name="description" rows={2} placeholder="Short description" className={input} />
         <button disabled={state === 'saving'}
