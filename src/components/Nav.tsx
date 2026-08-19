@@ -1,6 +1,30 @@
 'use client';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+
+// Brand mark that is hidden by default and only appears once /logo.png (or .svg)
+// actually loads. Missing file → nothing shows (clean wordmark), never a broken
+// icon; drop the logo into /public and it appears with no code change. Default-
+// hidden + onLoad handles the 404-before-hydration case a bare onError misses.
+function BrandMark() {
+  const [ok, setOk] = useState(false);
+  const ref = useRef<HTMLImageElement>(null);
+  useEffect(() => {
+    const img = ref.current;
+    if (img && img.complete && img.naturalWidth > 0) setOk(true);
+  }, []);
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      ref={ref}
+      src="/logo.png"
+      alt=""
+      aria-hidden="true"
+      onLoad={() => setOk(true)}
+      className={`h-9 w-9 sm:h-10 sm:w-10 rounded-full object-contain ${ok ? '' : 'hidden'}`}
+    />
+  );
+}
 
 // Wayfinding links. Donate is deliberately NOT in here — it's the conversion
 // action and gets its own pill treatment so it reads as a button, not a page.
@@ -32,8 +56,11 @@ export default function Nav() {
     // dark accordingly — this is a dark pill now, not a light one.
     <header className="sticky top-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4">
       <nav className="mx-auto max-w-wrap flex items-center justify-between gap-4 rounded-full border border-white/10 bg-teal-ink/60 backdrop-blur-xl shadow-[0_4px_24px_-4px_rgba(22,56,76,0.35)] px-5 py-3 sm:px-6">
-        <Link href="/" className="font-display text-lg sm:text-xl font-bold text-white shrink-0">
-          United Sikh Movement
+        <Link href="/" className="flex items-center gap-2.5 shrink-0">
+          <BrandMark />
+          <span className="font-display text-lg sm:text-xl font-bold text-white">
+            United Sikh Movement
+          </span>
         </Link>
         <div className="hidden lg:flex items-center gap-5">
           {links.map((l) => (
