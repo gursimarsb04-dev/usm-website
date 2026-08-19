@@ -59,7 +59,7 @@ export default function Nav() {
     // visible light patch against them) and still reads clearly as a distinct
     // surface on light pages via the border + shadow. Text flips to light-on-
     // dark accordingly — this is a dark pill now, not a light one.
-    <header className="sticky top-0 z-50 bg-teal-ink px-3 pt-3 pb-3 sm:px-4 sm:pt-4">
+    <header className="sticky top-0 z-50 bg-teal px-3 pt-3 pb-3 sm:px-4 sm:pt-4">
       <nav className="mx-auto max-w-wrap flex items-center justify-between gap-4 rounded-full border border-white/15 bg-white/10 backdrop-blur-xl shadow-[0_4px_24px_-4px_rgba(0,0,0,0.35)] px-5 py-3 sm:px-6">
         <Link href="/" className="flex items-center gap-2.5 shrink-0">
           <BrandMark />
