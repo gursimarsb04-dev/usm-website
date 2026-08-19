@@ -2,10 +2,9 @@
 import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 
-// Brand mark. The logo IS the wordmark, so it stands alone (no repeated text).
-// It sits on a white chip because the logo's blue lettering needs contrast
-// against the dark teal pill. Falls back to a text wordmark if the image can't
-// load (the mount check catches a 404 that fires before hydration).
+// Brand mark — the logo sits transparent on the bar (no chip) next to the
+// wordmark text. Hides itself if the image can't load so the text stands alone
+// (the mount check catches a 404 that fires before hydration).
 function BrandMark() {
   const [failed, setFailed] = useState(false);
   const ref = useRef<HTMLImageElement>(null);
@@ -13,24 +12,17 @@ function BrandMark() {
     const img = ref.current;
     if (img && img.complete && img.naturalWidth === 0) setFailed(true);
   }, []);
-  if (failed) {
-    return (
-      <span className="font-display text-lg sm:text-xl font-bold text-white">
-        United Sikh Movement
-      </span>
-    );
-  }
+  if (failed) return null;
   return (
-    <span className="inline-flex items-center rounded-lg bg-white px-2.5 py-1.5 shadow-sm">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        ref={ref}
-        src="/logo.png"
-        alt="United Sikh Movement"
-        onError={() => setFailed(true)}
-        className="h-6 sm:h-7 w-auto"
-      />
-    </span>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      ref={ref}
+      src="/logo.png"
+      alt=""
+      aria-hidden="true"
+      onError={() => setFailed(true)}
+      className="h-8 sm:h-9 w-auto"
+    />
   );
 }
 
@@ -69,8 +61,11 @@ export default function Nav() {
     // dark accordingly — this is a dark pill now, not a light one.
     <header className="sticky top-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4">
       <nav className="mx-auto max-w-wrap flex items-center justify-between gap-4 rounded-full border border-white/10 bg-teal-ink/60 backdrop-blur-xl shadow-[0_4px_24px_-4px_rgba(22,56,76,0.35)] px-5 py-3 sm:px-6">
-        <Link href="/" className="shrink-0" aria-label="United Sikh Movement — home">
+        <Link href="/" className="flex items-center gap-2.5 shrink-0">
           <BrandMark />
+          <span className="font-display text-lg sm:text-xl font-bold text-white">
+            United Sikh Movement
+          </span>
         </Link>
         <div className="hidden lg:flex items-center gap-5">
           {primaryLinks.map((l) => (
