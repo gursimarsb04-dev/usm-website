@@ -2,40 +2,53 @@
 import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 
-// Brand mark that is hidden by default and only appears once /logo.png (or .svg)
-// actually loads. Missing file → nothing shows (clean wordmark), never a broken
-// icon; drop the logo into /public and it appears with no code change. Default-
-// hidden + onLoad handles the 404-before-hydration case a bare onError misses.
+// Brand mark. The logo IS the wordmark, so it stands alone (no repeated text).
+// It sits on a white chip because the logo's blue lettering needs contrast
+// against the dark teal pill. Falls back to a text wordmark if the image can't
+// load (the mount check catches a 404 that fires before hydration).
 function BrandMark() {
-  const [ok, setOk] = useState(false);
+  const [failed, setFailed] = useState(false);
   const ref = useRef<HTMLImageElement>(null);
   useEffect(() => {
     const img = ref.current;
-    if (img && img.complete && img.naturalWidth > 0) setOk(true);
+    if (img && img.complete && img.naturalWidth === 0) setFailed(true);
   }, []);
+  if (failed) {
+    return (
+      <span className="font-display text-lg sm:text-xl font-bold text-white">
+        United Sikh Movement
+      </span>
+    );
+  }
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      ref={ref}
-      src="/logo.png"
-      alt=""
-      aria-hidden="true"
-      onLoad={() => setOk(true)}
-      className={`h-9 w-9 sm:h-10 sm:w-10 rounded-full object-contain ${ok ? '' : 'hidden'}`}
-    />
+    <span className="inline-flex items-center rounded-lg bg-white px-2.5 py-1.5 shadow-sm">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        ref={ref}
+        src="/logo.png"
+        alt="United Sikh Movement"
+        onError={() => setFailed(true)}
+        className="h-6 sm:h-7 w-auto"
+      />
+    </span>
   );
 }
 
 // Wayfinding links. Donate is deliberately NOT in here — it's the conversion
 // action and gets its own pill treatment so it reads as a button, not a page.
-const links = [
+// The desktop bar shows the primary set; the rest live in the mobile menu and
+// the footer so the bar doesn't overcrowd.
+const primaryLinks = [
   { href: '/about', label: 'About' },
   { href: '/programs', label: 'Programs' },
   { href: '/ssas', label: 'Find Your SSA' },
   { href: '/events', label: 'Events' },
-  { href: '/opportunities', label: 'Opportunities' },
   { href: '/resources', label: 'Resources' },
   { href: '/news', label: 'News' },
+];
+const links = [
+  ...primaryLinks,
+  { href: '/opportunities', label: 'Opportunities' },
   { href: '/contact', label: 'Contact' },
 ];
 
@@ -56,14 +69,11 @@ export default function Nav() {
     // dark accordingly — this is a dark pill now, not a light one.
     <header className="sticky top-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4">
       <nav className="mx-auto max-w-wrap flex items-center justify-between gap-4 rounded-full border border-white/10 bg-teal-ink/60 backdrop-blur-xl shadow-[0_4px_24px_-4px_rgba(22,56,76,0.35)] px-5 py-3 sm:px-6">
-        <Link href="/" className="flex items-center gap-2.5 shrink-0">
+        <Link href="/" className="shrink-0" aria-label="United Sikh Movement — home">
           <BrandMark />
-          <span className="font-display text-lg sm:text-xl font-bold text-white">
-            United Sikh Movement
-          </span>
         </Link>
         <div className="hidden lg:flex items-center gap-5">
-          {links.map((l) => (
+          {primaryLinks.map((l) => (
             <Link key={l.href} href={l.href}
               className="text-sm font-medium text-white/85 hover:text-gold transition-colors whitespace-nowrap">
               {l.label}
