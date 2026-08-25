@@ -1,30 +1,7 @@
 'use client';
 import Link from 'next/link';
-import { useState, useRef, useEffect } from 'react';
-
-// Brand mark — the logo sits transparent on the bar (no chip) next to the
-// wordmark text. Hides itself if the image can't load so the text stands alone
-// (the mount check catches a 404 that fires before hydration).
-function BrandMark() {
-  const [failed, setFailed] = useState(false);
-  const ref = useRef<HTMLImageElement>(null);
-  useEffect(() => {
-    const img = ref.current;
-    if (img && img.complete && img.naturalWidth === 0) setFailed(true);
-  }, []);
-  if (failed) return null;
-  return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      ref={ref}
-      src="/logo.png"
-      alt=""
-      aria-hidden="true"
-      onError={() => setFailed(true)}
-      className="h-8 sm:h-9 w-auto"
-    />
-  );
-}
+import { useState } from 'react';
+import BrandMark from './BrandMark';
 
 // Wayfinding links. Donate is deliberately NOT in here — it's the conversion
 // action and gets its own pill treatment so it reads as a button, not a page.
