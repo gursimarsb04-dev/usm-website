@@ -18,21 +18,21 @@ const pillars = [
   {
     title: 'Sikhi Development',
     line: 'Stay rooted while you grow.',
-    body: 'Camp Kudrat, Gurbani workshops, Gurmat Sangeet, and the Salok Mahala 9 series — immersive spaces for Sikh youth to go deeper in their Sikhi alongside people who are on the same path.',
+    body: 'Camp Kudrat, Gurbani workshops, Gurmat Sangeet, and the Salok Mahala 9 series — room to go deeper in your Sikhi, next to people walking the same path you are.',
     href: '/programs',
     img: '/photos/pillar-sikhi.jpg',
   },
   {
     title: 'Professional Development',
     line: 'Learn from Sikhs who made it.',
-    body: '13Hacks, LSAT prep with 97th-percentile Sikh mentors, speaker panels nationwide and more, connecting you to Sikh professionals and opportunities to build your skills across every industry.',
+    body: '13Hacks, LSAT prep with 97th-percentile Sikh mentors, speaker panels nationwide, and more — meet Sikh professionals and build real skills in whatever field you are headed into.',
     href: '/programs',
     img: '/photos/pillar-professional.jpg',
   },
   {
     title: 'SSA Network',
     line: '40 chapters. One sangat.',
-    body: 'We are the backbone behind 40 Sikh Student Associations coast to coast — providing leadership retreats, regional conferences, funding, resources, and a national network so every SSA can thrive, not just survive.',
+    body: 'We are the backbone behind 40 Sikh Student Associations coast to coast — leadership retreats, regional conferences, funding, and resources, so your chapter can thrive instead of just scraping by.',
     href: '/ssas',
     img: '/photos/pillar-network.jpg',
   },
@@ -100,11 +100,10 @@ export default async function Home() {
           </FadeUp>
           <FadeUp variant="up" delay={260}>
             <p className="mt-6 max-w-xl text-lg text-white/80 leading-relaxed">
-              Sikh students are navigating systems that were never built with
-              them in mind — searching for sangat, mentors who get it, and a
-              community that follows them beyond graduation. USM is the national
-              ecosystem that changes that. 40 chapters. Mentors in every field.
-              A movement behind you.
+              You should never have to choose between your career and your
+              Sikhi. Find your sangat, meet mentors who actually get it, and
+              join a community that sticks with you long after you graduate.
+              40 chapters. Mentors in every field. A movement behind you.
             </p>
           </FadeUp>
           <FadeUp variant="up" delay={400}>
@@ -193,7 +192,7 @@ export default async function Home() {
         <FadeUp>
           <Eyebrow inverse className="mb-3">This year alone</Eyebrow>
           <SectionHeading size="lg" inverse className="max-w-2xl leading-tight">
-            Sikh youth are not waiting for change. They are the catalyst for it.
+            Students did not wait for change. They went out and made it.
           </SectionHeading>
           <div className="mt-10 grid gap-4 md:grid-cols-2">
             {receipts.map((r, i) => (
@@ -206,9 +205,9 @@ export default async function Home() {
             ))}
           </div>
           <p className="mt-8 text-white/70 max-w-xl">
-            From reflection rooms to resolutions, none of it came from the top
-            down. It came from students who showed up — with the movement
-            behind them. <Link href="/impact" className="text-gold underline underline-offset-4">See the full impact →</Link>
+            From reflection rooms to resolutions, none of this came from the top
+            down. It came from students like you who showed up — with the
+            movement behind them. <Link href="/impact" className="text-gold underline underline-offset-4">See the full impact →</Link>
           </p>
         </FadeUp>
       </Section>
@@ -222,11 +221,10 @@ export default async function Home() {
               Where students grow, Punjab thrives.
             </SectionHeading>
             <p className="mt-5 text-lg text-teal-ink/80 leading-relaxed max-w-md">
-              A student-led initiative sending diaspora youth to Punjab — to
-              listen to village leaders, families, and educators first, then
-              build projects that last. Community-informed. Student-driven.
-              This is what it looks like when Gurmat principles meet real-world
-              seva.
+              Go to Punjab with other diaspora students — listen to village
+              leaders, families, and educators first, then build projects that
+              actually last. Community-informed, student-driven, and what it
+              looks like when Gurmat meets real seva.
             </p>
             <a
               href="https://dvnetwork.org/projects/khudrang-roots"
@@ -285,9 +283,9 @@ export default async function Home() {
         <FadeUp className="relative mx-auto max-w-2xl px-5">
           <SectionHeading size="lg" inverse>Join the movement.</SectionHeading>
           <p className="mt-4 text-white/75">
-            Whether you're a student looking for sangat, an SSA seeking support,
-            or a professional ready to give back — there is a place for you in
-            USM.
+            Looking for sangat? Running a chapter that could use backup? Ready
+            to give back to the students coming up behind you? There is a place
+            for you here.
           </p>
           <div className="mt-8 flex justify-center gap-4 flex-wrap">
             <Button href="/ssas">Find Your SSA</Button>

@@ -21,7 +21,7 @@ export default async function Programs() {
       <FadeUp>
         <PageHeader
           title="Programs"
-          intro="Three pillars. One mission: Sikh students who excel without leaving their Sikhi at the door."
+          intro="Three pillars, one idea: you should be able to go as far as you want without leaving your Sikhi at the door. Here is everything you can plug into."
         />
       </FadeUp>
 

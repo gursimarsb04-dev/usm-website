@@ -6,10 +6,10 @@ export const metadata = { title: 'About' };
 export const revalidate = 300;
 
 const fourS = [
-  { s: 'Simran', body: 'Remembrance at the center — prayer, reflection, and a connection to Maharaj that grounds everything else.' },
-  { s: 'Seva', body: 'Selfless service, from langar on campus to boots on the ground in Punjab. The work is the worship.' },
-  { s: 'Sangat', body: 'Community that holds you. No Sikh student should have to build it alone — so we built it together.' },
-  { s: 'Academics', body: 'Excellence as a form of seva. Mentorship, LSAT prep, hackathons, and career mentorship — ambition rooted in identity.' },
+  { s: 'Simran', body: 'Keeping Maharaj at the center. Prayer and reflection are what everything else stands on — the part that steadies you when the semester does not.' },
+  { s: 'Seva', body: 'Service without a scoreboard, from langar on your campus to work on the ground in Punjab. The work is the worship.' },
+  { s: 'Sangat', body: 'A community that holds you. You should not have to build it by yourself — so we built it together, and there is already a seat for you.' },
+  { s: 'Academics', body: 'Ambition rooted in identity. Mentorship, LSAT prep, hackathons, and career guidance — because chasing excellence is its own kind of seva.' },
 ];
 
 export default function About() {
@@ -83,12 +83,11 @@ export default function About() {
           <div className="rounded-3xl bg-teal text-white p-8">
             <p className="text-gold font-display tracking-widest uppercase text-xs mb-3">Our mission</p>
             <p className="font-display text-xl leading-relaxed">
-              USM is a national ecosystem forging the next generation of Sikh
-              youth through Gurmat-rooted leadership, professional mentorship,
-              and transformative community programming. By deepening roots and
-              expanding what Sikh excellence looks like, we are sparking a
-              movement of Sikh changemakers who carry Gurmat into every arena
-              they enter.
+              We are here so no Sikh student has to pick between going far and
+              staying rooted. Through Gurmat-grounded leadership, mentorship
+              from Sikhs who have walked it, and programming built around what
+              students actually need, we are helping a generation carry their
+              Sikhi into every room they walk into.
             </p>
           </div>
         </FadeUp>
@@ -106,8 +105,9 @@ export default function About() {
           {/* TODO(interns): full team grid — names, roles, photos, pending roster from Simar */}
           <p className="mt-4 text-base text-teal-soft">
             Behind her: regional teams across the West Coast, Midwest, and East
-            Coast, and student sevadaars on 40 campuses. USM is 100%
-            volunteer-led — every dollar goes straight to students.
+            Coast, plus student sevadaars on 40 campuses — people who were in
+            your seat not long ago. USM is 100% volunteer-led, so every dollar
+            goes straight to students.
           </p>
         </FadeUp>
 
