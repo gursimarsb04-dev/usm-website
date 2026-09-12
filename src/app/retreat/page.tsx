@@ -3,9 +3,9 @@ import FadeUp from '@/components/FadeUp';
 import { getCatalogEvent, formatPrice } from '@/lib/events-catalog';
 import RetreatRegistrationForm from './RetreatRegistrationForm';
 
-const SLUG = 'east-coast-retreat-2026';
+const SLUG = 'west-coast-retreat-2026';
 
-export const metadata = { title: 'East Coast SSA Retreat' };
+export const metadata = { title: 'West Coast SSA Retreat' };
 
 export default function RetreatPage({
   searchParams,
@@ -23,16 +23,16 @@ export default function RetreatPage({
           SSA Collective Presents
         </p>
         <h1 className="font-display text-5xl font-bold text-teal mt-2">
-          East Coast SSA Leadership Retreat
+          West Coast SSA Leadership Retreat
         </h1>
-        <p className="mt-3 text-xl text-teal-ink/80">Valhalla River Haven, Pocono Mountains</p>
+        <p className="mt-3 text-xl text-teal-ink/80">Sierra Nevada Mountains</p>
 
         <div className="mt-6 flex flex-wrap gap-3">
           <span className="rounded-full bg-mist px-4 py-2 text-sm font-semibold text-teal">
-            August 21–23, 2026
+            October 9–11, 2026
           </span>
           <span className="rounded-full bg-mist px-4 py-2 text-sm font-semibold text-teal">
-            Register by August 10, 2026
+            Register by September 28, 2026
           </span>
           <span className="rounded-full bg-mist px-4 py-2 text-sm font-semibold text-teal">
             {price} per person
@@ -52,8 +52,7 @@ export default function RetreatPage({
             challenges, and exploring resources for your SSA to thrive.
           </p>
           <p>
-            Come connect, learn, and recharge with us in the beautiful Pocono Mountains at Valhalla
-            River Haven.
+            Come connect, learn, and recharge with us in the beautiful Sierra Nevada Mountains.
           </p>
         </div>
 
