@@ -3,15 +3,31 @@
 // When Supabase events are wired up, this can be replaced by a DB lookup that
 // returns the same shape — the API/form don't care where it comes from.
 
+// A dated pricing window (Early Bird / Regular / Late), or a flat rate with no
+// date window at all (e.g. a "no hotel" option available the whole time).
+// `opensAt`/`closesAt` omitted = unbounded on that side.
+export type TicketTier = {
+  id: string;
+  label: string;
+  priceCents: number;
+  opensAt?: string;  // ISO 8601, inclusive
+  closesAt?: string; // ISO 8601, exclusive
+};
+
 export type CatalogEvent = {
   slug: string;
   title: string;
   date: string;        // human-readable, for display ("Fall 2026")
   location: string;
   blurb: string;
-  priceCents: number;  // 0 = free RSVP
+  priceCents: number;  // 0 = free RSVP. Fallback/display price when `tiers` isn't set.
   currency: string;    // 'usd'
   soldOut?: boolean;
+  // Multiple simultaneous price points (Early Bird/Regular/Late, or a flat
+  // no-date-window option) instead of one flat priceCents. When set, the API
+  // resolves the correct tier server-side via resolveTier() — never trust a
+  // client-submitted tier id for price, only for *which* tier they're asking for.
+  tiers?: TicketTier[];
   // Machine-readable dates for the calendar feed (/api/calendar.ics).
   // Only set these once the real date is known — an event without `startsAt`
   // is simply omitted from the feed. Do NOT try to derive these from `date`:
@@ -51,6 +67,31 @@ export const eventsCatalog: CatalogEvent[] = [
     archived: true, // "Fall 2026" — no firm date yet, so not open for registration.
   },
   {
+    slug: 'west-coast-conference-2026',
+    title: 'West Coast Conference',
+    date: 'November 6–8, 2026',
+    location: 'University of Southern California',
+    blurb: 'USM\'s West Coast conference — speakers, workshops, and sangat from across the network, hosted at USC.',
+    priceCents: 10000, // Early Bird, for display before a tier is resolved
+    currency: 'usd',
+    startsAt: '2026-11-06T18:00:00Z',
+    endsAt: '2026-11-08T22:00:00Z',
+    tiers: [
+      // "Early Bird - now until the 26th" — closes at the start of Sept 26 Pacific.
+      { id: 'early_bird', label: 'Early Bird', priceCents: 10000, closesAt: '2026-09-26T07:00:00Z' },
+      // "Regular - Sept 26 - Oct 17" — through end of day Oct 17 Pacific.
+      { id: 'regular', label: 'Regular', priceCents: 12500, opensAt: '2026-09-26T07:00:00Z', closesAt: '2026-10-18T07:00:00Z' },
+      // "Late - Oct 18 - Oct 24th" — through end of day Oct 24 Pacific.
+      { id: 'late', label: 'Late', priceCents: 15000, opensAt: '2026-10-18T07:00:00Z', closesAt: '2026-10-25T07:00:00Z' },
+      // "No Hotel Ticket ($60)" — flat rate, no date window. Selected when the
+      // attendee says they don't need housing, instead of picking a date tier.
+      { id: 'no_hotel', label: 'No Hotel', priceCents: 6000 },
+    ],
+    // Has a dedicated landing page with a richer form (school/major, housing +
+    // roommate matching, waivers) — send people there, not the generic register route.
+    registerPath: '/west-coast-conference',
+  },
+  {
     slug: 'west-coast-retreat-2026',
     title: 'West Coast SSA Leadership Retreat',
     date: 'October 9–11, 2026',
@@ -86,4 +127,34 @@ export function registerHref(e: CatalogEvent): string {
 export function formatPrice(cents: number, currency = 'usd'): string {
   if (cents === 0) return 'Free';
   return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(cents / 100);
+}
+
+/**
+ * Resolve which ticket tier applies right now — the ONLY place price is
+ * decided for a tiered event. Never trust a client-submitted tier id for
+ * price; this is what the API calls server-side to compute the real amount.
+ *
+ * `noHousing: true` selects the flat no-date-window tier (id `no_hotel`) if
+ * one exists, bypassing the date-based tiers entirely. Otherwise picks the
+ * date tier whose [opensAt, closesAt) window contains `now`.
+ */
+export function resolveTier(
+  event: CatalogEvent,
+  opts: { noHousing?: boolean } = {},
+  now: Date = new Date()
+): TicketTier | null {
+  if (!event.tiers?.length) return null;
+  const nowMs = now.getTime();
+
+  if (opts.noHousing) {
+    return event.tiers.find((t) => t.id === 'no_hotel') ?? null;
+  }
+  return (
+    event.tiers.find((t) => {
+      if (t.id === 'no_hotel') return false; // only selected explicitly above
+      const afterOpen = !t.opensAt || nowMs >= new Date(t.opensAt).getTime();
+      const beforeClose = !t.closesAt || nowMs < new Date(t.closesAt).getTime();
+      return afterOpen && beforeClose;
+    }) ?? null
+  );
 }
