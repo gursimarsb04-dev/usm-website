@@ -19,7 +19,12 @@ export async function PATCH(req: Request) {
   const id = getSSAId();
   if (!id) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
   const body = await req.json();
-  const allowed = ['description', 'joining_instructions', 'instagram_handle', 'contact_email', 'programs_content', 'members_content'];
+  const allowed = [
+    'description', 'joining_instructions', 'instagram_handle', 'contact_email',
+    'programs_content', 'members_content',
+    // Chapter identity — drives the hero and quick-facts strip on their page.
+    'tagline', 'meets_when', 'meets_where', 'founded_year', 'cover_photo_url',
+  ];
   const update: Record<string, any> = { updated_at: new Date().toISOString() };
   for (const key of allowed) {
     if (key in body) update[key] = body[key];

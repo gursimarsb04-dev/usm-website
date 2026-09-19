@@ -7,6 +7,13 @@ export type SSA = {
   board_members: { name: string; role: string; photo_url?: string }[];
   cover_photo_url: string | null;
   status: 'unclaimed' | 'pending' | 'live' | 'inactive';
+  // Chapter identity — what makes the page theirs rather than a directory row.
+  tagline?: string | null;
+  meets_when?: string | null;
+  meets_where?: string | null;
+  founded_year?: number | null;
+  programs_content?: string | null;
+  members_content?: string | null;
 };
 
 export type USMEvent = {

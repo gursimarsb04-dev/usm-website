@@ -18,7 +18,14 @@ export default function PageEditor() {
     e.preventDefault();
     setState('saving');
     const f = new FormData(e.currentTarget);
+    const foundedRaw = String(f.get('founded_year') ?? '').trim();
     const body = {
+      tagline: f.get('tagline'),
+      meets_when: f.get('meets_when'),
+      meets_where: f.get('meets_where'),
+      // Empty string would fail the int column — send null instead.
+      founded_year: foundedRaw ? Number(foundedRaw) : null,
+      cover_photo_url: f.get('cover_photo_url'),
       description: f.get('description'),
       joining_instructions: f.get('joining_instructions'),
       instagram_handle: f.get('instagram_handle'),
@@ -44,6 +51,28 @@ export default function PageEditor() {
     <div className="mx-auto max-w-xl px-5 py-14">
       <h1 className="font-display text-3xl font-bold text-teal">Edit {ssa.name}</h1>
       <form onSubmit={save} className="mt-6 grid gap-4">
+
+        <p className={sectionHeader}>Your page header</p>
+        <label className="text-sm">Tagline
+          <span className="ml-2 text-xs text-teal-soft">One line under your chapter name</span>
+          <input name="tagline" defaultValue={ssa.tagline ?? ''} className={input}
+            placeholder="e.g. Your sangat away from home." /></label>
+        <div className="grid sm:grid-cols-2 gap-4">
+          <label className="text-sm">When you meet
+            <input name="meets_when" defaultValue={ssa.meets_when ?? ''} className={input}
+              placeholder="e.g. Sundays, 6:00 PM" /></label>
+          <label className="text-sm">Where you meet
+            <input name="meets_where" defaultValue={ssa.meets_where ?? ''} className={input}
+              placeholder="e.g. Busch Student Center" /></label>
+        </div>
+        <div className="grid sm:grid-cols-2 gap-4">
+          <label className="text-sm">Year founded
+            <input name="founded_year" type="number" min={1900} max={2100}
+              defaultValue={ssa.founded_year ?? ''} className={input} placeholder="e.g. 2014" /></label>
+          <label className="text-sm">Cover photo URL
+            <input name="cover_photo_url" defaultValue={ssa.cover_photo_url ?? ''} className={input}
+              placeholder="https://…" /></label>
+        </div>
 
         <p className={sectionHeader}>Homepage</p>
         <label className="text-sm">About your chapter
