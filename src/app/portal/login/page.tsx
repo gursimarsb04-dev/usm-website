@@ -117,7 +117,7 @@ export default function PortalLogin() {
 
           <p className="mt-8 text-center text-xs text-teal-soft leading-relaxed">
             New chapter or forgot your credentials?<br />
-            <a href="mailto:info@unitedsikhmovement.org" className="text-teal underline underline-offset-4">
+            <a href="mailto:tech@unitedsikhmovement.org" className="text-teal underline underline-offset-4">
               Contact your USM coordinator
             </a>
           </p>
