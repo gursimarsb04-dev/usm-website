@@ -29,7 +29,7 @@ export default function RetreatPage({
 
         <div className="mt-6 flex flex-wrap gap-3">
           <span className="rounded-full bg-mist px-4 py-2 text-sm font-semibold text-teal">
-            October 9–11, 2026
+            October 23, 2026
           </span>
           <span className="rounded-full bg-mist px-4 py-2 text-sm font-semibold text-teal">
             Register by September 28, 2026

@@ -94,15 +94,15 @@ export const eventsCatalog: CatalogEvent[] = [
   {
     slug: 'west-coast-retreat-2026',
     title: 'West Coast SSA Leadership Retreat',
-    date: 'October 9–11, 2026',
+    date: 'October 23, 2026',
     location: 'Sierra Nevada Mountains, CA',
     blurb: 'A leadership getaway for SSA board members across the region — workshops, sangat, and recharging together in the Sierra Nevada Mountains. Space limited to 30.',
     priceCents: 7000,
     currency: 'usd',
-    // Arrival Fri Oct 9, departure Sun Oct 11 (times are placeholders —
-    // adjust once the schedule is set).
-    startsAt: '2026-10-09T21:00:00Z',
-    endsAt: '2026-10-11T19:00:00Z',
+    // Single-day event, Oct 23 (times are placeholders — adjust once the
+    // schedule is set).
+    startsAt: '2026-10-23T16:00:00Z',
+    endsAt: '2026-10-24T01:00:00Z',
     // Has a dedicated landing page with a richer form (carpool, dietary,
     // emergency contact) — send people there, not the generic register route.
     registerPath: '/retreat',
