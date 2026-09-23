@@ -14,6 +14,15 @@ export type TicketTier = {
   closesAt?: string; // ISO 8601, exclusive
 };
 
+// A percent-off code, checked server-side against whatever tier the attendee
+// actually resolves to (Early Bird/Regular/Late/No-Hotel) — never a flat
+// dollar amount trusted from the client. Codes are matched case-insensitively.
+export type DiscountCode = {
+  code: string;
+  label: string;
+  percentOff: number; // 0-100
+};
+
 export type CatalogEvent = {
   slug: string;
   title: string;
@@ -28,6 +37,10 @@ export type CatalogEvent = {
   // resolves the correct tier server-side via resolveTier() — never trust a
   // client-submitted tier id for price, only for *which* tier they're asking for.
   tiers?: TicketTier[];
+  // Percent-off codes attendees can enter at registration (e.g. partner-school
+  // or sevadaar codes). Resolved server-side via resolveDiscount() — applied
+  // on top of whatever tier price was already resolved.
+  discounts?: DiscountCode[];
   // Machine-readable dates for the calendar feed (/api/calendar.ics).
   // Only set these once the real date is known — an event without `startsAt`
   // is simply omitted from the feed. Do NOT try to derive these from `date`:
@@ -86,6 +99,12 @@ export const eventsCatalog: CatalogEvent[] = [
       // "No Hotel Ticket ($60)" — flat rate, no date window. Selected when the
       // attendee says they don't need housing, instead of picking a date tier.
       { id: 'no_hotel', label: 'No Hotel', priceCents: 6000 },
+    ],
+    discounts: [
+      // USC Sikh Student Association — 25% off any tier.
+      { code: 'USC26', label: 'USC', percentOff: 25 },
+      // Sevadaars — 10% off any tier.
+      { code: 'SEVA26', label: 'Sevadaar', percentOff: 10 },
     ],
     // Has a dedicated landing page with a richer form (school/major, housing +
     // roommate matching, waivers) — send people there, not the generic register route.
@@ -157,4 +176,22 @@ export function resolveTier(
       return afterOpen && beforeClose;
     }) ?? null
   );
+}
+
+/**
+ * Resolve a discount code against an event's code list — the ONLY place a
+ * code is validated. Case/whitespace-insensitive on the input, but codes
+ * themselves are stored uppercase. Returns null for a blank or unknown code
+ * so callers can distinguish "no code entered" from "bad code" if needed.
+ */
+export function resolveDiscount(event: CatalogEvent, rawCode?: string | null): DiscountCode | null {
+  const code = (rawCode ?? '').trim().toUpperCase();
+  if (!code || !event.discounts?.length) return null;
+  return event.discounts.find((d) => d.code.toUpperCase() === code) ?? null;
+}
+
+/** Apply a resolved discount to a price. Rounds to the nearest cent. */
+export function applyDiscount(priceCents: number, discount: DiscountCode | null): number {
+  if (!discount) return priceCents;
+  return Math.round(priceCents * (1 - discount.percentOff / 100));
 }

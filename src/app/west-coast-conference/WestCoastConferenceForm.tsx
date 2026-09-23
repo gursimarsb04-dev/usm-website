@@ -33,6 +33,7 @@ export default function WestCoastConferenceForm({ slug }: { slug: string }) {
       phone: form.get('phone'),
       quantity: 1,
       returnPath: window.location.pathname,
+      promoCode: form.get('promoCode') || null,
       registration: {
         gender: form.get('gender'),
         birthday: form.get('birthday'),
@@ -269,6 +270,11 @@ export default function WestCoastConferenceForm({ slug }: { slug: string }) {
           <input name="roommate3" placeholder="Roommate 3" className={input} />
         </div>
       )}
+
+      <label className={label}>
+        Discount code <span className="text-teal-soft font-normal">(optional)</span>
+        <input name="promoCode" placeholder="e.g. USC26" className={input} />
+      </label>
 
       <label className="flex items-start gap-3 text-sm text-teal-ink/90">
         <input name="mediaConsent" type="checkbox" required className="mt-1 h-4 w-4 rounded border-teal/30" />

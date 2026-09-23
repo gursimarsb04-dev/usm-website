@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getStripe } from '@/lib/stripe';
-import { getCatalogEvent, formatPrice, resolveTier } from '@/lib/events-catalog';
+import { getCatalogEvent, formatPrice, resolveTier, resolveDiscount, applyDiscount } from '@/lib/events-catalog';
 import { CONTACT_EMAIL } from '@/lib/site';
 import { supabaseAdmin } from '@/lib/supabase-admin';
 
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
   }
 
-  const { slug, name, email, phone, returnPath, extra, registration } = body ?? {};
+  const { slug, name, email, phone, returnPath, extra, registration, promoCode } = body ?? {};
   // Only allow same-site relative paths, never a full URL, to avoid an open redirect.
   const cancelPath =
     typeof returnPath === 'string' && returnPath.startsWith('/') && !returnPath.startsWith('//')
@@ -65,6 +65,19 @@ export async function POST(req: Request) {
     priceCents = tier.priceCents;
     tierId = tier.id;
     tierLabel = tier.label;
+  }
+
+  // Discount code, if any — resolved server-side against the event's own
+  // code list, never trusted as a percentage/amount from the client. A
+  // non-blank code that doesn't match is rejected outright rather than
+  // silently ignored, so a typo doesn't quietly charge full price.
+  const discount = resolveDiscount(event, promoCode);
+  if (typeof promoCode === 'string' && promoCode.trim() && !discount) {
+    return NextResponse.json({ error: 'That discount code isn\'t valid for this event.' }, { status: 400 });
+  }
+  if (discount) {
+    priceCents = applyDiscount(priceCents, discount);
+    tierLabel = tierLabel ? `${tierLabel} — ${discount.label} code` : `${discount.label} code`;
   }
 
   // Optional extra metadata (e.g. per-event custom fields). Sanitized to
@@ -135,6 +148,7 @@ export async function POST(req: Request) {
         photo_consent: !!registration?.photoConsent,
         liability_accepted: !!registration?.liabilityAccepted,
         ticket_tier: tierId,
+        discount_code: discount?.code ?? null,
         price_cents: priceCents,
         currency: event.currency,
         payment_status: isFree ? 'free' : 'pending',
@@ -200,6 +214,7 @@ export async function POST(req: Request) {
         attendee_phone: phone || '',
         quantity: String(quantity),
         ...(tierId ? { tier: tierId } : {}),
+        ...(discount ? { discount_code: discount.code } : {}),
         ...extraMetadata,
       },
       success_url: `${origin}/events/register/success?event=${encodeURIComponent(event.slug)}`,
