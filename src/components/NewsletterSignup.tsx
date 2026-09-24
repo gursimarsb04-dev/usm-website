@@ -8,6 +8,7 @@
 // The SMS consent box is deliberately NOT pre-checked — consent must be
 // affirmative, and nothing is sent until a provider + TCPA review are in place.
 import { useState } from 'react';
+import { trackSignup } from '@/lib/track';
 
 type Segment = 'student' | 'alumni_donor';
 
@@ -39,6 +40,7 @@ export default function NewsletterSignup({
       }),
     });
     if (res.ok) {
+      trackSignup(source);
       setState('done');
     } else {
       const data = await res.json().catch(() => ({}));
