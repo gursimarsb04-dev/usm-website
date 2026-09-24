@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import FadeUp from '@/components/FadeUp';
 import { getCatalogEvent, formatPrice, resolveTier } from '@/lib/events-catalog';
-import WestCoastConferenceForm from './WestCoastConferenceForm';
+import TypeformEmbed from '@/components/TypeformEmbed';
 
 const SLUG = 'west-coast-conference-2026';
+const TYPEFORM_ID = 'mL7bujpH';
 
 // Tier boundaries are date-based and coarse (days), not minute-precision — a
 // short revalidate keeps the displayed price correct across a tier switch
@@ -11,11 +12,7 @@ const SLUG = 'west-coast-conference-2026';
 export const revalidate = 300;
 export const metadata = { title: 'West Coast Conference' };
 
-export default function WestCoastConferencePage({
-  searchParams,
-}: {
-  searchParams: { canceled?: string };
-}) {
+export default function WestCoastConferencePage() {
   const event = getCatalogEvent(SLUG);
   if (!event) return null;
 
@@ -55,26 +52,16 @@ export default function WestCoastConferencePage({
             of when you register — just say so on the form.
           </p>
         </div>
-
-        {searchParams.canceled && (
-          <p className="mt-5 rounded-xl bg-gold/20 text-teal-ink px-4 py-3 text-sm">
-            Checkout canceled — you haven't been charged. You can try again below.
-          </p>
-        )}
       </FadeUp>
 
       <FadeUp className="mt-14">
         <h2 className="font-display text-2xl font-bold text-teal">Register &amp; reserve your spot</h2>
         <p className="mt-2 text-teal-ink/75">
-          Fill out the form below — submitting takes you straight to payment to lock in your spot at
-          today's price.
+          Fill out the form below to lock in your spot at today's price.
         </p>
         <div className="mt-5">
-          <WestCoastConferenceForm slug={event.slug} />
+          <TypeformEmbed formId={TYPEFORM_ID} title="West Coast Conference registration" />
         </div>
-        <p className="mt-4 text-xs text-teal-soft text-center">
-          Payments are processed securely by Stripe. USM is a registered 501(c)(3).
-        </p>
       </FadeUp>
 
       <div id="media-consent" className="mt-16 scroll-mt-24">

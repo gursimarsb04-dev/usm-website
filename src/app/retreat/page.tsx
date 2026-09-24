@@ -1,17 +1,14 @@
 import Link from 'next/link';
 import FadeUp from '@/components/FadeUp';
 import { getCatalogEvent, formatPrice } from '@/lib/events-catalog';
-import RetreatRegistrationForm from './RetreatRegistrationForm';
+import TypeformEmbed from '@/components/TypeformEmbed';
 
 const SLUG = 'west-coast-retreat-2026';
+const TYPEFORM_ID = 'T2071EHL';
 
 export const metadata = { title: 'West Coast SSA Retreat' };
 
-export default function RetreatPage({
-  searchParams,
-}: {
-  searchParams: { canceled?: string };
-}) {
+export default function RetreatPage() {
   const event = getCatalogEvent(SLUG);
   if (!event) return null;
   const price = formatPrice(event.priceCents, event.currency);
@@ -60,26 +57,16 @@ export default function RetreatPage({
           Space is limited to only 30 SSA board members, so register and pay as soon as possible
           to secure your spot!
         </p>
-
-        {searchParams.canceled && (
-          <p className="mt-5 rounded-xl bg-gold/20 text-teal-ink px-4 py-3 text-sm">
-            Checkout canceled — you haven't been charged. You can try again below.
-          </p>
-        )}
       </FadeUp>
 
       <FadeUp className="mt-14">
         <h2 className="font-display text-2xl font-bold text-teal">Register &amp; reserve your spot</h2>
         <p className="mt-2 text-teal-ink/75">
-          Fill out the form below — submitting takes you straight to payment ({price}) to lock in
-          your spot.
+          Fill out the form below ({price} per person) to lock in your spot.
         </p>
         <div className="mt-5">
-          <RetreatRegistrationForm slug={event.slug} priceLabel={price} />
+          <TypeformEmbed formId={TYPEFORM_ID} title="West Coast SSA Leadership Retreat registration" />
         </div>
-        <p className="mt-4 text-xs text-teal-soft text-center">
-          Payments are processed securely by Stripe. USM is a registered 501(c)(3).
-        </p>
       </FadeUp>
 
       <div id="media-consent" className="mt-16 scroll-mt-24">
