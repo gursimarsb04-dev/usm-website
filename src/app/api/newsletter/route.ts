@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase-admin';
 import { sendEmail } from '@/lib/email';
+import { addToMailchimp } from '@/lib/mailchimp';
 import { SITE_URL } from '@/lib/site';
 
 // Public newsletter signup. Stores the email via the service role so the
@@ -56,10 +57,17 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Could not subscribe — try again.' }, { status: 500 });
   }
 
-  // Best-effort: a failed welcome email must never fail the signup itself.
-  // sendEmail no-ops (logs) when MAILCHIMP_API_KEY isn't configured.
+  // Best-effort from here on: Supabase already has the signup, so a Mailchimp
+  // hiccup must never fail it. Only new rows go on, so repeat signups don't
+  // re-trigger the welcome journey.
   if (data && data.length > 0) {
-    await sendEmail({ to: email, subject: 'Welcome to United Sikh Movement', html: welcomeHtml(segment) }).catch(() => {});
+    const mc = await addToMailchimp({ email, segment, source }).catch((e) => ({ ok: false, error: String(e) }));
+    if (!mc.ok) console.error('[newsletter] Mailchimp sync failed:', 'error' in mc ? mc.error : '');
+    // Fallback welcome via Mailchimp Transactional, only when the audience sync
+    // isn't configured (otherwise Mailchimp's welcome journey sends it).
+    if ('skipped' in mc && mc.skipped) {
+      await sendEmail({ to: email, subject: 'Welcome to United Sikh Movement', html: welcomeHtml(segment) }).catch(() => {});
+    }
   }
   return NextResponse.json({ ok: true });
 }
