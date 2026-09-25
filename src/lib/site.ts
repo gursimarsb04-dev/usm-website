@@ -5,6 +5,10 @@
 // an SSA" application notifications. Can be overridden per-environment with CONTACT_EMAIL.
 export const CONTACT_EMAIL = process.env.CONTACT_EMAIL ?? 'contact@unitedsikhmovement.org';
 
+// Canonical public origin — used for metadataBase, canonical URLs, the sitemap,
+// and structured data. Override per-environment with NEXT_PUBLIC_SITE_URL.
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://unitedsikhmovement.org').replace(/\/$/, '');
+
 // 501(c)(3) tax ID — from the legacy unitedsikhmovement.org footer.
 export const EIN = '81-5233460';
 

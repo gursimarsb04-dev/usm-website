@@ -1,5 +1,8 @@
-// Seed post so /news isn't empty before Sanity is configured. Sanity wins the
-// moment News Post documents exist.
+import { blogArticles } from '@/lib/blog-articles';
+
+// In-repo blog posts. These are merged with Sanity posts by src/lib/blog.ts —
+// Sanity wins only on a slug collision, so both sources show side by side.
+// The long-form SEO articles live in src/lib/blog-articles.ts.
 //
 // Every post carries a real human byline (USM policy — AI-assisted drafts still
 // require a named author and must stay strictly factual).
@@ -11,6 +14,9 @@ export const NEWS_CATEGORIES = [
   'Student Research',
   'Activism & News',
   'Humans of USM',
+  'Events',
+  'Sikhi',
+  'Student Life',
 ] as const;
 
 export type NewsCategory = (typeof NEWS_CATEGORIES)[number];
@@ -24,10 +30,18 @@ export type NewsPost = {
   excerpt?: string;
   /** Plain paragraphs — the Sanity version uses portable text. */
   body?: string[];
+  /** Full article body in the Markdown subset ArticleBody understands. */
+  markdown?: string;
+  /** Static cover image path (e.g. /photos/...). Sanity posts use `coverImage`. */
+  coverImageUrl?: string;
+  /** SEO title (<title>/og:title) when it should differ from the on-page H1. */
+  seoTitle?: string;
+  /** Article-specific email-capture pitch shown mid-article and at the end. */
+  cta?: { heading: string; body: string };
   isHumansOfUSM?: boolean;
 };
 
-export const newsFallbacks: NewsPost[] = [
+const seedPosts: NewsPost[] = [
   {
     slug: 'welcome-to-the-usm-blog',
     title: 'Welcome to the USM Blog',
@@ -40,20 +54,6 @@ export const newsFallbacks: NewsPost[] = [
       'United Sikh Movement supports Sikh Student Associations across North America — connecting chapters to funding, mentorship, programming, and each other.',
       'This blog is where we share what is actually happening across that network: what chapters are building, where students are landing after graduation, and the work being done to make campuses better for Sikh students.',
       'Expect posts on career development, hackathons and technical programs, guest speakers, student research, and advocacy. If your chapter has a story worth telling, reach out — we would rather publish your words than ours.',
-    ],
-  },
-  {
-    slug: '13hacks-first-sikh-hosted-hackathon',
-    title: 'A Look Back at 13Hacks: The First Sikh-Hosted Hackathon',
-    author: 'USM Team',
-    category: 'Hackathons',
-    publishedAt: '2026-02-10',
-    excerpt:
-      'In January, 13Hacks became the first-ever Sikh-hosted hackathon — 100+ attendees, 9 states, and 30 mentors across tech.',
-    body: [
-      'This January, 13Hacks became the first-ever Sikh-hosted hackathon. It brought together more than 100 attendees from 9 states, alongside 30 mentors working across the tech industry.',
-      'For a weekend, students and young professionals built, shipped, and learned side by side — turning ideas into working projects and meeting mentors who understood both their ambitions and their identity.',
-      'More than a competition, 13Hacks was a proof point: that Sikh students belong at the front of technical innovation, and that a community built around them can help them get there. Keep an eye out for 13Hacks 2027.',
     ],
   },
   {
@@ -71,20 +71,6 @@ export const newsFallbacks: NewsPost[] = [
     ],
   },
   {
-    slug: 'free-lsat-prep-sikh-mentors',
-    title: 'Free LSAT Prep, Led by 97th-Percentile Sikh Mentors',
-    author: 'USM Team',
-    category: 'Career Development',
-    publishedAt: '2026-05-01',
-    excerpt:
-      'USM is launching free LSAT preparation led by Sikhs who scored in the 97th percentile and above, in partnership with the Sikh Legal Society.',
-    body: [
-      'Law school is expensive before you ever set foot in a classroom — and LSAT prep is one of the first walls students hit. USM is launching free LSAT preparation to help take that wall down.',
-      'The program is led by Sikh mentors who scored in the 97th percentile and above, in partnership with the Sikh Legal Society. It launches in May 2026, with MCAT and DAT preparation planned next.',
-      'The goal is not just better scores. It is a generation of Sikh students who can pursue law, medicine, and beyond without leaving their community or their identity at the door.',
-    ],
-  },
-  {
     slug: 'camp-kudrat-recap',
     title: 'Camp Kudrat: Being Fully Sikh in a Room That Gets It',
     author: 'USM Team',
@@ -98,3 +84,5 @@ export const newsFallbacks: NewsPost[] = [
     ],
   },
 ];
+
+export const newsFallbacks: NewsPost[] = [...blogArticles, ...seedPosts];

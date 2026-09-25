@@ -13,7 +13,7 @@ const primaryLinks = [
   { href: '/ssas', label: 'Find Your SSA' },
   { href: '/events', label: 'Events' },
   { href: '/resources', label: 'Resources' },
-  { href: '/news', label: 'News' },
+  { href: '/news', label: 'Blog' },
 ];
 const links = [
   ...primaryLinks,

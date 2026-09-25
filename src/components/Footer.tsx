@@ -32,7 +32,7 @@ const COLUMNS: { heading: string; links: { label: string; href: string; external
     heading: 'Stay Connected',
     links: [
       { label: 'Resources', href: '/resources' },
-      { label: 'News', href: '/news' },
+      { label: 'Blog', href: '/news' },
       { label: 'Podcast', href: '/podcast' },
       { label: 'Contact', href: '/contact' },
       { label: 'SSA Portal', href: '/portal/login' },

@@ -10,7 +10,7 @@ export default {
     { name: 'author', type: 'string', description: 'Real person — required on every post', validation: (r: any) => r.required() },
     {
       name: 'category', type: 'string',
-      options: { list: ['Career Development', 'Hackathons', 'Guest Speakers', 'Student Research', 'Activism & News', 'Humans of USM'] },
+      options: { list: ['Career Development', 'Hackathons', 'Guest Speakers', 'Student Research', 'Activism & News', 'Humans of USM', 'Events', 'Sikhi', 'Student Life'] },
     },
     { name: 'publishedAt', type: 'datetime' },
     { name: 'excerpt', type: 'text', rows: 3, description: 'One-sentence summary shown in the feed' },
