@@ -86,7 +86,7 @@ Questions about the weekend? [Contact the USM team](/contact) — we are all vol
     author: 'USM',
     category: 'Events',
     publishedAt: PUBLISHED,
-    coverImageUrl: '/photos/pillar-professional.jpg',
+    coverImageUrl: '/photos/sync-flyer.jpg',
     excerpt:
       'One evening, one room: Sikh founders, engineers, investors, operators, and students meeting the Bay Area tech ecosystem during SF Tech Week. October 6, 6–9 PM.',
     cta: {
@@ -101,6 +101,7 @@ That is the idea behind **SYNC**, a new event from United Sikh Movement and the 
 - **When:** Tuesday, October 6, 2026 · 6–9 PM
 - **Where:** San Francisco
 - **Who:** Founders, engineers, investors, operators, students, creatives — and anyone curious about what is being built next
+- **Featuring:** Apple, NVIDIA, Meta, Mercor, and more
 
 [RSVP for SYNC →](https://lnkd.in/gpepHJ3D)
 
@@ -136,6 +137,8 @@ SYNC takes that energy to the professional side of the Bay Area.
 - **Students** who want to see what is possible, and meet people who will pick up the phone later.
 
 Spots are limited, and this is the first one. [RSVP here](https://lnkd.in/gpepHJ3D), and come be part of the first.
+
+![SYNC: SF Tech Week Networking Night, hosted by United Sikh Movement, featuring Apple, NVIDIA, Meta, Mercor, and more](/photos/sync-flyer.jpg "SYNC: SF Tech Week Networking Night, hosted by United Sikh Movement.")
 `,
   },
 
@@ -186,6 +189,12 @@ The TruckMind team at 13Hacks: **Gurtej Sahota, Jugraj Singh, Parampreet Singh, 
 There is something fitting about it. Trucking is an industry where Sikh Americans have a large presence, and one many Sikh families know from the inside. A team of young Sikhs building modern software for it — and getting feedback from Sikh judges and mentors who understood both the tech and the industry — is exactly the kind of thing 13Hacks was designed to make possible.
 
 {{signup}}
+
+## Manshaan AI: a $2,000 prize
+
+![Team Manshaan AI on stage at 13Hacks holding their award plaques and a $2,000 check](/photos/13hacks-manshaan-ai.jpg "Team Manshaan AI with their $2,000 prize at 13Hacks, January 25, 2026.")
+
+On the final day, team **Manshaan AI** took home a **$2,000 prize**, plus award plaques for every member. It was one of several winning teams from a weekend where the bar for pitches was high.
 
 ## First place: "be delusional"
 
@@ -576,6 +585,10 @@ Judges usually have a few minutes per team. A simple structure works:
 5. **What's next** if you kept building.
 
 Know your market, your competitors, and your customer cold. That is what DevRamp said made the difference at 13Hacks.
+
+Here is what a strong problem slide looks like. This one, from a 13Hacks pitch, makes the case in four numbers before the product even appears:
+
+![A problem slide from a 13Hacks pitch titled "The $461 Billion Crisis," showing a 227K+ patient backlog, a 16–30 month wait for diagnosis, 90% of patients exceeding guidelines, and a $461B annual cost](/photos/13hacks-pitch-slide.jpg "A problem slide from a 13Hacks pitch: the problem, sized in numbers.")
 
 ## Why your first hackathon should be one where you belong
 
