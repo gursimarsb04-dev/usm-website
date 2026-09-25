@@ -62,6 +62,8 @@ If you are coming with friends from your campus, register together so you can be
 
 ## Why a Sikh student conference matters
 
+![Students from SSAs across the country at a USM Inter-SSA Conference](/photos/prog-national-conference.jpg "A USM Inter-SSA Conference.")
+
 Most Sikh students are one of a handful of Sikhs in their lecture hall, their internship, or their dorm. That is not a problem to fix, but it does mean that the conversations that matter most — how to carry your Sikhi into a demanding career, how to keep your kes in a field where no one else does, how to lead an SSA without burning out — often happen alone.
 
 A conference puts those conversations in one room. Students leave with mentors they can text, friends at other schools, and ideas for their own chapter. That is also why USM exists: [we are the largest Sikh student network in America](/news/what-is-united-sikh-movement), with 40 active chapters, and the conference is where the whole network shows up at once.
@@ -243,6 +245,8 @@ So a handful of students decided the islands should be a network. What began as 
 
 USM is built on four pillars: **Simran** (spirituality), **Seva** (service), **Sangat** (community), and **Academics**. In practice, that looks like three kinds of programs.
 
+![A session at Camp Kudrat](/photos/prog-camp-kudrat.jpg "Camp Kudrat, USM's annual Sikhi retreat.")
+
 ### Sikhi development
 
 - **[Camp Kudrat](/news/camp-kudrat-recap)**, an annual Sikhi retreat in nature — nitnem, kirtan, workshops, and sangat, with phones put away.
@@ -255,12 +259,16 @@ USM is built on four pillars: **Simran** (spirituality), **Seva** (service), **S
 - **[Free LSAT mentoring and prep](/news/free-lsat-mentoring)** from Sikhs who scored in the 97th percentile and above, with the Sikh Legal Society.
 - **[SYNC](/news/sync-sikh-sf-tech-week)**, the Sikh space at SF Tech Week.
 
+![Participants and mentors at 13Hacks, the first Sikh hackathon, at UC Berkeley](/photos/prog-hackathon.jpg "13Hacks at UC Berkeley: 100+ attendees from 9 states.")
+
 ### The SSA network
 
 - **Conferences** that put every chapter in one room — [including the 13th annual conference at USC](/news/west-coast-sikh-conference-2026).
 - **Leadership retreats** for SSA board members: 65+ participants from 18 SSAs this year, and 95% said they felt more confident leading their chapter afterward.
 - **A national network** of 120+ board members who share playbooks in real time.
 - **Advocacy.** After the hate crime at SJSU, USM mobilized West Coast schools toward Sikh awareness trainings with UC and CSU administrators and university police.
+
+![SSA board members at a USM leadership retreat](/photos/prog-leadership-retreat.jpg "SSA board members at a USM leadership retreat.")
 
 {{signup}}
 
@@ -300,6 +308,8 @@ USM exists so no Sikh student has to choose between going far and staying rooted
 College is expensive, and most general scholarship databases bury the awards that were built for students like you. This guide collects the **scholarships, grants, and interest-free loans created specifically for Sikh students** studying in the United States, plus how to make your application stronger.
 
 **One rule before you start:** amounts, eligibility, and deadlines change every year. Treat this as a map, and always confirm the details on the official site before you apply.
+
+![Sikh students from SSAs across the country gathered together](/photos/prog-national-network.jpg "USM's network connects 120+ SSA board members nationwide.")
 
 ## Scholarships and aid for Sikh students in the U.S.
 
@@ -633,6 +643,8 @@ Working with **Sikh Dharmsal**, USM trained **6 youth facilitators** to lead wor
 
 If you want to go deeper into Gurbani more broadly, start with USM's [Sikhi 101 guide](/guides/sikhi-101), or come to [Camp Kudrat](/news/camp-kudrat-recap), USM's annual Sikhi retreat.
 
+![Kirtan with traditional string instruments and tabla at a USM Gurmat Sangeet program](/photos/prog-gurmat-sangeet.jpg "USM's Gurmat Sangeet course, now an official UC Davis offering.")
+
 ## How to start reading Salok Mahala 9
 
 1. **Read a few saloks at a time**, not all at once. Pick one line to carry with you for the day.
@@ -689,6 +701,8 @@ If a question crosses into harassment, you do not have to handle it alone. Talk 
 - **Attach it to something you already do**, like Japji Sahib on the walk to your first class, or Kirtan Sohila before sleep.
 - **Find a study-and-simran buddy.** Accountability works for Sikhi the same way it works for the gym.
 - **Go deeper once a year.** A retreat like [Camp Kudrat](/news/camp-kudrat-recap) can reset everything. One camper told us that after camp they started doing Kirtan Sohila before sleeping and were able to let go of their anxiety medication.
+
+![A session at Camp Kudrat](/photos/prog-camp-kudrat.jpg "Camp Kudrat: phones away, sangat in.")
 
 ## When Sikhi feels far away
 

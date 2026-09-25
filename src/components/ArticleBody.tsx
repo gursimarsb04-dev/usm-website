@@ -4,7 +4,8 @@
 //
 // Two input shapes, same output:
 //  - `markdown`: a small Markdown subset used by the in-repo articles
-//    (## / ###, - and 1. lists, > quotes, **bold**, *italic*, [text](url)).
+//    (## / ###, - and 1. lists, > quotes, **bold**, *italic*, [text](url),
+//    and ![alt](/photos/x.jpg "caption") on its own line for a figure).
 //    A line containing only {{signup}} drops the mid-article email capture in.
 //  - `blocks`: Sanity portable text (block styles, list items, strong/em/link marks).
 import Link from 'next/link';
@@ -52,11 +53,11 @@ function inline(text: string, keyPrefix = 'i'): ReactNode[] {
     } else if (m[3] !== undefined) {
       out.push(
         <strong key={key} className="font-semibold text-teal-ink">
-          {m[3]}
+          {inline(m[3], key)}
         </strong>
       );
     } else {
-      out.push(<em key={key}>{m[4]}</em>);
+      out.push(<em key={key}>{inline(m[4], key)}</em>);
     }
     last = re.lastIndex;
   }
@@ -67,6 +68,7 @@ function inline(text: string, keyPrefix = 'i'): ReactNode[] {
 type MdBlock =
   | { t: 'h2' | 'h3' | 'p' | 'quote'; text: string }
   | { t: 'ul' | 'ol'; items: string[] }
+  | { t: 'img'; src: string; alt: string; caption?: string }
   | { t: 'signup' };
 
 function parseMarkdown(md: string): MdBlock[] {
@@ -76,7 +78,9 @@ function parseMarkdown(md: string): MdBlock[] {
     const lines = chunk.split('\n').map((l) => l.trim()).filter(Boolean);
     if (!lines.length) continue;
     const first = lines[0];
-    if (first === '{{signup}}') blocks.push({ t: 'signup' });
+    const img = lines.length === 1 && first.match(/^!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)$/);
+    if (img) blocks.push({ t: 'img', alt: img[1], src: img[2], caption: img[3] });
+    else if (first === '{{signup}}') blocks.push({ t: 'signup' });
     else if (first.startsWith('### ')) blocks.push({ t: 'h3', text: first.slice(4) });
     else if (first.startsWith('## ')) blocks.push({ t: 'h2', text: first.slice(3) });
     else if (lines.every((l) => /^[-*] /.test(l))) blocks.push({ t: 'ul', items: lines.map((l) => l.slice(2)) });
@@ -93,6 +97,14 @@ function renderMarkdown(md: string, signup: ReactNode): ReactNode[] {
     switch (b.t) {
       case 'signup':
         return <Fragment key={k}>{signup}</Fragment>;
+      case 'img':
+        return (
+          <figure key={k} className="my-8">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={b.src} alt={b.alt} loading="lazy" className="w-full rounded-3xl" />
+            {b.caption && <figcaption className="mt-2 text-center text-sm text-teal-soft">{b.caption}</figcaption>}
+          </figure>
+        );
       case 'h2':
         return <h2 key={k} className={H2}>{inline(b.text, k)}</h2>;
       case 'h3':
