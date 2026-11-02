@@ -40,7 +40,7 @@ export default async function SSADirectory() {
       <FadeUp>
         <PageHeader
           title="Find your SSA"
-          intro={`40 active chapters, with ${ssas.length} chapters listed on the map. Gold pins are chapters with live pages, so tap yours.`}
+          intro={`40 active chapters, with ${ssas.length} chapters listed on the map. Tap a pin to find yours.`}
         />
       </FadeUp>
 
@@ -52,17 +52,12 @@ export default async function SSADirectory() {
       <FadeUp className="mt-14">
         <SectionHeading className="mb-5">All chapters</SectionHeading>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {/* Every chapter links to its page; unclaimed ones just note that
-              their board can still claim and fill it in. */}
+          {/* Every chapter links to its page. */}
           {ssas.map((s) => (
             <Card key={s.id} href={`/ssas/${s.slug}`} className="p-4" padded={false}>
               <div className="font-display font-semibold text-teal-ink">{s.name}</div>
               <div className="text-sm text-teal-soft">{s.school}</div>
-              {s.status !== 'live' && (
-                <div className="text-[11px] uppercase tracking-widest text-gold-deep mt-1">
-                  Unclaimed
-                </div>
-              )}
+              <div className="mt-1 text-xs font-semibold text-teal">View chapter →</div>
             </Card>
           ))}
         </div>

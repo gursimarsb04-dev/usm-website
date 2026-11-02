@@ -127,11 +127,48 @@ function parseMarkdown(md: string): MdBlock[] {
   return blocks;
 }
 
+/** Does any content survive in this block once flagged text is hidden? */
+function survives(b: MdBlock): boolean {
+  switch (b.t) {
+    case 'ul':
+    case 'ol':
+      return b.items.some((it) => !flagged(it));
+    case 'table':
+      return b.rows.some((r) => !flagged(r.join(' ')));
+    case 'img':
+    case 'signup':
+      return true;
+    default:
+      return !flagged(b.text);
+  }
+}
+
+/**
+ * Blocks to render. In 'todo' mode everything stays. In 'hide' mode flagged
+ * blocks go, and so does any heading whose whole section ended up empty, so a
+ * published post never shows a heading with nothing under it.
+ */
+function visibleBlocks(md: string, flags: FlagMode): MdBlock[] {
+  const blocks = parseMarkdown(md);
+  if (flags === 'todo') return blocks;
+  const kept = blocks.filter(survives);
+  const level = (b: MdBlock) => (b.t === 'h2' ? 2 : b.t === 'h3' ? 3 : 0);
+  return kept.filter((b, i) => {
+    const lv = level(b);
+    if (!lv) return true;
+    for (let j = i + 1; j < kept.length; j++) {
+      const lj = level(kept[j]);
+      if (lj && lj <= lv) return false; // next heading of same/higher level: section empty
+      if (!lj) return true; // found real content
+    }
+    return false; // heading at the very end with nothing after it
+  });
+}
+
 /** H2s for the table of contents (flag-aware, so hidden headings aren't listed). */
 export function extractToc(md: string, flags: FlagMode = 'hide'): { id: string; text: string }[] {
-  return parseMarkdown(md)
+  return visibleBlocks(md, flags)
     .filter((b): b is { t: 'h2'; text: string } => b.t === 'h2')
-    .filter((b) => flags === 'todo' || !flagged(b.text))
     .map((b) => ({ id: headingId(b.text), text: stripFlags(b.text).replace(/\*\*|\*/g, '') }));
 }
 
@@ -152,7 +189,7 @@ function renderMarkdown(md: string, signup: ReactNode, flags: FlagMode): ReactNo
   const gate = (text: string, render: (clean: string) => ReactNode): ReactNode =>
     !flagged(text) ? render(text) : flags === 'hide' ? null : <Todo text={text}>{render(stripFlags(text))}</Todo>;
 
-  return parseMarkdown(md).map((b, i) => {
+  return visibleBlocks(md, flags).map((b, i) => {
     const k = `b${i}`;
     switch (b.t) {
       case 'signup':

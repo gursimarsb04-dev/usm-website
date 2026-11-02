@@ -5,9 +5,10 @@
 // post it is meant to replace (e.g. the refreshed /news/sikh-scholarships), but
 // only where drafts are visible.
 //
-// Drafts (src/lib/blog-drafts.ts) are visible only on non-production
-// deployments: Vercel preview builds and local dev. On production they are
-// filtered out everywhere, so their URLs 404 and the live posts stay as they are.
+// Imported posts (src/lib/blog-drafts.ts) with draft: true are visible only on
+// non-production deployments (Vercel previews, local dev); on production they
+// are filtered out everywhere and their URLs 404. Published imports show
+// everywhere, with review-flagged lines dropped by the renderer.
 import { getNews, getNewsPost } from '@/lib/sanity';
 import { newsFallbacks, type NewsPost } from '@/lib/news-fallbacks';
 import { blogDrafts } from '@/lib/blog-drafts';
@@ -21,11 +22,13 @@ const byDateDesc = (a: BlogPost, b: BlogPost) =>
   (b.publishedAt ?? '').localeCompare(a.publishedAt ?? '');
 
 function repoPosts(includeDrafts: boolean): BlogPost[] {
-  const drafts = includeDrafts && SHOW_DRAFTS ? blogDrafts : [];
-  const draftSlugs = new Set(drafts.map((d) => d.slug));
+  // Imported posts (blog-drafts.ts): published ones always, drafts only where
+  // drafts are visible. An imported post replaces an older post at its URL.
+  const imported = blogDrafts.filter((p) => !p.draft || (includeDrafts && SHOW_DRAFTS));
+  const importedSlugs = new Set(imported.map((d) => d.slug));
   return [
-    ...drafts.map((p) => ({ ...p, source: 'repo' as const })),
-    ...newsFallbacks.filter((p) => !draftSlugs.has(p.slug)).map((p) => ({ ...p, source: 'repo' as const })),
+    ...imported.map((p) => ({ ...p, source: 'repo' as const })),
+    ...newsFallbacks.filter((p) => !importedSlugs.has(p.slug)).map((p) => ({ ...p, source: 'repo' as const })),
   ];
 }
 

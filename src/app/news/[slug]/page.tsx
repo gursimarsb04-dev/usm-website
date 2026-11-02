@@ -145,8 +145,30 @@ export default async function NewsPostPage({ params }: { params: { slug: string 
     <article className="px-5 py-14">
       <JsonLd data={jsonLd} />
 
+      {/* One grid for the whole post: the contents list gets its own sticky
+          column on wide screens, and the header and body share the other
+          column, so the title, intro and article text all line up. */}
+      <div className={`mx-auto ${showToc ? 'max-w-5xl lg:grid lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-14' : 'max-w-3xl'}`}>
+        {showToc && (
+          <aside className="hidden lg:block">
+            <nav aria-label="On this page" className="sticky top-28 pt-10">
+              <p className="text-xs font-semibold uppercase tracking-widest text-teal-soft">On this page</p>
+              <ol className="mt-3 space-y-1 border-l border-teal/15 text-sm leading-snug">
+                {toc.map((t) => (
+                  <li key={t.id}>
+                    <a href={`#${t.id}`} className="-ml-px block border-l-2 border-transparent py-1 pl-3 text-teal-ink/70 hover:border-gold hover:text-teal">
+                      {t.text}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          </aside>
+        )}
+
+        <div className="min-w-0">
       {/* ── Header ── */}
-      <header className="mx-auto max-w-3xl">
+      <header className="max-w-3xl">
         <FadeUp>
           <Link href="/news" className="text-sm text-teal-soft hover:text-teal">
             ← All posts
@@ -191,33 +213,17 @@ export default async function NewsPostPage({ params }: { params: { slug: string 
         </FadeUp>
       </header>
 
-      {/* ── Body: readable column, with a table of contents for long posts ── */}
-      <div className={`mx-auto mt-6 ${showToc ? 'max-w-5xl lg:grid lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-12' : 'max-w-3xl'}`}>
+      {/* ── Body: readable column ── */}
+      <div className="mt-6">
         {showToc && (
-          <>
-            <aside className="hidden lg:block">
-              <nav aria-label="On this page" className="sticky top-28">
-                <p className="text-xs font-semibold uppercase tracking-widest text-teal-soft">On this page</p>
-                <ol className="mt-3 space-y-2 border-l border-teal/15 text-sm">
-                  {toc.map((t) => (
-                    <li key={t.id}>
-                      <a href={`#${t.id}`} className="-ml-px block border-l-2 border-transparent pl-3 text-teal-ink/70 hover:border-gold hover:text-teal">
-                        {t.text}
-                      </a>
-                    </li>
-                  ))}
-                </ol>
-              </nav>
-            </aside>
-            <details className="mb-6 rounded-2xl border border-teal/10 bg-mist/50 px-5 py-3 lg:hidden">
-              <summary className="cursor-pointer font-display font-semibold text-teal">On this page</summary>
-              <ol className="mt-3 space-y-2 pb-2 text-sm">
-                {toc.map((t) => (
-                  <li key={t.id}><a href={`#${t.id}`} className="text-teal-ink/75 hover:text-teal">{t.text}</a></li>
-                ))}
-              </ol>
-            </details>
-          </>
+          <details className="mb-6 rounded-2xl border border-teal/10 bg-mist/50 px-5 py-3 lg:hidden">
+            <summary className="cursor-pointer font-display font-semibold text-teal">On this page</summary>
+            <ol className="mt-3 space-y-2 pb-2 text-sm">
+              {toc.map((t) => (
+                <li key={t.id}><a href={`#${t.id}`} className="text-teal-ink/75 hover:text-teal">{t.text}</a></li>
+              ))}
+            </ol>
+          </details>
         )}
 
         <div className="max-w-[68ch]">
@@ -296,6 +302,8 @@ export default async function NewsPostPage({ params }: { params: { slug: string 
               </ul>
             </section>
           )}
+        </div>
+      </div>
         </div>
       </div>
 
