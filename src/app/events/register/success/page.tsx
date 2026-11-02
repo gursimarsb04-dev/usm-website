@@ -2,7 +2,12 @@ import Link from 'next/link';
 import FadeUp from '@/components/FadeUp';
 import { getCatalogEvent } from '@/lib/events-catalog';
 
-export const metadata = { title: 'Registration confirmed' };
+// A post-checkout confirmation: canonical for consistency, but never indexed.
+export const metadata = {
+  title: 'Registration confirmed',
+  alternates: { canonical: '/events/register/success' },
+  robots: { index: false, follow: true },
+};
 
 export default function RegistrationSuccess({
   searchParams,

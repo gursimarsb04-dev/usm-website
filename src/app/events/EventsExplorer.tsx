@@ -157,6 +157,8 @@ function CalendarEventCard({ event }: { event: CalendarEvent }) {
           {event.registerUrl && (
             <a
               href={event.registerUrl}
+              data-track="event_register_click"
+              data-event-name={event.title}
               target={event.registerUrl.startsWith('/') ? undefined : '_blank'}
               rel="noreferrer"
               className="text-sm font-semibold text-teal underline underline-offset-4 hover:text-gold-deep"
@@ -234,6 +236,8 @@ function CalendarGrid({ events }: { events: CalendarEvent[] }) {
                   <a
                     key={e.id}
                     href={e.registerUrl || (e.chapterSlug ? `/ssas/${e.chapterSlug}` : '#')}
+                    data-track={e.registerUrl ? 'event_register_click' : undefined}
+                    data-event-name={e.registerUrl ? e.title : undefined}
                     target={e.registerUrl && !e.registerUrl.startsWith('/') ? '_blank' : undefined}
                     rel="noreferrer"
                     title={`${e.title}${e.chapter ? ` · ${e.chapter}` : ''}`}

@@ -3,8 +3,16 @@ import Link from 'next/link';
 import FadeUp from '@/components/FadeUp';
 import { getCatalogEvent, formatPrice } from '@/lib/events-catalog';
 import RegistrationForm from './RegistrationForm';
+import JsonLd from '@/components/JsonLd';
+import { catalogEventSchema } from '@/lib/schema';
 
-export const metadata = { title: 'Register' };
+export function generateMetadata({ params }: { params: { slug: string } }) {
+  const event = getCatalogEvent(params.slug);
+  return {
+    title: event ? `Register: ${event.title}` : 'Register',
+    alternates: { canonical: `/events/${params.slug}/register` },
+  };
+}
 
 export default function RegisterPage({
   params,
@@ -26,6 +34,7 @@ export default function RegisterPage({
 
   return (
     <div className="mx-auto max-w-xl px-5 py-16">
+      {catalogEventSchema(event) && <JsonLd data={catalogEventSchema(event)!} />}
       <FadeUp>
         <Link href="/events" className="text-sm text-teal-soft hover:text-teal">← All events</Link>
         <p className="mt-4 text-gold-deep font-display tracking-widest uppercase text-xs">Register</p>

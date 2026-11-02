@@ -9,9 +9,15 @@ import { SSA_PUBLIC_COLUMNS } from '@/lib/ssa-columns';
 import { SSA_COLLECTIVE_FORM_URL } from '@/lib/site';
 import { ssaFallbacks } from '@/lib/ssa-fallback';
 import type { SSA } from '@/lib/types';
+import { pageMetadata } from '@/lib/seo';
 
 export const revalidate = 300;
-export const metadata = { title: 'Find Your SSA' };
+export const metadata = pageMetadata({
+  path: '/ssas',
+  title: 'Find Your SSA',
+  description:
+    'Find the Sikh Student Association on your campus. Browse the USM map of SSA chapters at colleges across the US and Canada and connect with your sangat.',
+});
 
 export default async function SSADirectory() {
   let ssas: SSA[] = [];

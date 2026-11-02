@@ -1,8 +1,14 @@
 import FadeUp from '@/components/FadeUp';
 import { getPodcastEpisodes } from '@/lib/sanity';
+import { pageMetadata } from '@/lib/seo';
 
 export const revalidate = 600;
-export const metadata = { title: 'Podcast' };
+export const metadata = pageMetadata({
+  path: '/podcast',
+  title: 'Podcast',
+  description:
+    'The USM Podcast: conversations with Sikhs who are building, leading, and figuring it out. The first episodes from United Sikh Movement are coming soon.',
+});
 
 function ytId(url: string) {
   const m = url?.match(/(?:youtu\.be\/|v=)([\w-]{11})/);

@@ -16,6 +16,7 @@ import {
 } from '@/lib/guides/sikhi-101';
 
 export const metadata = {
+  alternates: { canonical: '/guides/sikhi-101' },
   title: 'Sikhi 101: What Is Sikhism?',
   description:
     'A plain-language introduction to Sikhi (Sikhism): what Sikhs believe, why Sikhs wear turbans, the Five Ks, the Khalsa, and how Sikhi differs from Islam.',

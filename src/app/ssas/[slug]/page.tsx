@@ -12,6 +12,9 @@ import { supabasePublic } from '@/lib/supabase-public';
 import { SSA_PUBLIC_COLUMNS } from '@/lib/ssa-columns';
 import { ssaFallbacks } from '@/lib/ssa-fallback';
 import type { SSA, USMEvent, Wrapped } from '@/lib/types';
+import { pageMetadata } from '@/lib/seo';
+import JsonLd from '@/components/JsonLd';
+import { chapterSchema } from '@/lib/schema';
 
 export const revalidate = 300;
 
@@ -24,10 +27,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   } catch {}
   if (!ssa) ssa = ssaFallbacks.find((f) => f.slug === params.slug) ?? null;
   if (!ssa) return { title: 'Chapter not found' };
-  return {
+  return pageMetadata({
+    path: `/ssas/${params.slug}`,
     title: ssa.name,
     description: ssa.tagline ?? ssa.description ?? `${ssa.name} at ${ssa.school}.`,
-  };
+  });
 }
 
 export default async function SSAPage({ params }: { params: { slug: string } }) {
@@ -72,6 +76,7 @@ export default async function SSAPage({ params }: { params: { slug: string } }) 
 
   return (
     <>
+      <JsonLd data={chapterSchema(s)} />
       {/* ── Hero: their name and their tagline lead, over their cover photo ── */}
       <section className="relative bg-teal text-white overflow-hidden">
         {s.cover_photo_url && (

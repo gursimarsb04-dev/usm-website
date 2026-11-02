@@ -10,6 +10,7 @@ import { PageHeader } from '@/components/Section';
 import { archivedEvents } from '@/lib/events-catalog';
 
 export const metadata = {
+  alternates: { canonical: '/events/archive' },
   title: 'Event Archive',
   description:
     'Past United Sikh Movement national events — hackathons, retreats, and conferences from across the movement.',

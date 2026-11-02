@@ -1,8 +1,14 @@
 import FadeUp from '@/components/FadeUp';
 import Phulkari from '@/components/Phulkari';
 import { GALLERY_ALBUMS } from '@/lib/site';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata = { title: 'Gallery' };
+export const metadata = pageMetadata({
+  path: '/gallery',
+  title: 'Gallery',
+  description:
+    'Photos from United Sikh Movement camps, conferences, retreats, and 13Hacks. Browse albums from Camp Kudrat, the Inter-SSA National Conference, and more.',
+});
 
 export default function Gallery() {
   return (

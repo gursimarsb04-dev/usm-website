@@ -1,8 +1,14 @@
 // The growth funnel: no SSA at your school? Start one.
 import FadeUp from '@/components/FadeUp';
 import ApplyForm from './ApplyForm';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata = { title: 'Start an SSA' };
+export const metadata = pageMetadata({
+  path: '/start-an-ssa',
+  title: 'Start an SSA',
+  description:
+    'No Sikh Student Association at your school? Apply in two minutes and a USM coordinator will reach out within a week with a starter kit and funding guide.',
+});
 
 const steps = [
   { t: 'Tell us about your campus', b: 'Fill out the form below — takes two minutes.' },

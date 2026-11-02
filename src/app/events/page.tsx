@@ -3,21 +3,34 @@ import Link from 'next/link';
 import FadeUp from '@/components/FadeUp';
 import Card from '@/components/Card';
 import { PageHeader, SectionHeading } from '@/components/Section';
-import { activeEvents, archivedEvents, formatPrice, registerHref } from '@/lib/events-catalog';
+import { activeEvents, archivedEvents, formatPrice, getCatalogEvent, registerHref } from '@/lib/events-catalog';
 import { getUpcomingCalendarEvents, chapterOptions, typeOptions } from '@/lib/calendar';
 import CalendarSubscribeButton from '@/components/CalendarSubscribeButton';
 import EventsExplorer from './EventsExplorer';
+import { pageMetadata } from '@/lib/seo';
+import JsonLd from '@/components/JsonLd';
+import { calendarEventSchema } from '@/lib/schema';
 
 export const revalidate = 300;
-export const metadata = { title: 'Events' };
+export const metadata = pageMetadata({
+  path: '/events',
+  title: 'Events',
+  description:
+    'Upcoming USM national events and Sikh Student Association events from chapters across the network. Register for conferences and subscribe to the calendar.',
+});
 
 export default async function Events() {
   const events = await getUpcomingCalendarEvents();
   const chapters = chapterOptions(events);
   const types = typeOptions(events);
+  // One Event object per upcoming entry; catalog events use their richer data.
+  const eventLd = events
+    .map((e) => calendarEventSchema(e, e.id.startsWith('catalog:') ? getCatalogEvent(e.id.slice(8)) : undefined))
+    .filter(Boolean) as object[];
 
   return (
     <div className="mx-auto max-w-wrap px-5 py-16">
+      {eventLd.length > 0 && <JsonLd data={eventLd} />}
       <FadeUp>
         <PageHeader
           title="Events"
@@ -56,6 +69,8 @@ export default async function Events() {
                 <p className="text-sm text-teal-ink/75 mt-2 flex-1">{e.blurb}</p>
                 <Link
                   href={registerHref(e)}
+                  data-track="event_register_click"
+                  data-event-name={e.title}
                   className="mt-4 inline-block rounded-full bg-teal text-white text-center py-2.5 font-display font-semibold text-sm hover:bg-teal-ink transition-colors"
                 >
                   {e.priceCents > 0 ? 'Register' : 'RSVP — free'}

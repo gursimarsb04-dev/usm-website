@@ -1,8 +1,14 @@
 // "Give the gift of sangat" — their own Vaisakhi campaign language.
 import FadeUp from '@/components/FadeUp';
 import { getSiteSettings } from '@/lib/sanity';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata = { title: 'Donate' };
+export const metadata = pageMetadata({
+  path: '/donate',
+  title: 'Donate',
+  description:
+    'Give your dasvandh to Sikh students. Gifts to United Sikh Movement, a 501(c)(3), fund chapter grants, leadership retreats, free LSAT prep, and seva.',
+});
 
 const impactMath = [
   { amount: '$25', does: 'puts a student in the room at a leadership retreat' },

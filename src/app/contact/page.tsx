@@ -4,8 +4,14 @@ import Phulkari from '@/components/Phulkari';
 import SocialLinks from '@/components/SocialLinks';
 import NewsletterSignup from '@/components/NewsletterSignup';
 import { CONTACT_EMAIL, EIN, SSA_COLLECTIVE_FORM_URL } from '@/lib/site';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata = { title: 'Contact' };
+export const metadata = pageMetadata({
+  path: '/contact',
+  title: 'Contact',
+  description:
+    'Contact United Sikh Movement to start a chapter, join the SSA network, partner with us, or become a mentor. Email the team or join the newsletter.',
+});
 
 const routes = [
   { who: 'Start a chapter', body: 'No SSA at your school? Apply and a coordinator reaches out within a week.', href: '/start-an-ssa', cta: 'Apply to start an SSA' },

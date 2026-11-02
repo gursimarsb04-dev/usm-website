@@ -2,11 +2,13 @@ import Link from 'next/link';
 import FadeUp from '@/components/FadeUp';
 import { getCatalogEvent, formatPrice } from '@/lib/events-catalog';
 import TypeformEmbed from '@/components/TypeformEmbed';
+import JsonLd from '@/components/JsonLd';
+import { catalogEventSchema } from '@/lib/schema';
 
 const SLUG = 'west-coast-retreat-2026';
 const TYPEFORM_ID = 'T2071EHL';
 
-export const metadata = { title: 'West Coast SSA Retreat' };
+export const metadata = { title: 'West Coast SSA Retreat', alternates: { canonical: '/retreat' } };
 
 export default function RetreatPage() {
   const event = getCatalogEvent(SLUG);
@@ -15,6 +17,7 @@ export default function RetreatPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-16">
+      {catalogEventSchema(event) && <JsonLd data={catalogEventSchema(event)!} />}
       <FadeUp>
         <p className="text-gold-deep font-display tracking-widest uppercase text-xs">
           SSA Collective Presents
