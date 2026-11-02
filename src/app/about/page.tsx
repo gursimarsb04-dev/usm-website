@@ -1,8 +1,14 @@
 import FadeUp from '@/components/FadeUp';
 import Phulkari from '@/components/Phulkari';
 import Button from '@/components/Button';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata = { title: 'About' };
+export const metadata = pageMetadata({
+  path: '/about',
+  title: 'About',
+  description:
+    'How four students turned isolated Sikh Student Associations into United Sikh Movement, a 40-chapter network built on Simran, Seva, Sangat, and Academics.',
+});
 export const revalidate = 300;
 
 const fourS = [

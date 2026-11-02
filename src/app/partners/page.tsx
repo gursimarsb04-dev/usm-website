@@ -3,8 +3,14 @@ import FadeUp from '@/components/FadeUp';
 import Phulkari from '@/components/Phulkari';
 import Button from '@/components/Button';
 import { CONTACT_EMAIL } from '@/lib/site';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata = { title: 'Our Partners' };
+export const metadata = pageMetadata({
+  path: '/partners',
+  title: 'Our Partners',
+  description:
+    'The organizations and gurdwaras that partner with United Sikh Movement, including Basics of Sikhi, United Sikhs, Sikh Relief, and Khalsa Care Foundation.',
+});
 
 // Partner orgs carried over from the legacy unitedsikhmovement.org/our-partners.
 // TODO(usm): add logo images to /public/partners and a `logo` field if desired.

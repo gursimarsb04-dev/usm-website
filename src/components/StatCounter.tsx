@@ -1,16 +1,20 @@
 'use client';
 // Counts up when scrolled into view. Respects reduced motion.
+// The server renders the real number (so the HTML, search engines, link
+// previews and no-JS visitors see "40", not "0"); the browser then resets it
+// to 0 and counts back up once the counter scrolls into view.
 import { useEffect, useRef, useState } from 'react';
 
 export default function StatCounter({ value, prefix = '', suffix = '', label, size = 'default' }:
   { value: number; prefix?: string; suffix?: string; label: string; size?: 'default' | 'band' }) {
-  const [n, setN] = useState(0);
+  const [n, setN] = useState(value);
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduced) { setN(value); return; }
     const el = ref.current;
     if (!el) return;
+    setN(0);
     const obs = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
       obs.disconnect();

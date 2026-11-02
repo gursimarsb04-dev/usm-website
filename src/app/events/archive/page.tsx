@@ -7,15 +7,19 @@ import FadeUp from '@/components/FadeUp';
 import Card from '@/components/Card';
 import EmptyState from '@/components/EmptyState';
 import { PageHeader } from '@/components/Section';
-import { archivedEvents } from '@/lib/events-catalog';
+import { getArchivedEvents } from '@/lib/events-catalog';
+
+export const revalidate = 300;
 
 export const metadata = {
+  alternates: { canonical: '/events/archive' },
   title: 'Event Archive',
   description:
     'Past United Sikh Movement national events — hackathons, retreats, and conferences from across the movement.',
 };
 
 export default function EventArchive() {
+  const archivedEvents = getArchivedEvents();
   return (
     <div className="mx-auto max-w-wrap px-5 py-16">
       <FadeUp>

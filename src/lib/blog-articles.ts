@@ -18,7 +18,7 @@ export const blogArticles: NewsPost[] = [
   {
     slug: 'west-coast-sikh-conference-2026',
     title: 'The 13th Annual USM Conference Is Coming to USC: November 6–8, 2026',
-    seoTitle: 'Sikh Student Conference 2026 at USC (Nov 6–8) | USM West Coast Conference',
+    seoTitle: 'Sikh Student Conference 2026 at USC, Nov 6 to 8 | USM',
     author: 'USM',
     category: 'Events',
     publishedAt: PUBLISHED,
@@ -82,7 +82,7 @@ Questions about the weekend? [Contact the USM team](/contact) — we are all vol
   {
     slug: 'sync-sikh-sf-tech-week',
     title: 'SYNC: The Only Sikh Space at SF Tech Week (October 6, San Francisco)',
-    seoTitle: 'SYNC: Sikh Tech Networking Event at SF Tech Week 2026 | October 6',
+    seoTitle: 'SYNC: Sikh Tech Networking at SF Tech Week 2026',
     author: 'USM',
     category: 'Events',
     publishedAt: PUBLISHED,
@@ -146,7 +146,7 @@ Spots are limited, and this is the first one. [RSVP here](https://lnkd.in/gpepHJ
   {
     slug: 'first-sikh-hackathon-13hacks',
     title: 'Inside 13Hacks, the First Sikh Hackathon — and the Startup That Won Its Venture Track',
-    seoTitle: 'The First Sikh Hackathon: 13Hacks at UC Berkeley & the Startup It Launched',
+    seoTitle: 'The First Sikh Hackathon: 13Hacks at UC Berkeley',
     author: 'USM',
     category: 'Hackathons',
     publishedAt: PUBLISHED,
@@ -226,7 +226,7 @@ In the words of the USM team afterward: 13Hacks was proof of what is possible wh
   {
     slug: 'what-is-united-sikh-movement',
     title: 'What Is United Sikh Movement? America’s Largest Sikh Student Network, Explained',
-    seoTitle: 'What Is United Sikh Movement (USM)? The Largest Sikh Student Network in the US',
+    seoTitle: 'What Is United Sikh Movement (USM)?',
     author: 'USM',
     category: 'Activism & News',
     publishedAt: PUBLISHED,
@@ -298,90 +298,11 @@ USM exists so no Sikh student has to choose between going far and staying rooted
 `,
   },
 
-  // ── 5. Scholarships (high-volume evergreen search) ──
-  {
-    slug: 'sikh-scholarships',
-    title: 'Scholarships for Sikh Students in the U.S.: The 2026–27 Guide',
-    seoTitle: 'Sikh Scholarships 2026–27: Grants & Interest-Free Loans for Sikh Students (US)',
-    author: 'USM',
-    category: 'Student Life',
-    publishedAt: PUBLISHED,
-    coverImageUrl: '/photos/pillar-network.jpg',
-    excerpt:
-      'The scholarships, grants, and interest-free loans built specifically for Sikh students in the U.S. — who they are for, what they offer, and how to put together a stronger application.',
-    cta: {
-      heading: 'Get scholarship deadlines in your inbox',
-      body: 'We share new Sikh scholarships and upcoming deadlines with the list, so you do not find out the week after they close.',
-    },
-    markdown: `
-College is expensive, and most general scholarship databases bury the awards that were built for students like you. This guide collects the **scholarships, grants, and interest-free loans created specifically for Sikh students** studying in the United States, plus how to make your application stronger.
-
-**One rule before you start:** amounts, eligibility, and deadlines change every year. Treat this as a map, and always confirm the details on the official site before you apply.
-
-![Sikh students from SSAs across the country gathered together](/photos/prog-national-network.jpg "USM's network connects 120+ SSA board members nationwide.")
-
-## Scholarships and aid for Sikh students in the U.S.
-
-### Sikh Education Fund (Association of Sikh Professionals)
-
-Since 1989, the [Sikh Education Fund](https://associationofsikhprofessionals.org/sikh-education-fund/), a project of the Association of Sikh Professionals, has helped Sikh students at U.S. colleges and universities with **scholarships and interest-free loans**. Loans are repaid after graduation, and the repaid money goes back into the fund to support the next students — a model built on the idea of seva.
-
-**Good fit if:** you are studying at a U.S. college or university and could use either a grant or a loan with no interest.
-
-### 5Rivers Foundation Scholarship
-
-The [5Rivers Foundation](https://www.5riversfoundation.org/criteria-and-eligibility) offers scholarship grants of **up to $5,000** to Sikh students attending or planning to attend an accredited U.S. undergraduate or graduate program. Its published criteria have included a minimum GPA of 2.5 and a family income cap, and its most recent cycle had a summer deadline. Awards are not renewable, but past recipients can reapply.
-
-**Good fit if:** you have financial need and are enrolled (or about to enroll) in a U.S. program.
-
-### SALDEF scholarships
-
-[SALDEF](https://saldef.org/tag/scholarship/), the Sikh American Legal Defense and Education Fund, has offered scholarships to Sikh American students who show **both academic merit and financial need**.
-
-**Good fit if:** you have a strong academic record and a story about why you are pursuing your field.
-
-### Sikh Human Development Foundation (USA scholarships)
-
-The [Sikh Human Development Foundation](https://www.shdf.org/scholarships-usa/) is best known for scholarships in Punjab, but it also lists a **USA scholarship** program. Check its page for the current eligibility.
-
-### Sikh Scholarship Fund
-
-The [Sikh Scholarship Fund](https://sikhscholarshipfund.com/) supports Sikh students who show academic excellence, leadership potential, and commitment to community service.
-
-{{signup}}
-
-## Grants for your SSA (not just for you)
-
-If you are on a Sikh Student Association board, money for your **chapter** exists too. The Sikh Coalition has run a [Sangat Seva Grant for SSAs](https://www.sikhcoalition.org/blog/2026/college-students-apply-for-the-sikh-student-association-grant/), supporting programming like Sikh Awareness Week, leadership workshops, and seva projects. The 2026 round has closed, but it is worth watching for the next one.
-
-And if your campus does not have an SSA yet, [USM can help you start one](/start-an-ssa).
-
-## How to write a stronger application
-
-Sikh-specific scholarships are read by people who care about the community. That changes what a strong application looks like.
-
-1. **Be specific about seva.** "I volunteer at the gurdwara" is common. What did you actually do, for how long, and what changed because of it?
-2. **Connect your field to your values.** Why law, medicine, engineering, or teaching — and what does Sikhi have to do with it? Reviewers want to see that you have thought about it.
-3. **Show leadership, not titles.** Being SSA president matters less than what your SSA did while you led it.
-4. **Ask for recommendations early.** Give recommenders at least three weeks and a short summary of what you would like them to mention.
-5. **Reuse, then tailor.** Write one strong core essay about your story and values, then adapt the opening and closing for each award.
-6. **Apply to more than one.** These awards are small individually. Several of them together can change a year.
-
-## Other ways to lower the cost of your future
-
-Scholarships are one piece. Some of the biggest costs come after college — test prep, applications, and grad school. USM offers [free LSAT mentoring and prep](/news/free-lsat-mentoring) from Sikhs who scored in the 97th percentile and above, so you do not have to pay thousands for a course.
-
-## Know a scholarship we missed?
-
-This guide is updated as we learn about new awards. If you run or know a scholarship for Sikh students in the U.S., [let us know](/contact) and we will review it for the next update.
-`,
-  },
-
   // ── 6. Free LSAT mentoring ──
   {
     slug: 'free-lsat-mentoring',
     title: 'Free LSAT Mentoring From Sikhs Who Scored in the 97th Percentile',
-    seoTitle: 'Free LSAT Prep & Mentoring for Sikh Students | 97th-Percentile Mentors',
+    seoTitle: 'Free LSAT Prep and Mentoring for Sikh Students',
     author: 'USM',
     category: 'Career Development',
     publishedAt: PUBLISHED,
@@ -444,7 +365,7 @@ The LSAT is one cost. If you are looking for help with tuition too, see our guid
   {
     slug: 'turban-job-interview',
     title: 'Wearing a Dastar to a Job Interview: What Sikh Professionals Want You to Know',
-    seoTitle: 'Wearing a Turban (Dastar) to a Job Interview: Sikh Workplace Rights & Tips',
+    seoTitle: 'Wearing a Turban to a Job Interview: Sikh Rights and Tips',
     author: 'USM',
     category: 'Career Development',
     publishedAt: PUBLISHED,
@@ -517,7 +438,7 @@ You can also file a charge with the [EEOC](https://www.eeoc.gov/). There are tim
   {
     slug: 'first-hackathon-no-coding',
     title: 'How to Do Your First Hackathon With No Coding Experience',
-    seoTitle: 'First Hackathon With No Coding Experience? A Step-by-Step Guide for Beginners',
+    seoTitle: 'Your First Hackathon With No Coding Experience',
     author: 'USM',
     category: 'Hackathons',
     publishedAt: PUBLISHED,
@@ -602,7 +523,7 @@ The hardest part of a first hackathon is walking into a room where you do not kn
   {
     slug: 'salok-mahala-9-meaning',
     title: "Salok Mahala 9: What Guru Tegh Bahadur Ji's Saloks Say to You in Your 20s",
-    seoTitle: 'Salok Mahala 9 Meaning: Guru Tegh Bahadur Ji’s Teachings Explained for Young Sikhs',
+    seoTitle: 'Salok Mahala 9 Meaning: Guru Tegh Bahadur Ji\'s Teachings',
     author: 'USM',
     category: 'Sikhi',
     publishedAt: PUBLISHED,
@@ -671,7 +592,7 @@ If you want to go deeper into Gurbani more broadly, start with USM's [Sikhi 101 
   {
     slug: 'sikh-in-college',
     title: 'Being Sikh in College: Finding Sangat, Handling Questions, and Staying Grounded',
-    seoTitle: 'Being Sikh in College: A Guide to Finding Community and Keeping Your Sikhi',
+    seoTitle: 'Being Sikh in College: Finding Community and Sangat',
     author: 'USM',
     category: 'Student Life',
     publishedAt: PUBLISHED,

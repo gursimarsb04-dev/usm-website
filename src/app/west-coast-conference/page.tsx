@@ -2,6 +2,9 @@ import Link from 'next/link';
 import FadeUp from '@/components/FadeUp';
 import { getCatalogEvent, formatPrice, resolveTier } from '@/lib/events-catalog';
 import TypeformEmbed from '@/components/TypeformEmbed';
+import JsonLd from '@/components/JsonLd';
+import { catalogEventSchema } from '@/lib/schema';
+import { pageMetadata } from '@/lib/seo';
 
 const SLUG = 'west-coast-conference-2026';
 const TYPEFORM_ID = 'mL7bujpH';
@@ -10,7 +13,13 @@ const TYPEFORM_ID = 'mL7bujpH';
 // short revalidate keeps the displayed price correct across a tier switch
 // without needing force-dynamic on every request.
 export const revalidate = 300;
-export const metadata = { title: 'West Coast Conference' };
+export const metadata = pageMetadata({
+  path: '/west-coast-conference',
+  title: 'West Coast Conference',
+  description:
+    'Register for the West Coast Conference, November 6 to 8, 2026, at USC: three days of speakers, workshops, and sangat with Sikh students from across the country.',
+  image: '/photos/prog-national-conference.jpg',
+});
 
 export default function WestCoastConferencePage() {
   const event = getCatalogEvent(SLUG);
@@ -23,6 +32,7 @@ export default function WestCoastConferencePage() {
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-16">
+      {catalogEventSchema(event) && <JsonLd data={catalogEventSchema(event)!} />}
       <FadeUp>
         <p className="text-gold-deep font-display tracking-widest uppercase text-xs">
           United Sikh Movement Presents

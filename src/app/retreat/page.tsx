@@ -1,20 +1,34 @@
 import Link from 'next/link';
 import FadeUp from '@/components/FadeUp';
-import { getCatalogEvent, formatPrice } from '@/lib/events-catalog';
+import { getCatalogEvent, formatPrice, isPastEvent } from '@/lib/events-catalog';
 import TypeformEmbed from '@/components/TypeformEmbed';
+import JsonLd from '@/components/JsonLd';
+import { catalogEventSchema } from '@/lib/schema';
+import { pageMetadata } from '@/lib/seo';
 
 const SLUG = 'west-coast-retreat-2026';
 const TYPEFORM_ID = 'T2071EHL';
 
-export const metadata = { title: 'West Coast SSA Retreat' };
+export const metadata = pageMetadata({
+  path: '/retreat',
+  title: 'West Coast SSA Retreat',
+  description:
+    'A one-day leadership retreat for SSA board members on October 23, 2026, in the Sierra Nevada Mountains, with workshops on Sikh student life and leadership.',
+  image: '/photos/prog-leadership-retreat.jpg',
+});
+
+// Re-render every 5 minutes so the page switches to "passed" on time.
+export const revalidate = 300;
 
 export default function RetreatPage() {
   const event = getCatalogEvent(SLUG);
   if (!event) return null;
   const price = formatPrice(event.priceCents, event.currency);
+  const past = isPastEvent(event);
 
   return (
     <div className="mx-auto max-w-3xl px-5 py-16">
+      {catalogEventSchema(event) && <JsonLd data={catalogEventSchema(event)!} />}
       <FadeUp>
         <p className="text-gold-deep font-display tracking-widest uppercase text-xs">
           SSA Collective Presents
@@ -28,12 +42,20 @@ export default function RetreatPage() {
           <span className="rounded-full bg-mist px-4 py-2 text-sm font-semibold text-teal">
             October 23, 2026
           </span>
-          <span className="rounded-full bg-mist px-4 py-2 text-sm font-semibold text-teal">
-            Register by September 28, 2026
-          </span>
-          <span className="rounded-full bg-mist px-4 py-2 text-sm font-semibold text-teal">
-            {price} per person
-          </span>
+          {past ? (
+            <span className="rounded-full bg-teal-ink/10 px-4 py-2 text-sm font-semibold text-teal-ink">
+              Past event
+            </span>
+          ) : (
+            <>
+              <span className="rounded-full bg-mist px-4 py-2 text-sm font-semibold text-teal">
+                Register by September 28, 2026
+              </span>
+              <span className="rounded-full bg-mist px-4 py-2 text-sm font-semibold text-teal">
+                {price} per person
+              </span>
+            </>
+          )}
         </div>
 
         <div className="mt-8 space-y-4 text-teal-ink/80 leading-relaxed">
@@ -53,12 +75,20 @@ export default function RetreatPage() {
           </p>
         </div>
 
+        {past ? (
+          <p className="mt-5 rounded-xl bg-mist text-teal-ink px-4 py-3 text-sm font-medium">
+            This retreat was scheduled for October 23, 2026, and registration is now closed. See{' '}
+            <Link href="/events" className="font-semibold text-teal underline underline-offset-4">upcoming events</Link>.
+          </p>
+        ) : (
         <p className="mt-5 rounded-xl bg-gold/20 text-teal-ink px-4 py-3 text-sm font-medium">
           Space is limited to only 30 SSA board members, so register and pay as soon as possible
           to secure your spot!
         </p>
+        )}
       </FadeUp>
 
+      {!past && (
       <FadeUp className="mt-14">
         <h2 className="font-display text-2xl font-bold text-teal">Register &amp; reserve your spot</h2>
         <p className="mt-2 text-teal-ink/75">
@@ -68,6 +98,7 @@ export default function RetreatPage() {
           <TypeformEmbed formId={TYPEFORM_ID} title="West Coast SSA Leadership Retreat registration" />
         </div>
       </FadeUp>
+      )}
 
       <div id="media-consent" className="mt-16 scroll-mt-24">
       <FadeUp className="rounded-3xl bg-mist p-6 text-sm text-teal-ink/80 leading-relaxed space-y-3">

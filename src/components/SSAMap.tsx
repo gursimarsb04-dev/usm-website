@@ -1,6 +1,8 @@
 'use client';
-// The centerpiece: every SSA as a pin. Live chapters link to their page;
-// unclaimed chapters show a "claim your page" prompt — scale without dead pages.
+// The centerpiece: every SSA as a pin, each linking to its chapter page.
+// Leaflet's stylesheet is bundled from node_modules (not loaded from a CDN at
+// runtime), so the map never renders unstyled with tiles spilling off the page.
+import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
@@ -31,15 +33,7 @@ const FitBounds = dynamic(
 
 export default function SSAMap({ ssas }: { ssas: SSA[] }) {
   const [ready, setReady] = useState(false);
-  useEffect(() => {
-    // Leaflet CSS — loaded client-side only
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-    document.head.appendChild(link);
-    setReady(true);
-    return () => { document.head.removeChild(link); };
-  }, []);
+  useEffect(() => setReady(true), []);
 
   if (!ready) return <div className="ssa-map bg-mist animate-pulse" />;
 
@@ -56,10 +50,10 @@ export default function SSAMap({ ssas }: { ssas: SSA[] }) {
         <CircleMarker
           key={s.id}
           center={[s.latitude!, s.longitude!]}
-          radius={s.status === 'live' ? 9 : 6}
+          radius={7}
           pathOptions={{
             color: '#235470',
-            fillColor: s.status === 'live' ? '#F5D78C' : '#E9F1F3',
+            fillColor: '#F5D78C',
             fillOpacity: 0.95,
             weight: 2,
           }}
@@ -95,15 +89,9 @@ export default function SSAMap({ ssas }: { ssas: SSA[] }) {
                 >
                   Join SSA →
                 </a>
-                {s.status === 'live' ? (
-                  <Link href={`/ssas/${s.slug}`} className="text-xs font-semibold text-teal underline">
-                    View chapter →
-                  </Link>
-                ) : (
-                  <Link href="/portal/login" className="text-xs text-teal-soft underline">
-                    Claim page
-                  </Link>
-                )}
+                <Link href={`/ssas/${s.slug}`} className="text-xs font-semibold text-teal underline">
+                  View chapter →
+                </Link>
               </div>
             </div>
           </Popup>

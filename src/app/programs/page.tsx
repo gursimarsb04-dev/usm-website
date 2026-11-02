@@ -5,9 +5,16 @@ import Card from '@/components/Card';
 import { PageHeader } from '@/components/Section';
 import { getPrograms, urlFor } from '@/lib/sanity';
 import { programFallbacks } from '@/lib/program-fallbacks';
+import { pageMetadata } from '@/lib/seo';
+import LatestPosts from '@/components/LatestPosts';
 
 export const revalidate = 3600;
-export const metadata = { title: 'Programs' };
+export const metadata = pageMetadata({
+  path: '/programs',
+  title: 'Programs',
+  description:
+    'USM programs for Sikh students: Camp Kudrat, Gurmat Sangeet, 13Hacks, free LSAT prep, Inter-SSA conferences, leadership retreats, and Khudrang Roots.',
+});
 
 const pillarOrder = ['Sikhi Development', 'Professional Development', 'SSA Network'];
 
@@ -68,6 +75,11 @@ export default async function Programs() {
           </FadeUp>
         );
       })}
+
+      {/* Internal links into the blog. */}
+      <div className="mt-20">
+        <LatestPosts />
+      </div>
     </div>
   );
 }

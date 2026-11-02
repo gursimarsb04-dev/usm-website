@@ -11,8 +11,20 @@ import EmptyState from '@/components/EmptyState';
 import { Section, Eyebrow, SectionHeading } from '@/components/Section';
 import { supabasePublic } from '@/lib/supabase-public';
 import { SSA_COLLECTIVE_FORM_URL } from '@/lib/site';
+import { pageMetadata } from '@/lib/seo';
+import JsonLd from '@/components/JsonLd';
+import { organizationSchema } from '@/lib/schema';
+import LatestPosts from '@/components/LatestPosts';
 
 export const revalidate = 300;
+
+export const metadata = pageMetadata({
+  path: '/',
+  title: 'United Sikh Movement | Sikh Student Association Network',
+  absoluteTitle: true,
+  description:
+    'United Sikh Movement connects 40 Sikh Student Associations across the US with mentorship, leadership retreats, conferences, and programs rooted in Sikhi.',
+});
 
 const pillars = [
   {
@@ -62,6 +74,7 @@ export default async function Home() {
 
   return (
     <>
+      <JsonLd data={organizationSchema()} />
       {/* ── HERO ── */}
       <section className="relative min-h-[88vh] flex items-center bg-teal text-white overflow-hidden">
         {/* Real hero photo — 7th Annual Inter-SSA Conference sangat.
@@ -266,6 +279,11 @@ export default async function Home() {
             />
           )}
         </FadeUp>
+      </Section>
+
+      {/* ── FROM THE BLOG ── internal links to the latest posts */}
+      <Section>
+        <LatestPosts />
       </Section>
 
       {/* ── FINAL CTA ──

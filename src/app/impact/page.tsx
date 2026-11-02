@@ -4,6 +4,7 @@ import Button from '@/components/Button';
 import Phulkari from '@/components/Phulkari';
 import { getImpactStats } from '@/lib/sanity';
 import { spiritualImpact } from '@/lib/program-fallbacks';
+import { pageMetadata } from '@/lib/seo';
 
 const testimonials = [
   {
@@ -13,7 +14,12 @@ const testimonials = [
 ];
 
 export const revalidate = 3600;
-export const metadata = { title: 'Our Impact' };
+export const metadata = pageMetadata({
+  path: '/impact',
+  title: 'Our Impact',
+  description:
+    'What United Sikh Movement built this year: 40 SSAs, 100+ leaders trained, 2,500+ students reached, free LSAT prep, and student-led change on campus.',
+});
 
 const wins = [
   {

@@ -6,9 +6,15 @@ import EmptyState from '@/components/EmptyState';
 import { PageHeader } from '@/components/Section';
 import { getResources } from '@/lib/sanity';
 import { visibleResources } from '@/lib/resource-fallbacks';
+import { pageMetadata } from '@/lib/seo';
 
 export const revalidate = 600;
-export const metadata = { title: 'Resources' };
+export const metadata = pageMetadata({
+  path: '/resources',
+  title: 'Resources',
+  description:
+    'Guides and tools for Sikh students from United Sikh Movement, including structured Gurbani study. SSA leaders can find their full toolkit in the portal.',
+});
 
 export default async function Resources() {
   let resources: any[] = [];

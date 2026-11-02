@@ -16,7 +16,8 @@ export const metadata = {
 export default async function News() {
   // Sanity + in-repo posts, merged. Resolve Sanity image refs on the server;
   // the client list just takes a URL (repo posts already carry one).
-  const posts = (await getAllPosts()).map(({ markdown, body, ...p }) => ({
+  // Drafts are included only on preview deployments (getAllPosts enforces it).
+  const posts = (await getAllPosts({ includeDrafts: true })).map(({ markdown, body, faq, sources, publishingNote, ...p }) => ({
     ...p,
     coverImageUrl: p.coverImage ? urlFor(p.coverImage).width(600).height(340).url() : p.coverImageUrl ?? null,
   }));

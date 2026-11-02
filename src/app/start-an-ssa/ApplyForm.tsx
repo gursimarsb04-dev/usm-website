@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { track } from '@/lib/track';
 
 export default function ApplyForm() {
   const [state, setState] = useState<'idle' | 'sending' | 'done' | 'error'>('idle');
@@ -20,6 +21,7 @@ export default function ApplyForm() {
         message: f.get('message'),
       }),
     });
+    if (res.ok) track('chapter_application');
     setState(res.ok ? 'done' : 'error');
   }
 

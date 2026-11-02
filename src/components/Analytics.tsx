@@ -12,8 +12,8 @@ export default function Analytics() {
     <>
       <Script src={`https://www.googletagmanager.com/gtag/js?id=${ids[0]}`} strategy="afterInteractive" />
       <Script id="gtag-init" strategy="afterInteractive">
-        {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());${ids
-          .map((id) => `gtag('config',${JSON.stringify(id)});`)
+        {`var dbg={};try{if(/[?&]ga_debug=1/.test(location.search))sessionStorage.setItem('ga_debug','1');if(sessionStorage.getItem('ga_debug')==='1')dbg={debug_mode:true};}catch(e){}window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());${ids
+          .map((id) => `gtag('config',${JSON.stringify(id)},dbg);`)
           .join('')}`}
       </Script>
     </>

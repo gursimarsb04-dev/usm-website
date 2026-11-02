@@ -132,11 +132,25 @@ export function getCatalogEvent(slug: string): CatalogEvent | undefined {
   return eventsCatalog.find((e) => e.slug === slug);
 }
 
-/** Events open for registration now — the main Events page. */
-export const activeEvents = eventsCatalog.filter((e) => !e.archived);
+/**
+ * True once an event has ended (its end time, or start time if it has no end,
+ * is in the past). Lets an event drop out of "Open for registration" on its
+ * own instead of someone remembering to flip `archived`.
+ */
+export function isPastEvent(e: CatalogEvent, now = Date.now()): boolean {
+  const end = e.endsAt ?? e.startsAt;
+  return !!end && new Date(end).getTime() < now;
+}
 
-/** Past events / dates not yet announced — /events/archive. */
-export const archivedEvents = eventsCatalog.filter((e) => e.archived);
+/** Events open for registration now, for the main Events page. */
+export function getActiveEvents(now = Date.now()): CatalogEvent[] {
+  return eventsCatalog.filter((e) => !e.archived && !isPastEvent(e, now));
+}
+
+/** Past events and ones without a date yet, for /events/archive. */
+export function getArchivedEvents(now = Date.now()): CatalogEvent[] {
+  return eventsCatalog.filter((e) => e.archived || isPastEvent(e, now));
+}
 
 /** Where a given event's CTA should point. */
 export function registerHref(e: CatalogEvent): string {

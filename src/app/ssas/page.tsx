@@ -8,10 +8,17 @@ import { supabasePublic } from '@/lib/supabase-public';
 import { SSA_PUBLIC_COLUMNS } from '@/lib/ssa-columns';
 import { SSA_COLLECTIVE_FORM_URL } from '@/lib/site';
 import { ssaFallbacks } from '@/lib/ssa-fallback';
+import { chapterInstagram } from '@/lib/ssa-instagram';
 import type { SSA } from '@/lib/types';
+import { pageMetadata } from '@/lib/seo';
 
 export const revalidate = 300;
-export const metadata = { title: 'Find Your SSA' };
+export const metadata = pageMetadata({
+  path: '/ssas',
+  title: 'Find Your SSA',
+  description:
+    'Find the Sikh Student Association on your campus. Browse the USM map of SSA chapters at colleges across the US and Canada and connect with your sangat.',
+});
 
 export default async function SSADirectory() {
   let ssas: SSA[] = [];
@@ -23,13 +30,17 @@ export default async function SSADirectory() {
   // No DB configured yet, or table is empty — fall back to the known roster
   // so the map and directory show every chapter regardless.
   if (ssas.length === 0) ssas = ssaFallbacks;
+  // Never link an Instagram account flagged as not the chapter's (e.g. harvard).
+  ssas = ssas.map((s) =>
+    chapterInstagram[s.slug]?.confidence === 'low' ? { ...s, instagram_handle: null } : s
+  );
 
   return (
     <div className="mx-auto max-w-wrap px-5 py-16">
       <FadeUp>
         <PageHeader
           title="Find your SSA"
-          intro={`${ssas.length} active Sikh Student Association chapters across the nation. Gold pins are chapters with live pages — tap yours.`}
+          intro={`40 active chapters, with ${ssas.length} chapters listed on the map. Tap a pin to find yours.`}
         />
       </FadeUp>
 
@@ -41,17 +52,12 @@ export default async function SSADirectory() {
       <FadeUp className="mt-14">
         <SectionHeading className="mb-5">All chapters</SectionHeading>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {/* Every chapter links to its page; unclaimed ones just note that
-              their board can still claim and fill it in. */}
+          {/* Every chapter links to its page. */}
           {ssas.map((s) => (
             <Card key={s.id} href={`/ssas/${s.slug}`} className="p-4" padded={false}>
               <div className="font-display font-semibold text-teal-ink">{s.name}</div>
               <div className="text-sm text-teal-soft">{s.school}</div>
-              {s.status !== 'live' && (
-                <div className="text-[11px] uppercase tracking-widest text-gold-deep mt-1">
-                  Unclaimed
-                </div>
-              )}
+              <div className="mt-1 text-xs font-semibold text-teal">View chapter →</div>
             </Card>
           ))}
         </div>

@@ -8,8 +8,22 @@ import Phulkari from '@/components/Phulkari';
 import { supabasePublic } from '@/lib/supabase-public';
 import { SSA_PUBLIC_COLUMNS } from '@/lib/ssa-columns';
 import type { SSA, Wrapped } from '@/lib/types';
+import { ssaFallbacks } from '@/lib/ssa-fallback';
 
 export const revalidate = 300;
+
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  let name: string | undefined;
+  try {
+    const { data } = await supabasePublic().from('ssas').select('name').eq('slug', params.slug).single();
+    name = data?.name;
+  } catch {}
+  name ??= ssaFallbacks.find((f) => f.slug === params.slug)?.name;
+  return {
+    title: name ? `${name} Wrapped` : 'Wrapped',
+    alternates: { canonical: `/ssas/${params.slug}/wrapped` },
+  };
+}
 
 export default async function WrappedPage({ params }: { params: { slug: string } }) {
   const sb = supabasePublic();

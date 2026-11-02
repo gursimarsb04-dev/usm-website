@@ -4,6 +4,7 @@ import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import ScrollProgress from '@/components/ScrollProgress';
 import Analytics from '@/components/Analytics';
+import ClickTracker from '@/components/ClickTracker';
 import { SITE_URL } from '@/lib/site';
 import './globals.css';
 
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <Footer />
         <Analytics />
+        <ClickTracker />
       </body>
     </html>
   );

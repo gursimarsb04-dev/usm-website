@@ -7,6 +7,7 @@ import OpportunitiesList from './OpportunitiesList';
 
 export const revalidate = 600;
 export const metadata = {
+  alternates: { canonical: '/opportunities' },
   title: 'Opportunities',
   description:
     'Internships, scholarships, grants, and volunteer roles for Sikh students — curated by the United Sikh Movement team.',

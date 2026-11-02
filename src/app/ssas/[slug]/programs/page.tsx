@@ -6,6 +6,27 @@ import { ssaFallbacks } from '@/lib/ssa-fallback';
 
 export const revalidate = 300;
 
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  let name: string | undefined;
+  let hasContent = false;
+  try {
+    const { data } = await supabasePublic()
+      .from('ssas')
+      .select('name, status, programs_content')
+      .eq('slug', params.slug)
+      .single();
+    name = data?.name;
+    hasContent = data?.status === 'live' && !!data?.programs_content;
+  } catch {}
+  name ??= ssaFallbacks.find((f) => f.slug === params.slug)?.name;
+  return {
+    title: name ? `${name} Programs` : 'Programs',
+    alternates: { canonical: `/ssas/${params.slug}/programs` },
+    // Empty programs pages stay out of search until the chapter adds content.
+    ...(hasContent ? {} : { robots: { index: false, follow: true } }),
+  };
+}
+
 export default async function ProgramsPage({ params }: { params: { slug: string } }) {
   // Supabase first, then the static roster (same resolution as the chapter page).
   let ssa: { name: string; programs_content?: string | null } | null = null;

@@ -39,6 +39,23 @@ export type NewsPost = {
   /** Article-specific email-capture pitch shown mid-article and at the end. */
   cta?: { heading: string; body: string };
   isHumansOfUSM?: boolean;
+
+  // ── Imported drafts (src/lib/blog-drafts.ts) ──
+  /** Unpublished: shown only on non-production deployments, never indexed. */
+  draft?: boolean;
+  /** Questions and answers, rendered as an accordion + FAQPage schema. */
+  faq?: { q: string; a: string; flagged: boolean }[];
+  /** Source citations, rendered at the end of the post. */
+  sources?: string[];
+  /** Editor-suggested internal links (site paths), shown as "More on USM". */
+  internalLinks?: string[];
+  keywords?: string[];
+  /** Topic cluster, used to pick related posts. */
+  cluster?: string;
+  /** Internal note for the editor, shown only on drafts. */
+  publishingNote?: string | null;
+  sourceFile?: string;
+  flagCounts?: { review: number; verify: number };
 };
 
 const seedPosts: NewsPost[] = [

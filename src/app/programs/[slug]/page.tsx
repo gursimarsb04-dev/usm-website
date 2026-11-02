@@ -2,8 +2,28 @@ import { notFound } from 'next/navigation';
 import FadeUp from '@/components/FadeUp';
 import { sanity, urlFor } from '@/lib/sanity';
 import { programFallbacks } from '@/lib/program-fallbacks';
+import { pageMetadata } from '@/lib/seo';
 
 export const revalidate = 3600;
+
+// Description = the program's own site copy, cut at a word boundary.
+function clip(text: string, max = 160): string {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max - 3);
+  return cut.slice(0, cut.lastIndexOf(' ')) + '...';
+}
+
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  let p: any = null;
+  try {
+    p = await sanity.fetch(`*[_type=="program" && slug.current==$slug][0]{title, tagline}`, { slug: params.slug });
+  } catch {}
+  const fb = programFallbacks.find((f) => f.slug === params.slug);
+  const title = p?.title ?? fb?.title;
+  if (!title) return { title: 'Program not found' };
+  const description = fb?.body ? clip(fb.body) : p?.tagline ?? fb?.tagline;
+  return pageMetadata({ path: `/programs/${params.slug}`, title, description, image: fb?.image });
+}
 
 export default async function ProgramPage({ params }: { params: { slug: string } }) {
   let p: any = null;
