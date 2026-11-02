@@ -81,8 +81,13 @@ export function chapterSchema(c: Chapter) {
     '@type': 'Organization',
     name: c.displayName,
     url: abs(`/ssas/${c.slug}`),
-    ...(c.instagram ? { sameAs: [c.instagram.url] } : {}),
-    parentOrganization: { '@type': 'NGO', name: 'United Sikh Movement', url: SITE_URL },
+    ...(c.research.about[0] ? { description: c.research.about[0].text } : {}),
+    ...(c.details?.contact_email || c.research.email ? { email: c.details?.contact_email || c.research.email!.address } : {}),
+    ...(c.instagram || c.research.links.length
+      ? { sameAs: [...(c.instagram ? [c.instagram.url] : []), ...c.research.links.map((l) => l.url)] }
+      : {}),
+    // The chapter is an independent student group at its school.
+    parentOrganization: { '@type': /secondary|high school/i.test(c.school) ? 'HighSchool' : 'CollegeOrUniversity', name: c.school },
     location: {
       '@type': 'Place',
       name: c.school,

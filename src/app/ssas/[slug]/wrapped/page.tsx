@@ -49,7 +49,7 @@ export default async function WrappedPage({ params }: { params: { slug: string }
       <div className="mx-auto max-w-md px-6 py-16 space-y-16">
         <FadeUp className="text-center">
           <Phulkari className="text-gold/50 mb-8" />
-          <p className="font-display tracking-[0.3em] uppercase text-gold text-xs">USM Wrapped</p>
+          <p className="font-display tracking-[0.3em] uppercase text-gold text-xs">Year in review</p>
           <h1 className="font-display text-4xl font-bold mt-3">{s.name}</h1>
           <p className="text-white/60 mt-1">{w.school_year}</p>
         </FadeUp>

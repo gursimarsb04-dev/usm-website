@@ -100,7 +100,7 @@ export const ssaFallbacks: SSA[] = [
   // ── Midwest ──
   ssa('iu-bloomington', 'IU SSA', 'Indiana University – Bloomington', 'Bloomington', 'IN', 39.1653, -86.5264, 'ssa.iu'),
   ssa('purdue', 'Purdue SSA', 'Purdue University', 'Lafayette', 'IN', 40.4237, -86.9212, 'ssa.purdue'),
-  ssa('notre-dame', 'Notre Dame C.S.S. SSA', 'University of Notre Dame', 'Notre Dame', 'IN', 41.7002, -86.2379, 'notredamessa'),
+  ssa('notre-dame', 'Notre Dame C.S.S. SSA', 'Notre Dame Catholic Secondary School', 'Brampton', 'ON', 43.7315, -79.7624, 'notredamessa'),
   ssa('uic', 'Sikh and Punjabi Student Association at UIC', 'University of Illinois at Chicago', 'Chicago', 'IL', 41.8708, -87.6505, 'ssa.atuic'),
   ssa('uiuc', 'SSA UIUC', 'University of Illinois Urbana-Champaign', 'Champaign', 'IL', 40.1164, -88.2434, 'uiuc_ssa'),
   ssa('uw-madison', 'SSA UW Madison', 'University of Wisconsin – Madison', 'Madison', 'WI', 43.0731, -89.4012, 'ssauwmadison'),
@@ -138,5 +138,5 @@ export const ssaFallbacks: SSA[] = [
   ssa('ottawa', 'UOTTAWA SSA', 'University of Ottawa', 'Ottawa', 'ON', 45.4215, -75.6972, 'uottawa_ssa'),
   ssa('western', 'Western Sikh Students', 'Western University', 'London', 'ON', 42.9849, -81.2453, 'western_ssa'),
   ssa('concordia', 'Concordia SSA', 'Concordia University', 'Montreal', 'QC', 45.5017, -73.5673, 'concordia_ssa'),
-  ssa('castlebrook', 'Castlebrook SSA', 'Castlebrook Secondary School', 'Brampton', 'ON', 43.7315, -79.7624, 'castlebrookssa'),
+  ssa('castlebrook', 'Castlebrook SSA', 'Castlebrooke Secondary School', 'Brampton', 'ON', 43.7315, -79.7624, 'castlebrookssa'),
 ];

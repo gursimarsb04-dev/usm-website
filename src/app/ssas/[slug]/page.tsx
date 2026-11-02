@@ -1,9 +1,11 @@
 // Chapter landing page (/ssas/<slug>). Spec: content-import/ssa/landing_page_plan.md.
 //
-// Built only from (a) what we can verify about the chapter (its Instagram bio
-// when the account is confirmed, or details the chapter gave USM itself) and
-// (b) generic USM content that is true for every chapter. Any section without
-// real content is hidden rather than filled with placeholder copy.
+// The page is the chapter's, not USM's: these chapters are independent student
+// groups. Everything on it is about the chapter and comes from what we can
+// verify: sourced public research (campus directories, chapter sites; quoted
+// verbatim with the source linked), its confirmed Instagram bio, or details the
+// chapter entered itself. No USM promotion. Any section without real content
+// is hidden rather than filled with placeholder copy.
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import FadeUp from '@/components/FadeUp';
@@ -12,9 +14,9 @@ import JsonLd from '@/components/JsonLd';
 import FaqAccordion, { type FaqItem } from '@/components/FaqAccordion';
 import { supabasePublic } from '@/lib/supabase-public';
 import { getChapter, getAllChapters, nearbyChapters, chapterHeading, type Chapter } from '@/lib/chapters';
-import { getUpcomingCalendarEvents, type CalendarEvent } from '@/lib/calendar';
 import { chapterSchema, breadcrumbSchema, faqSchema } from '@/lib/schema';
 import { pageMetadata } from '@/lib/seo';
+import { RESEARCH_PULLED_ON } from '@/lib/ssa-research';
 import type { USMEvent, Wrapped } from '@/lib/types';
 
 export const revalidate = 300;
@@ -22,16 +24,16 @@ export const revalidate = 300;
 const UUID = /^[0-9a-f-]{36}$/i;
 
 function pageTitle(c: Chapter): string {
-  for (const t of [`${c.school} Sikh Student Association | USM`, `${c.school} SSA | USM`, `${c.displayName} | USM`]) {
+  for (const t of [`${c.school} Sikh Student Association`, `${c.displayName} | ${c.school}`, `${c.school} SSA`]) {
     if (t.length < 60) return t;
   }
-  return `${c.usmName} | USM`;
+  return c.displayName;
 }
 
 function pageDescription(c: Chapter): string {
   const where = c.city ? ` in ${c.city}${c.state ? `, ${c.state}` : ''}` : '';
-  const ig = c.instagram ? 'Instagram, ' : '';
-  return `Find the Sikh Student Association at ${c.school}${where}: how to join, ${ig}upcoming events, and nearby SSAs in the United Sikh Movement network.`;
+  const ig = c.instagram ? `, Instagram @${c.instagram.handle}` : '';
+  return `${chapterHeading(c)}: the Sikh Student Association at ${c.school}${where}. What the chapter does, how to join${ig}, and upcoming events.`;
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
@@ -45,44 +47,50 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-// ── Generic copy, identical on every chapter page ──
+// Shown only when we have nothing chapter-specific to say about what it does.
 const WHAT_IS_SSA =
-  'A Sikh Student Association is a student-run group on campus for Sikh students and anyone curious about Sikhi and Punjabi culture. SSAs across the USM network host things like kirtan nights, seva projects, socials, and career panels.';
+  'A Sikh Student Association is a student-run group on campus for Sikh students and anyone curious about Sikhi and Punjabi culture.';
 
-function faqItems(c: Chapter): { items: FaqItem[]; plain: { q: string; a: string }[] } {
+const linkCls = 'font-semibold text-teal underline decoration-gold underline-offset-4';
+
+/** How to reach the chapter, best route first. Null when we know of none. */
+function contactRoute(c: Chapter): { node: React.ReactNode; text: string } | null {
+  const email = c.details?.contact_email || c.research.email?.address;
   const ig = c.instagram;
-  const askChapter = ig ? `Check with the chapter on Instagram at @${ig.handle}.` : 'Contact USM and we can help you reach the chapter.';
-  const linkCls = 'font-semibold text-teal underline decoration-gold underline-offset-4';
-  const askNode = ig ? (
-    <>Check with the chapter on Instagram at <a href={ig.url} target="_blank" rel="noopener noreferrer" className={linkCls}>@{ig.handle}</a>.</>
-  ) : (
-    <><Link href="/contact" className={linkCls}>Contact USM</Link> and we can help you reach the chapter.</>
-  );
+  if (ig && email)
+    return {
+      node: <>Message the chapter on Instagram at <a href={ig.url} target="_blank" rel="noopener noreferrer" className={linkCls}>@{ig.handle}</a> or email <a href={`mailto:${email}`} className={linkCls}>{email}</a>.</>,
+      text: `Message the chapter on Instagram at @${ig.handle} or email ${email}.`,
+    };
+  if (ig)
+    return {
+      node: <>Message the chapter on Instagram at <a href={ig.url} target="_blank" rel="noopener noreferrer" className={linkCls}>@{ig.handle}</a>.</>,
+      text: `Message the chapter on Instagram at @${ig.handle}.`,
+    };
+  if (email)
+    return { node: <>Email the chapter at <a href={`mailto:${email}`} className={linkCls}>{email}</a>.</>, text: `Email the chapter at ${email}.` };
+  const link = c.research.links[0];
+  if (link)
+    return {
+      node: <>Start with the chapter&apos;s <a href={link.url} target="_blank" rel="noopener noreferrer" className={linkCls}>official listing</a>.</>,
+      text: `Start with the chapter's official listing at ${link.url}.`,
+    };
+  return null;
+}
+
+function faqItems(c: Chapter): { items: FaqItem[]; plain: { q: string; a: string }[] } | null {
+  const ask = contactRoute(c);
+  if (!ask) return null;
   const meets = c.details?.meets_when
     ? `The chapter lists its meetings as ${c.details.meets_when}${c.details.meets_where ? `, at ${c.details.meets_where}` : ''}.`
     : null;
-
   const rows: { q: string; node: React.ReactNode; text: string }[] = [
-    { q: `Do I have to be Sikh to join ${c.displayName}?`, node: <>Every chapter sets its own membership. {askNode}</>, text: `Every chapter sets its own membership. ${askChapter}` },
+    { q: `How do I join ${c.displayName}?`, node: ask.node, text: ask.text },
+    { q: `Do I have to be Sikh to join?`, node: <>Each chapter sets its own membership, so ask the chapter directly. {ask.node}</>, text: `Each chapter sets its own membership, so ask the chapter directly. ${ask.text}` },
     {
-      q: 'How do I find meeting times?',
-      node: meets ? <>{meets} For changes, {askNode}</> :<>The fastest way to find meetings and events is the chapter itself. {askNode}</>,
-      text: meets ? `${meets} For changes, ${askChapter}` : `The fastest way to find meetings and events is the chapter itself. ${askChapter}`,
-    },
-    {
-      q: 'What if my school has no SSA?',
-      node: <>USM helps students start one. <Link href="/start-an-ssa" className={linkCls}>Apply to start an SSA</Link> and a USM coordinator will reach out within a week with a starter kit.</>,
-      text: 'USM helps students start one. Apply to start an SSA at unitedsikhmovement.org/start-an-ssa and a USM coordinator will reach out within a week with a starter kit.',
-    },
-    {
-      q: 'Where can I find scholarships for Sikh students?',
-      node: <>See USM&apos;s guide to <Link href="/news/sikh-scholarships" className={linkCls}>scholarships for Sikh students</Link>.</>,
-      text: "See USM's guide to scholarships for Sikh students at unitedsikhmovement.org/news/sikh-scholarships.",
-    },
-    {
-      q: 'Where can I learn more about Sikhi?',
-      node: <>Start with USM&apos;s <Link href="/guides/sikhi-101" className={linkCls}>Sikhi 101 guide</Link>.</>,
-      text: "Start with USM's Sikhi 101 guide at unitedsikhmovement.org/guides/sikhi-101.",
+      q: 'When does the chapter meet?',
+      node: meets ? <>{meets} For changes, {ask.node}</> : <>Meeting times change each term. {ask.node}</>,
+      text: meets ? `${meets} For changes: ${ask.text}` : `Meeting times change each term. ${ask.text}`,
     },
   ];
   return { items: rows.map((r) => ({ q: r.q, a: r.node })), plain: rows.map((r) => ({ q: r.q, a: r.text })) };
@@ -157,11 +165,6 @@ export default async function ChapterPage({ params }: { params: { slug: string }
     } catch {}
   }
 
-  let national: CalendarEvent[] = [];
-  try {
-    national = (await getUpcomingCalendarEvents()).filter((e) => e.source === 'national').slice(0, 3);
-  } catch {}
-
   const nearby = nearbyChapters(c, await getAllChapters());
   const heading = chapterHeading(c);
   const place = [c.city, c.state].filter(Boolean).join(', ');
@@ -169,16 +172,26 @@ export default async function ChapterPage({ params }: { params: { slug: string }
   const facts = [
     d?.meets_when && { label: 'Meets', value: d.meets_when },
     d?.meets_where && { label: 'Where', value: d.meets_where },
-    d?.founded_year && { label: 'Established', value: String(d.founded_year) },
+    d?.founded_year ? { label: 'Established', value: String(d.founded_year) } : null,
+    ...c.research.facts.filter((f) => !(d?.founded_year && f.label === 'Established')).map((f) => ({ label: f.label, value: f.value })),
     wrapped?.member_count && { label: 'Members', value: `${wrapped.member_count}+` },
   ].filter(Boolean) as { label: string; value: string }[];
-  const hasAbout = !!(c.bio || d?.description || d?.tagline);
+  const about = c.research.about;
+  const hasAbout = !!(c.bio || d?.description || about.length);
+  const email = d?.contact_email || c.research.email?.address || null;
+  const links = c.research.links;
+  // Every public source used on this page, listed once at the bottom.
+  const sources = Array.from(
+    new Map(
+      [...about, ...c.research.facts, ...(c.research.email ? [c.research.email] : []), ...(c.instagramSource ? [c.instagramSource] : [])].map((x) => [x.sourceUrl, x.sourceLabel])
+    )
+  );
   const faq = faqItems(c);
   const crumbs: [string, string][] = [['Home', '/'], ['Find Your SSA', '/ssas'], [c.displayName, `/ssas/${c.slug}`]];
 
   return (
     <>
-      <JsonLd data={[chapterSchema(c), breadcrumbSchema(crumbs), faqSchema(faq.plain)]} />
+      <JsonLd data={[chapterSchema(c), breadcrumbSchema(crumbs), ...(faq ? [faqSchema(faq.plain)] : [])]} />
 
       {/* ── 1. Hero ── */}
       <section className="relative overflow-hidden bg-teal text-white">
@@ -229,15 +242,25 @@ export default async function ChapterPage({ params }: { params: { slug: string }
                     <InstagramGlyph /> Follow @{c.instagram.handle}
                   </a>
                 )}
-                {d?.contact_email && (
-                  <a href={`mailto:${d.contact_email}`} className="rounded-full border border-white/30 px-6 py-3 font-semibold transition-colors hover:border-gold hover:text-gold">
+                {email && (
+                  <a
+                    href={`mailto:${email}`}
+                    className={c.instagram
+                      ? 'rounded-full border border-white/30 px-6 py-3 font-semibold transition-colors hover:border-gold hover:text-gold'
+                      : 'rounded-full bg-gold px-6 py-3 font-display font-semibold text-teal-ink transition-colors hover:bg-gold-deep'}
+                  >
                     Email the chapter
                   </a>
                 )}
-                {!c.instagram && !d?.contact_email && (
-                  <Link href="/contact" className="rounded-full bg-gold px-6 py-3 font-display font-semibold text-teal-ink transition-colors hover:bg-gold-deep">
-                    Get connected through USM
-                  </Link>
+                {!c.instagram && !email && links[0] && (
+                  <a
+                    href={links[0].url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-full bg-gold px-6 py-3 font-display font-semibold text-teal-ink transition-colors hover:bg-gold-deep"
+                  >
+                    {/website/i.test(links[0].label) ? "Visit the chapter's website" : 'See the official listing'}
+                  </a>
                 )}
               </div>
             </FadeUp>
@@ -283,6 +306,19 @@ export default async function ChapterPage({ params }: { params: { slug: string }
                 <Card>
                   <H2>About this chapter</H2>
                   {d?.description && <p className="mt-4 whitespace-pre-line text-lg leading-relaxed text-teal-ink/80">{d.description}</p>}
+                  {about.map((a) => (
+                    <figure key={a.sourceUrl + a.text.slice(0, 20)} className="mt-5">
+                      <blockquote className="rounded-2xl border-l-4 border-gold bg-mist/60 px-5 py-4 text-lg leading-relaxed text-teal-ink/85">
+                        {a.text}
+                      </blockquote>
+                      <figcaption className="mt-2 text-sm text-teal-soft">
+                        From{' '}
+                        <a href={a.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-teal">
+                          {a.sourceLabel}
+                        </a>
+                      </figcaption>
+                    </figure>
+                  ))}
                   {c.bio && (
                     <figure className="mt-5">
                       <blockquote className="whitespace-pre-line rounded-2xl border-l-4 border-gold bg-mist/60 px-5 py-4 text-teal-ink/85 leading-relaxed">
@@ -303,7 +339,7 @@ export default async function ChapterPage({ params }: { params: { slug: string }
             )}
 
             {/* ── 3. Follow and join ── */}
-            {(c.instagram || d?.joining_instructions) && (
+            {(c.instagram || d?.joining_instructions || email || links.length > 0) && (
               <FadeUp>
                 <Card className="bg-gradient-to-br from-white to-gold/10">
                   <H2>Follow and join</H2>
@@ -321,45 +357,57 @@ export default async function ChapterPage({ params }: { params: { slug: string }
                       >
                         <InstagramGlyph /> @{c.instagram.handle} on Instagram
                       </a>
+                      {c.instagramSource && (
+                        <p className="mt-2 text-xs text-teal-soft">
+                          Account listed on{' '}
+                          <a href={c.instagramSource.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-teal">
+                            {c.instagramSource.sourceLabel}
+                          </a>
+                          .
+                        </p>
+                      )}
                     </>
+                  )}
+                  {email && (
+                    <p className="mt-5 text-teal-ink/80">
+                      Email: <a href={`mailto:${email}`} className={linkCls}>{email}</a>
+                    </p>
+                  )}
+                  {links.length > 0 && (
+                    <ul className="mt-5 space-y-2">
+                      {links.map((l) => (
+                        <li key={l.url}>
+                          <a href={l.url} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-teal underline decoration-gold underline-offset-4 hover:text-gold-deep">
+                            {l.label} ↗
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
                   )}
                 </Card>
               </FadeUp>
             )}
 
-            {/* ── 4. What is an SSA (generic) ── */}
-            <FadeUp>
-              <Card>
-                <H2>What is a Sikh Student Association?</H2>
-                <p className="mt-4 leading-relaxed text-teal-ink/80">{WHAT_IS_SSA}</p>
-              </Card>
-            </FadeUp>
+            {/* ── 4. What is an SSA (only when we have nothing chapter-specific) ── */}
+            {!hasAbout && (
+              <FadeUp>
+                <Card>
+                  <H2>What is a Sikh Student Association?</H2>
+                  <p className="mt-4 leading-relaxed text-teal-ink/80">{WHAT_IS_SSA}</p>
+                </Card>
+              </FadeUp>
+            )}
 
-            {/* ── 5. Upcoming events (chapter first, then USM national) ── */}
-            {(chapterEvents.length > 0 || national.length > 0) && (
+            {/* ── 5. Upcoming events (the chapter's own) ── */}
+            {chapterEvents.length > 0 && (
               <FadeUp>
                 <Card>
                   <H2>Upcoming events</H2>
-                  {chapterEvents.length > 0 && (
-                    <div className="mt-5 grid gap-3">
-                      {chapterEvents.map((e) => (
-                        <EventRow key={e.id} title={e.title} startsAt={e.starts_at} location={e.location} href={e.registration_url} label={c.displayName} />
-                      ))}
-                    </div>
-                  )}
-                  {national.length > 0 && (
-                    <>
-                      <h3 className="mt-6 text-sm font-semibold uppercase tracking-widest text-teal-soft">Across USM</h3>
-                      <div className="mt-3 grid gap-3">
-                        {national.map((e) => (
-                          <EventRow key={e.id} title={e.title} startsAt={e.startsAt} location={e.location} href={e.registerUrl} label="USM National" />
-                        ))}
-                      </div>
-                    </>
-                  )}
-                  <Link href="/events" className="mt-5 inline-block text-sm font-semibold text-teal hover:text-gold-deep">
-                    All events →
-                  </Link>
+                  <div className="mt-5 grid gap-3">
+                    {chapterEvents.map((e) => (
+                      <EventRow key={e.id} title={e.title} startsAt={e.starts_at} location={e.location} href={e.registration_url} label={c.displayName} />
+                    ))}
+                  </div>
                 </Card>
               </FadeUp>
             )}
@@ -380,12 +428,14 @@ export default async function ChapterPage({ params }: { params: { slug: string }
             )}
 
             {/* ── 8. FAQ ── */}
-            <FadeUp>
-              <H2>Questions about {c.displayName}</H2>
-              <div className="mt-5">
-                <FaqAccordion items={faq.items} />
-              </div>
-            </FadeUp>
+            {faq && (
+              <FadeUp>
+                <H2>Questions about {c.displayName}</H2>
+                <div className="mt-5">
+                  <FaqAccordion items={faq.items} />
+                </div>
+              </FadeUp>
+            )}
           </div>
 
           <aside className="space-y-6">
@@ -410,29 +460,10 @@ export default async function ChapterPage({ params }: { params: { slug: string }
               </Link>
             )}
 
-            {/* ── 6. Get involved with USM ── */}
-            <Card>
-              <h2 className="font-display text-lg font-bold text-teal">Get involved with USM</h2>
-              <ul className="mt-4 space-y-3">
-                {[
-                  { href: '/start-an-ssa', t: 'Start an SSA', b: 'No SSA at your school? USM sends a starter kit with a constitution template and first-event playbook.' },
-                  { href: '/programs', t: 'Programs', b: '13Hacks, LSAT prep, Camp Kudrat, and leadership retreats.' },
-                  { href: '/opportunities', t: 'Opportunities', b: 'Internships, scholarships, grants, and volunteer roles for Sikh students.' },
-                ].map((l) => (
-                  <li key={l.href}>
-                    <Link href={l.href} className="group block rounded-2xl border border-teal/10 p-4 transition-colors hover:border-gold">
-                      <div className="font-display font-semibold text-teal-ink group-hover:text-teal">{l.t} →</div>
-                      <div className="mt-1 text-sm text-teal-ink/70">{l.b}</div>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </Card>
-
             {/* ── 7. Nearby chapters ── */}
             {nearby.length > 0 && (
               <Card>
-                <h2 className="font-display text-lg font-bold text-teal">Nearby chapters</h2>
+                <h2 className="font-display text-lg font-bold text-teal">Other SSAs nearby</h2>
                 <ul className="mt-4 space-y-2">
                   {nearby.map((n) => (
                     <li key={n.slug}>
@@ -457,11 +488,29 @@ export default async function ChapterPage({ params }: { params: { slug: string }
 
       <Phulkari className="text-teal/15" />
       <section className="bg-sand">
-        <div className="mx-auto max-w-wrap px-5 py-10 text-center">
-          <p className="text-sm text-teal-ink/70">
-            {c.displayName} is listed in the{' '}
-            <Link href="/" className="font-semibold text-teal underline underline-offset-4 hover:text-gold-deep">United Sikh Movement</Link>{' '}
-            network: 40 active chapters supporting Sikh students.
+        <div className="mx-auto max-w-wrap px-5 py-10 text-sm text-teal-ink/70">
+          {sources.length > 0 && (
+            <>
+              <h2 className="font-display text-base font-bold text-teal">Sources</h2>
+              <ul className="mt-2 space-y-1">
+                {sources.map(([url, label]) => (
+                  <li key={url}>
+                    <a href={url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-teal">
+                      {label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+          <p className={sources.length > 0 ? 'mt-4' : ''}>
+            {c.displayName} is an independent student organization at {c.school}.
+            {(sources.length > 0 || c.bio || c.claimed) && (
+              <>
+                {' '}Details on this page come from {c.claimed ? 'the chapter and public sources' : 'public sources'}, last checked{' '}
+                {new Date((c.bioPulledOn && c.bioPulledOn > RESEARCH_PULLED_ON ? c.bioPulledOn : RESEARCH_PULLED_ON) + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}.
+              </>
+            )}
           </p>
         </div>
       </section>
