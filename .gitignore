@@ -11,3 +11,7 @@ USM-portal-logins.pdf
 # macOS
 .DS_Store
 .env*
+
+# Chapter profile pictures from the Instagram import: internal review only,
+# not committed until USM decides on permission (see content-import/ssa/landing_page_plan.md).
+content-import/ssa/pics/

@@ -18,7 +18,7 @@ export const blogArticles: NewsPost[] = [
   {
     slug: 'west-coast-sikh-conference-2026',
     title: 'The 13th Annual USM Conference Is Coming to USC: November 6–8, 2026',
-    seoTitle: 'Sikh Student Conference 2026 at USC (Nov 6–8) | USM West Coast Conference',
+    seoTitle: 'Sikh Student Conference 2026 at USC, Nov 6 to 8 | USM',
     author: 'USM',
     category: 'Events',
     publishedAt: PUBLISHED,
@@ -82,7 +82,7 @@ Questions about the weekend? [Contact the USM team](/contact) — we are all vol
   {
     slug: 'sync-sikh-sf-tech-week',
     title: 'SYNC: The Only Sikh Space at SF Tech Week (October 6, San Francisco)',
-    seoTitle: 'SYNC: Sikh Tech Networking Event at SF Tech Week 2026 | October 6',
+    seoTitle: 'SYNC: Sikh Tech Networking at SF Tech Week 2026',
     author: 'USM',
     category: 'Events',
     publishedAt: PUBLISHED,
@@ -146,7 +146,7 @@ Spots are limited, and this is the first one. [RSVP here](https://lnkd.in/gpepHJ
   {
     slug: 'first-sikh-hackathon-13hacks',
     title: 'Inside 13Hacks, the First Sikh Hackathon — and the Startup That Won Its Venture Track',
-    seoTitle: 'The First Sikh Hackathon: 13Hacks at UC Berkeley & the Startup It Launched',
+    seoTitle: 'The First Sikh Hackathon: 13Hacks at UC Berkeley',
     author: 'USM',
     category: 'Hackathons',
     publishedAt: PUBLISHED,
@@ -226,7 +226,7 @@ In the words of the USM team afterward: 13Hacks was proof of what is possible wh
   {
     slug: 'what-is-united-sikh-movement',
     title: 'What Is United Sikh Movement? America’s Largest Sikh Student Network, Explained',
-    seoTitle: 'What Is United Sikh Movement (USM)? The Largest Sikh Student Network in the US',
+    seoTitle: 'What Is United Sikh Movement (USM)?',
     author: 'USM',
     category: 'Activism & News',
     publishedAt: PUBLISHED,
@@ -302,7 +302,7 @@ USM exists so no Sikh student has to choose between going far and staying rooted
   {
     slug: 'sikh-scholarships',
     title: 'Scholarships for Sikh Students in the U.S.: The 2026–27 Guide',
-    seoTitle: 'Sikh Scholarships 2026–27: Grants & Interest-Free Loans for Sikh Students (US)',
+    seoTitle: 'Sikh Scholarships 2026-27: Grants and Interest-Free Loans',
     author: 'USM',
     category: 'Student Life',
     publishedAt: PUBLISHED,
@@ -381,7 +381,7 @@ This guide is updated as we learn about new awards. If you run or know a scholar
   {
     slug: 'free-lsat-mentoring',
     title: 'Free LSAT Mentoring From Sikhs Who Scored in the 97th Percentile',
-    seoTitle: 'Free LSAT Prep & Mentoring for Sikh Students | 97th-Percentile Mentors',
+    seoTitle: 'Free LSAT Prep and Mentoring for Sikh Students',
     author: 'USM',
     category: 'Career Development',
     publishedAt: PUBLISHED,
@@ -444,7 +444,7 @@ The LSAT is one cost. If you are looking for help with tuition too, see our guid
   {
     slug: 'turban-job-interview',
     title: 'Wearing a Dastar to a Job Interview: What Sikh Professionals Want You to Know',
-    seoTitle: 'Wearing a Turban (Dastar) to a Job Interview: Sikh Workplace Rights & Tips',
+    seoTitle: 'Wearing a Turban to a Job Interview: Sikh Rights and Tips',
     author: 'USM',
     category: 'Career Development',
     publishedAt: PUBLISHED,
@@ -517,7 +517,7 @@ You can also file a charge with the [EEOC](https://www.eeoc.gov/). There are tim
   {
     slug: 'first-hackathon-no-coding',
     title: 'How to Do Your First Hackathon With No Coding Experience',
-    seoTitle: 'First Hackathon With No Coding Experience? A Step-by-Step Guide for Beginners',
+    seoTitle: 'Your First Hackathon With No Coding Experience',
     author: 'USM',
     category: 'Hackathons',
     publishedAt: PUBLISHED,
@@ -602,7 +602,7 @@ The hardest part of a first hackathon is walking into a room where you do not kn
   {
     slug: 'salok-mahala-9-meaning',
     title: "Salok Mahala 9: What Guru Tegh Bahadur Ji's Saloks Say to You in Your 20s",
-    seoTitle: 'Salok Mahala 9 Meaning: Guru Tegh Bahadur Ji’s Teachings Explained for Young Sikhs',
+    seoTitle: 'Salok Mahala 9 Meaning: Guru Tegh Bahadur Ji\'s Teachings',
     author: 'USM',
     category: 'Sikhi',
     publishedAt: PUBLISHED,
@@ -671,7 +671,7 @@ If you want to go deeper into Gurbani more broadly, start with USM's [Sikhi 101 
   {
     slug: 'sikh-in-college',
     title: 'Being Sikh in College: Finding Sangat, Handling Questions, and Staying Grounded',
-    seoTitle: 'Being Sikh in College: A Guide to Finding Community and Keeping Your Sikhi',
+    seoTitle: 'Being Sikh in College: Finding Community and Sangat',
     author: 'USM',
     category: 'Student Life',
     publishedAt: PUBLISHED,

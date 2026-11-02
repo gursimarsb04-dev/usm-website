@@ -3,7 +3,7 @@ import FadeUp from '@/components/FadeUp';
 import { PageHeader } from '@/components/Section';
 import SubmitEventForm from './SubmitEventForm';
 
-export const metadata = { title: 'Submit an event', alternates: { canonical: '/events/submit' } };
+export const metadata = { title: 'Submit an event', alternates: { canonical: '/events/submit' }, robots: { index: false, follow: true } };
 
 export default function SubmitEventPage() {
   return (

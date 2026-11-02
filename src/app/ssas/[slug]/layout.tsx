@@ -1,5 +1,4 @@
-import { supabasePublic } from '@/lib/supabase-public';
-import { ssaFallbacks } from '@/lib/ssa-fallback';
+import { getChapter } from '@/lib/chapters';
 import SSANav from './SSANav';
 
 export default async function SSALayout({
@@ -9,26 +8,16 @@ export default async function SSALayout({
   children: React.ReactNode;
   params: { slug: string };
 }) {
-  // Same Supabase-then-fallback resolution as the page, so the chapter sub-nav
-  // renders for roster chapters that aren't in the database yet.
-  let ssa: { name: string; slug: string } | null = null;
-  try {
-    const { data } = await supabasePublic()
-      .from('ssas')
-      .select('id, name, slug, status')
-      .eq('slug', params.slug)
-      .single();
-    if (data && data.status === 'live') ssa = { name: data.name, slug: data.slug };
-  } catch {}
-  if (!ssa) {
-    const fb = ssaFallbacks.find((f) => f.slug === params.slug);
-    if (fb) ssa = { name: fb.name, slug: fb.slug };
-  }
-  if (!ssa) return <>{children}</>;
+  // The Homepage / Programs sub-nav only makes sense when there is a programs
+  // page with real content, i.e. a chapter that claimed its page and filled it
+  // in. Everyone else gets the breadcrumb on the landing page instead of a tab
+  // that leads to an empty page.
+  const c = await getChapter(params.slug);
+  if (!c?.claimed || !c.details?.programs_content) return <>{children}</>;
 
   return (
     <>
-      <SSANav ssaName={ssa.name} ssaSlug={ssa.slug} />
+      <SSANav ssaName={c.usmName} ssaSlug={c.slug} />
       {children}
     </>
   );

@@ -51,6 +51,11 @@ export default function NewsList({ posts }: { posts: any[] }) {
                   {p.category}
                 </span>
               )}
+              {p.draft && (
+                <span className="ml-2 text-[10px] uppercase tracking-widest bg-amber-100 text-amber-900 rounded-full px-3 py-1 font-bold">
+                  Draft
+                </span>
+              )}
               <h2 className="font-display text-lg font-semibold text-teal-ink mt-2">
                 <Link href={`/news/${p.slug}`} className="hover:text-teal">
                   {p.title}

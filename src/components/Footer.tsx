@@ -33,7 +33,6 @@ const COLUMNS: { heading: string; links: { label: string; href: string; external
     links: [
       { label: 'Resources', href: '/resources' },
       { label: 'Blog', href: '/news' },
-      { label: 'Podcast', href: '/podcast' },
       { label: 'Contact', href: '/contact' },
       { label: 'SSA Portal', href: '/portal/login' },
     ],

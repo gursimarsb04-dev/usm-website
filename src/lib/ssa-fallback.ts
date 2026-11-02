@@ -79,7 +79,10 @@ export const ssaFallbacks: SSA[] = [
   ssa('brown', 'Brown SSA', 'Brown University', 'Providence', 'RI', 41.8240, -71.4128, 'brownsikhs'),
   ssa('yale', 'Yale SSA', 'Yale University', 'New Haven', 'CT', 41.3083, -72.9279, 'sikhsofyale'),
   ssa('umass-amherst', 'UMass Amherst SSA', 'University of Massachusetts – Amherst', 'Amherst', 'MA', 42.3732, -72.5199, 'umass_ssa'),
-  ssa('harvard', 'SACH', 'Harvard University', 'Cambridge', 'MA', 42.3736, -71.1097, 'harvardsikhs'),
+  // Instagram removed 2026-11: @harvardsikhs now shows the display name "Miss
+  // World America Colorado", so it no longer looks like the chapter's account.
+  // Re-add once the chapter confirms its current handle.
+  ssa('harvard', 'SACH', 'Harvard University', 'Cambridge', 'MA', 42.3736, -71.1097, null),
   ssa('baruch', 'Baruch Sikhs', 'Baruch College', 'New York City', 'NY', 40.7402, -73.9834, 'baruchsikhs'),
   ssa('st-johns', 'SJUAVAAZ', "St. John's University", 'New York City', 'NY', 40.7268, -73.7918, 'sjuavaaz'),
   ssa('nyu', 'SSA at NYU', 'New York University', 'New York City', 'NY', 40.7295, -73.9965, 'nyu_sikhassociation'),

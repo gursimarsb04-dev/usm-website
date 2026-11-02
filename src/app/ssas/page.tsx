@@ -8,6 +8,7 @@ import { supabasePublic } from '@/lib/supabase-public';
 import { SSA_PUBLIC_COLUMNS } from '@/lib/ssa-columns';
 import { SSA_COLLECTIVE_FORM_URL } from '@/lib/site';
 import { ssaFallbacks } from '@/lib/ssa-fallback';
+import { chapterInstagram } from '@/lib/ssa-instagram';
 import type { SSA } from '@/lib/types';
 import { pageMetadata } from '@/lib/seo';
 
@@ -29,13 +30,17 @@ export default async function SSADirectory() {
   // No DB configured yet, or table is empty — fall back to the known roster
   // so the map and directory show every chapter regardless.
   if (ssas.length === 0) ssas = ssaFallbacks;
+  // Never link an Instagram account flagged as not the chapter's (e.g. harvard).
+  ssas = ssas.map((s) =>
+    chapterInstagram[s.slug]?.confidence === 'low' ? { ...s, instagram_handle: null } : s
+  );
 
   return (
     <div className="mx-auto max-w-wrap px-5 py-16">
       <FadeUp>
         <PageHeader
           title="Find your SSA"
-          intro={`${ssas.length} active Sikh Student Association chapters across the nation. Gold pins are chapters with live pages — tap yours.`}
+          intro={`40 active chapters, with ${ssas.length} chapters listed on the map. Gold pins are chapters with live pages, so tap yours.`}
         />
       </FadeUp>
 

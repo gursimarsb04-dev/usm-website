@@ -1,7 +1,7 @@
 import FadeUp from '@/components/FadeUp';
 import { CONTACT_EMAIL, EIN } from '@/lib/site';
 
-export const metadata = { title: 'Privacy Policy', alternates: { canonical: '/privacy' } };
+export const metadata = { title: 'Privacy Policy', alternates: { canonical: '/privacy' }, robots: { index: false, follow: true } };
 
 // NOTE(usm): This is a good-faith, plain-language starting point covering how the
 // site actually handles data (newsletter emails via Supabase, donations via the

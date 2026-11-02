@@ -3,7 +3,7 @@
 import { SITE_URL, SOCIALS, EIN, CONTACT_EMAIL } from '@/lib/site';
 import { registerHref, type CatalogEvent } from '@/lib/events-catalog';
 import type { CalendarEvent } from '@/lib/calendar';
-import type { SSA } from '@/lib/types';
+import type { Chapter } from '@/lib/chapters';
 
 const abs = (path: string) => (path.startsWith('http') ? path : `${SITE_URL}${path}`);
 
@@ -69,19 +69,50 @@ export function calendarEventSchema(e: CalendarEvent, catalog?: CatalogEvent) {
   };
 }
 
-/** A chapter page: the SSA, its school, and its place in the USM network. */
-export function chapterSchema(s: SSA) {
-  const handle = s.instagram_handle?.replace('@', '');
+const CA_PROVINCES = new Set(['AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'ON', 'PE', 'QC', 'SK']);
+
+/**
+ * A chapter page (spec: content-import/ssa/landing_page_plan.md): the SSA as an
+ * Organization under USM, located at its school, with its verified Instagram.
+ */
+export function chapterSchema(c: Chapter) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: s.name,
-    url: abs(`/ssas/${s.slug}`),
-    ...(s.school ? { parentOrganization: { '@type': 'CollegeOrUniversity', name: s.school } } : {}),
-    memberOf: USM_REF,
-    ...(s.city || s.state
-      ? { address: { '@type': 'PostalAddress', ...(s.city ? { addressLocality: s.city } : {}), ...(s.state ? { addressRegion: s.state } : {}) } }
-      : {}),
-    ...(handle ? { sameAs: [`https://www.instagram.com/${handle}/`] } : {}),
+    name: c.displayName,
+    url: abs(`/ssas/${c.slug}`),
+    ...(c.instagram ? { sameAs: [c.instagram.url] } : {}),
+    parentOrganization: { '@type': 'NGO', name: 'United Sikh Movement', url: SITE_URL },
+    location: {
+      '@type': 'Place',
+      name: c.school,
+      ...(c.city || c.state
+        ? {
+            address: {
+              '@type': 'PostalAddress',
+              ...(c.city ? { addressLocality: c.city } : {}),
+              ...(c.state ? { addressRegion: c.state, addressCountry: CA_PROVINCES.has(c.state) ? 'CA' : 'US' } : {}),
+            },
+          }
+        : {}),
+    },
+  };
+}
+
+/** Breadcrumb trail; each item is [name, path]. */
+export function breadcrumbSchema(items: [string, string][]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map(([name, path], i) => ({ '@type': 'ListItem', position: i + 1, name, item: abs(path) })),
+  };
+}
+
+/** FAQPage from plain-text question/answer pairs. Only for FAQs visible on the page. */
+export function faqSchema(items: { q: string; a: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map(({ q, a }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
   };
 }

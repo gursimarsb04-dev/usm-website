@@ -3,7 +3,7 @@ import Link from 'next/link';
 import FadeUp from '@/components/FadeUp';
 import Card from '@/components/Card';
 import { PageHeader, SectionHeading } from '@/components/Section';
-import { activeEvents, archivedEvents, formatPrice, getCatalogEvent, registerHref } from '@/lib/events-catalog';
+import { getActiveEvents, getArchivedEvents, formatPrice, getCatalogEvent, registerHref } from '@/lib/events-catalog';
 import { getUpcomingCalendarEvents, chapterOptions, typeOptions } from '@/lib/calendar';
 import CalendarSubscribeButton from '@/components/CalendarSubscribeButton';
 import EventsExplorer from './EventsExplorer';
@@ -21,6 +21,8 @@ export const metadata = pageMetadata({
 
 export default async function Events() {
   const events = await getUpcomingCalendarEvents();
+  const activeEvents = getActiveEvents();
+  const archivedEvents = getArchivedEvents();
   const chapters = chapterOptions(events);
   const types = typeOptions(events);
   // One Event object per upcoming entry; catalog events use their richer data.
