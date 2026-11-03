@@ -9,6 +9,7 @@ import { SSA_PUBLIC_COLUMNS } from '@/lib/ssa-columns';
 import { SSA_COLLECTIVE_FORM_URL } from '@/lib/site';
 import { ssaFallbacks } from '@/lib/ssa-fallback';
 import { chapterInstagram } from '@/lib/ssa-instagram';
+import { correctedSSA } from '@/lib/chapters';
 import type { SSA } from '@/lib/types';
 import { pageMetadata } from '@/lib/seo';
 
@@ -31,9 +32,11 @@ export default async function SSADirectory() {
   // so the map and directory show every chapter regardless.
   if (ssas.length === 0) ssas = ssaFallbacks;
   // Never link an Instagram account flagged as not the chapter's (e.g. harvard).
-  ssas = ssas.map((s) =>
-    chapterInstagram[s.slug]?.confidence === 'low' ? { ...s, instagram_handle: null } : s
-  );
+  // Roster fix-ups confirmed by the school's own site (e.g. notre-dame).
+  ssas = ssas.map((s) => {
+    const fixed = correctedSSA(s);
+    return chapterInstagram[s.slug]?.confidence === 'low' ? { ...fixed, instagram_handle: null } : fixed;
+  });
 
   return (
     <div className="mx-auto max-w-wrap px-5 py-16">

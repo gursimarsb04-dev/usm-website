@@ -7,19 +7,26 @@
 //  2. The static roster (ssa-fallback.ts): name, school, city, coordinates.
 //  3. Instagram research (ssa-instagram.ts, generated from
 //     content-import/ssa/ssa_instagram.csv): display name, bio, confidence.
+//  4. Public research (ssa-research.ts, generated from
+//     content-import/ssa/research.json): verbatim descriptions from campus
+//     directories and chapter sites, sourced facts, official links, the
+//     chapter's organization email, and roster corrections.
 //
 // Rules from content-import/ssa/landing_page_plan.md:
-//  - Link Instagram only when confidence is exactly "high", or when the chapter
-//    entered the handle itself (claimed page).
-//  - Index a page only with a linkable Instagram plus at least one verified
-//    detail (the Instagram bio, or details the chapter gave USM). Everything
-//    else is noindex,follow, and flips to indexable on its own once that
-//    content exists.
+//  - Link Instagram only when confidence is exactly "high", when an official
+//    campus page lists the same handle, or when the chapter entered the handle
+//    itself (claimed page).
+//  - Index a page only when it has real, verified content about the chapter:
+//    a sourced description, the Instagram bio, or details the chapter gave
+//    itself, plus a way to reach the chapter. Everything else is
+//    noindex,follow, and flips to indexable on its own once that content
+//    exists.
 //  - No follower counts. No hosted profile pictures until permission is decided.
 import { supabasePublic } from '@/lib/supabase-public';
 import { SSA_PUBLIC_COLUMNS } from '@/lib/ssa-columns';
 import { ssaFallbacks } from '@/lib/ssa-fallback';
 import { chapterInstagram } from '@/lib/ssa-instagram';
+import { chapterResearch, type ChapterResearch } from '@/lib/ssa-research';
 import type { SSA } from '@/lib/types';
 
 /**
@@ -44,6 +51,10 @@ export type Chapter = {
   longitude: number | null;
   /** Only set when it is safe to link (see rules above). */
   instagram: { handle: string; url: string } | null;
+  /** Official page that lists this Instagram account, when there is one. */
+  instagramSource: { sourceLabel: string; sourceUrl: string } | null;
+  /** Sourced public information (verbatim quotes, facts, links, org email). */
+  research: Pick<ChapterResearch, 'about' | 'facts' | 'links' | 'email'>;
   /** Instagram bio, quoted exactly. Only from verified accounts. */
   bio: string | null;
   bioPulledOn: string | null;
@@ -108,12 +119,29 @@ export function safeInstagramHandle(slug: string, handleFromData: string | null 
   const own = handleFromData?.replace(/^@/, '').trim() || null;
   if (claimed && own) return own; // the chapter entered it itself
   if (research?.confidence === 'high' && research.handle) return research.handle;
+  if (research?.handle && chapterResearch[slug]?.instagramVerifiedBy) return research.handle; // listed on an official campus page
   return null;
 }
 
+/** Roster fix-ups confirmed by the school's own site (e.g. notre-dame). */
+export function correctedSSA<T extends Pick<SSA, 'slug' | 'school' | 'city' | 'state' | 'latitude' | 'longitude'>>(s: T): T {
+  const fix = chapterResearch[s.slug]?.correction;
+  if (!fix) return s;
+  return {
+    ...s,
+    school: fix.school,
+    city: fix.city ?? s.city,
+    state: fix.state ?? s.state,
+    latitude: fix.latitude ?? s.latitude,
+    longitude: fix.longitude ?? s.longitude,
+  };
+}
+
 function build(row: SSA | null, fb: SSA | undefined, slug: string): Chapter | null {
-  const base = row ?? fb;
-  if (!base) return null;
+  const raw = row ?? fb;
+  if (!raw) return null;
+  const base = correctedSSA(raw);
+  const pub = chapterResearch[slug];
   const claimed = row?.status === 'live';
   const research = chapterInstagram[slug];
 
@@ -148,13 +176,17 @@ function build(row: SSA | null, fb: SSA | undefined, slug: string): Chapter | nu
     latitude: base.latitude ?? fb?.latitude ?? null,
     longitude: base.longitude ?? fb?.longitude ?? null,
     instagram: handle ? { handle, url: `https://www.instagram.com/${handle}/` } : null,
+    instagramSource: handle && pub?.instagramVerifiedBy?.handle === handle.toLowerCase() ? pub.instagramVerifiedBy : null,
+    research: { about: pub?.about ?? [], facts: pub?.facts ?? [], links: pub?.links ?? [], email: pub?.email ?? null },
     bio,
     bioPulledOn: bio ? research?.pulledOn ?? null : null,
     claimed,
     details,
     image: CHAPTER_IMAGES_ENABLED ? research?.image ?? null : null,
     initials: schoolInitials(school),
-    indexable: !!handle && (!!bio || hasUsmDetails),
+    indexable:
+      (!!bio || hasUsmDetails || (pub?.about.length ?? 0) > 0) &&
+      (!!handle || !!pub?.email || !!details?.contact_email || (pub?.links.length ?? 0) > 0),
   };
 }
 
