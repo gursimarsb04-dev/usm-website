@@ -1,7 +1,7 @@
 ---
 seo_title: "Flying With a Kirpan or Turban: TSA Tips for Sikhs"
 slug: flying-with-a-kirpan-or-turban-tsa-tips
-meta_description: "Flying home for break? What TSA says about kirpans and turbans, what to expect at screening, your options for private screening, and tips from Sikh students."
+meta_description: "Flying home for break? What TSA says about kirpans and turbans, what to expect at screening, your options for private screening, and practical tips."
 target_keywords: ["sikh kirpan tsa", "sikh kirpan airport security", "can a sikh carry a kirpan on a plane", "tsa turban screening", "sikh tsa"]
 cluster: Sikh Rights and Accommodations
 fixes_ad_group: "new campaign: Sikh Rights"
@@ -51,7 +51,7 @@ TSA also notes officers are trained to screen religious items with respect and c
 
 ## What screening may look like
 
-Students describe a few common scenarios:
+A few common scenarios:
 
 1. **You walk through and nothing happens.** It does happen.
 2. **The officer asks to pat down your turban.** You can ask them to explain what they will do first.
@@ -75,7 +75,7 @@ On campus, USM's advocacy program works so chapters have backing instead of havi
 
 ## Traveling to a USM event?
 
-Many students fly to USM conferences and retreats. If your chapter is traveling together, share this post in your group chat before the trip.
+If your chapter is flying to a conference or retreat together, share this post in your group chat before the trip.
 
 - **[See upcoming USM events](/events)**
 - **[Learn about USM advocacy](/programs/advocacy)**

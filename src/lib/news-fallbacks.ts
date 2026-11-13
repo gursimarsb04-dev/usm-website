@@ -62,7 +62,7 @@ const seedPosts: NewsPost[] = [
   {
     slug: 'welcome-to-the-usm-blog',
     title: 'Welcome to the USM Blog',
-    author: 'Harsimran Kaur',
+    author: 'USM',
     category: 'Activism & News',
     publishedAt: '2026-07-01',
     excerpt:
@@ -76,7 +76,7 @@ const seedPosts: NewsPost[] = [
   {
     slug: 'inter-ssa-conferences-2026',
     title: 'Three Coasts, 300+ Students: The Inter-SSA Conferences',
-    author: 'USM Team',
+    author: 'USM',
     category: 'Activism & News',
     publishedAt: '2026-05-15',
     excerpt:
@@ -90,7 +90,7 @@ const seedPosts: NewsPost[] = [
   {
     slug: 'camp-kudrat-recap',
     title: 'Camp Kudrat: Being Fully Sikh in a Room That Gets It',
-    author: 'USM Team',
+    author: 'USM',
     publishedAt: '2026-06-20',
     excerpt:
       'An immersive Sikhi retreat in nature — nitnem, kirtan, and sangat — and for many campers, the first time being fully Sikh among people who feel the same.',
