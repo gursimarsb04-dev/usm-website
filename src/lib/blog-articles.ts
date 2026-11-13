@@ -27,7 +27,7 @@ export const blogArticles: NewsPost[] = [
       "Three days of speakers, workshops, and sangat with Sikh students from across the country, hosted at the University of Southern California. Here's what to expect and how to register.",
     cta: {
       heading: 'Get conference updates first',
-      body: 'Speaker announcements, schedule drops, and roommate-matching reminders go to the list before anywhere else.',
+      body: 'Speaker announcements and schedule updates go to the list before anywhere else.',
     },
     markdown: `
 If you are a Sikh college student on the West Coast (or willing to fly in), there is one weekend this fall worth blocking off: **November 6–8, 2026**, when United Sikh Movement brings its 13th annual conference to the **University of Southern California** in Los Angeles.
@@ -38,7 +38,7 @@ This is the conference USM has been running, in one form or another, since a few
 
 ## What happens at the conference
 
-The weekend is built around three things students keep telling us they need more of:
+The weekend is built around three things:
 
 - **Speakers who have walked the path.** Sikh professionals, founders, and community leaders who talk honestly about careers, identity, and what they wish they had known at your age.
 - **Workshops you actually use.** Practical sessions you can take back to your classes, your career search, and your SSA.
@@ -50,7 +50,7 @@ Last year's Inter-SSA Conferences brought together **300+ students across three 
 
 - **Any Sikh college student.** You do not need to be on an SSA board, and your campus does not need to have an SSA at all.
 - **SSA board members** who want to trade playbooks with chapters that have already figured out the thing you are stuck on.
-- **Students who feel a little disconnected** from Sikhi or from the Sikh community on campus. Many people tell us this was the weekend that changed that.
+- **Students who feel a little disconnected** from Sikhi or from the Sikh community on campus.
 
 {{signup}}
 
@@ -58,15 +58,13 @@ Last year's Inter-SSA Conferences brought together **300+ students across three 
 
 Tickets are tiered: **the earlier you register, the less you pay**, and prices step up as the event gets closer. If you are arranging your own housing, there is a lower **no-hotel ticket** available the whole time. The current price is always shown on the [conference page](/west-coast-conference).
 
-If you are coming with friends from your campus, register together so you can be matched for housing.
-
 ## Why a Sikh student conference matters
 
 ![Students from SSAs across the country at a USM Inter-SSA Conference](/photos/prog-national-conference.jpg "A USM Inter-SSA Conference.")
 
 Most Sikh students are one of a handful of Sikhs in their lecture hall, their internship, or their dorm. That is not a problem to fix, but it does mean that the conversations that matter most — how to carry your Sikhi into a demanding career, how to keep your kes in a field where no one else does, how to lead an SSA without burning out — often happen alone.
 
-A conference puts those conversations in one room. Students leave with mentors they can text, friends at other schools, and ideas for their own chapter. That is also why USM exists: [we are the largest Sikh student network in America](/news/what-is-united-sikh-movement), with 40 active chapters, and the conference is where the whole network shows up at once.
+A conference puts those conversations in one room, with students from other schools and Sikh professionals who have been through them. That is also why USM exists: [we are the largest Sikh student network in America](/news/what-is-united-sikh-movement), with 40 active chapters, and the conference is where the whole network shows up at once.
 
 ## How to register
 
@@ -91,7 +89,7 @@ Questions about the weekend? [Contact the USM team](/contact) — we are all vol
       'One evening, one room: Sikh founders, engineers, investors, operators, and students meeting the Bay Area tech ecosystem during SF Tech Week. October 6, 6–9 PM.',
     cta: {
       heading: 'Get invited to the next SYNC',
-      body: 'Spots are limited. Join the list to hear about future Sikh tech and founder events before they fill up.',
+      body: 'Join the list to hear about future Sikh tech and founder events.',
     },
     markdown: `
 What if one evening could introduce you to the people, ideas, and connections you didn't know you were missing?
@@ -136,7 +134,7 @@ SYNC takes that energy to the professional side of the Bay Area.
 - **Investors** who want to meet the next generation of Sikh builders.
 - **Students** who want to see what is possible, and meet people who will pick up the phone later.
 
-Spots are limited, and this is the first one. [RSVP here](https://lnkd.in/gpepHJ3D), and come be part of the first.
+This is the first one. [RSVP here](https://lnkd.in/gpepHJ3D).
 
 ![SYNC: SF Tech Week Networking Night, hosted by United Sikh Movement, featuring Apple, NVIDIA, Meta, Mercor, and more](/photos/sync-flyer.jpg "SYNC: SF Tech Week Networking Night, hosted by United Sikh Movement.")
 `,
@@ -154,8 +152,8 @@ Spots are limited, and this is the first one. [RSVP here](https://lnkd.in/gpepHJ
     excerpt:
       '100+ builders from 9 states, 30 mentors, three days at UC Berkeley — and TruckMind, a transportation startup that walked away with the Venture Track. Here is what happened at the first Sikh hackathon.',
     cta: {
-      heading: 'Be first in line for 13Hacks 2027',
-      body: 'Get the application, tracks, and dates for next year before they are announced publicly.',
+      heading: 'Hear about the next 13Hacks first',
+      body: 'Join the list for news about future USM hackathons.',
     },
     markdown: `
 In January 2026, United Sikh Movement did something no one had done before: it hosted a hackathon built by and for Sikh students. **13Hacks** ran for three days, January 23–25, at **UC Berkeley**, and brought together **100+ attendees from 9 states** and **30 mentors** from across tech, startups, product, design, and finance.
@@ -218,7 +216,7 @@ In the words of the USM team afterward: 13Hacks was proof of what is possible wh
 
 ## What's next
 
-**13Hacks 2027** is coming. Join the list below to hear first. And if you are in the Bay Area this fall, the same energy is going professional at [SYNC, the Sikh space at SF Tech Week](/news/sync-sikh-sf-tech-week).
+Want to hear about the next 13Hacks? Join the list below. And if you are in the Bay Area this fall, the same energy is going professional at [SYNC, the Sikh space at SF Tech Week](/news/sync-sikh-sf-tech-week).
 `,
   },
 
@@ -311,7 +309,7 @@ USM exists so no Sikh student has to choose between going far and staying rooted
       'LSAT courses can cost thousands. USM and the Sikh Legal Society offer free LSAT mentoring and prep led by Sikhs who scored in the 97th percentile and above. Here is how it works and how to join.',
     cta: {
       heading: 'Get the next LSAT cohort announcement',
-      body: 'New cohorts, mentor sessions, and (soon) MCAT and DAT prep — announced to the list first.',
+      body: 'New cohorts and mentor sessions are announced to the list first.',
     },
     markdown: `
 Law school is expensive before you ever set foot in a classroom. Commercial LSAT courses and private tutors can run into the thousands of dollars, and for a lot of first-generation students, that is the first wall between them and a legal career.
@@ -364,22 +362,22 @@ The LSAT is one cost. If you are looking for help with tuition too, see our guid
   // ── 7. Dastar at job interviews / workplace rights ──
   {
     slug: 'turban-job-interview',
-    title: 'Wearing a Dastar to a Job Interview: What Sikh Professionals Want You to Know',
+    title: 'Wearing a Dastar to a Job Interview: Your Rights and Practical Tips',
     seoTitle: 'Wearing a Turban to a Job Interview: Sikh Rights and Tips',
     author: 'USM',
     category: 'Career Development',
     publishedAt: PUBLISHED,
     coverImageUrl: '/photos/pillar-professional.jpg',
     excerpt:
-      'Should you change anything about your dastar, beard, or kara for an interview? What the law says about religious accommodation at work, and practical advice from Sikhs who have been in the room.',
+      'Should you change anything about your dastar, beard, or kara for an interview? What the law says about religious accommodation at work, and practical advice for the interview.',
     cta: {
       heading: 'Career advice from Sikh professionals',
-      body: 'Get mentorship opportunities, recruiting events, and career stories from Sikhs in your field.',
+      body: 'Get mentorship opportunities and career events for Sikh students.',
     },
     markdown: `
 It is one of the most common questions Sikh students ask as recruiting season starts: **Should I change anything about how I look for a job interview?**
 
-The short answer is no. You do not have to choose between your dastar, your kes, or your kara and a career. This guide covers what the law says, what to do if something comes up, and advice from Sikhs who have sat on both sides of the interview table.
+The short answer is no. You do not have to choose between your dastar, your kes, or your kara and a career. This guide covers what the law says, what to do if something comes up, and practical advice for the interview itself.
 
 *This is general information, not legal advice. If you think you have faced discrimination, talk to one of the organizations listed at the end.*
 
@@ -404,7 +402,7 @@ Many states add their own protections on top of federal law.
 
 ## During the interview
 
-- **If someone asks about your dastar out of curiosity**, a short, confident answer works: what it is and what it means to you. Then steer back to why you are a great fit. Many Sikh professionals say it becomes a moment of connection.
+- **If someone asks about your dastar out of curiosity**, a short, confident answer works: what it is and what it means to you. Then steer back to why you are a great fit.
 - **If a question crosses a line** (for example, whether you would "be willing to remove it"), you can say that it is part of your faith and that you are confident it will not affect your work, then move on. Write down what was asked, by whom, and when.
 - **Lead with your work.** The strongest thing you can do is make your skills impossible to ignore.
 
@@ -413,9 +411,7 @@ Many states add their own protections on top of federal law.
 - **Uniforms, PPE, and dress codes:** if a policy conflicts with your articles of faith, ask HR for a religious accommodation in writing. Employers accommodate this all the time, and many already have policies in place.
 - **Security screenings and travel:** know your rights before you go. The Sikh Coalition and SALDEF both publish know-your-rights resources.
 
-## What Sikh professionals tell students
-
-At USM events, the same themes come up again and again from Sikh engineers, lawyers, doctors, and founders:
+## A few things to keep in mind
 
 1. **Your identity is a strength in the room.** People remember you. Make sure they remember your work too.
 2. **Find the Sikhs already at the company.** Many large employers have Sikh employees or South Asian resource groups. Reach out — most are happy to help.
@@ -446,8 +442,8 @@ You can also file a charge with the [EEOC](https://www.eeoc.gov/). There are tim
     excerpt:
       "Non-CS major? You can still win. A practical guide to picking a role, finding a team, and pitching — with lessons from 13Hacks, where a first-place team credited the pitch, not the code.",
     cta: {
-      heading: 'Want in on 13Hacks 2027?',
-      body: 'No coding required. Join the list for early applications, prep workshops, and team-matching.',
+      heading: 'Want to hear about the next 13Hacks?',
+      body: 'Join the list for news about future USM hackathons.',
     },
     markdown: `
 Most students who never go to a hackathon skip it for the same reason: *"I'm not technical enough."*
@@ -515,7 +511,7 @@ Here is what a strong problem slide looks like. This one, from a 13Hacks pitch, 
 
 The hardest part of a first hackathon is walking into a room where you do not know anyone. That is why 13Hacks was **open to all majors with no coding experience required**, and why mentors were there from start to finish. Students formed teams, learned new skills, and pitched real projects alongside people who share their values.
 
-**13Hacks 2027** is coming. Join the list below and you will hear first.
+Want to hear about the next 13Hacks? Join the list below.
 `,
   },
 
@@ -532,7 +528,7 @@ The hardest part of a first hackathon is walking into a room where you do not kn
       "The saloks of Guru Tegh Bahadur Ji near the end of Guru Granth Sahib Ji speak directly to fear, attachment, and courage. An introduction for young Sikhs, and how USM's youth-led series teaches them.",
     cta: {
       heading: 'Join the next Salok Mahala 9 cohort',
-      body: 'Workshops led by youth facilitators who get where you are. Join the list to hear when the next series opens near you.',
+      body: 'Workshops led by trained youth facilitators. Join the list to hear when the next series opens.',
     },
     markdown: `
 Near the very end of Sri Guru Granth Sahib Ji are the **Saloks of the Ninth Guru, Guru Tegh Bahadur Ji** — commonly called **Salok Mahala 9**. Many Sikhs know them from the Bhog of a Sehaj or Akhand Paath, when they are read just before Mundavani.
@@ -573,7 +569,7 @@ Some of the final saloks speak of feeling that one's strength is gone and seekin
 
 USM's **Salok Mahala 9 Series** was built on a simple idea: the person teaching you should be someone who gets where you are.
 
-Working with **Sikh Dharmsal**, USM trained **6 youth facilitators** to lead workshops on Guru Tegh Bahadur Ji's Salok Mahala 9. The sessions are built for students — small groups, real questions, and time to talk about how these teachings apply to exams, relationships, anxiety, and ambition. The series is expanding to SSAs across the West Coast.
+Working with **Sikh Dharmsal**, USM trained **6 youth facilitators** to lead workshops on Guru Tegh Bahadur Ji's Salok Mahala 9. The sessions are built for students, with time to ask questions and talk about how these teachings apply to everyday life. The series is expanding to SSAs across the West Coast.
 
 If you want to go deeper into Gurbani more broadly, start with USM's [Sikhi 101 guide](/guides/sikhi-101), or come to [Camp Kudrat](/news/camp-kudrat-recap), USM's annual Sikhi retreat.
 

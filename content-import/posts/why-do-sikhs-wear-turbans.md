@@ -51,7 +51,7 @@ Plenty of people around the world wear head coverings for many reasons. The Sikh
 
 ## How to ask about someone's turban (without making it weird)
 
-Here is what Sikh students say actually helps:
+A few things that help:
 
 - **Ask about them, not "that thing."** "What does your turban mean to you?" works. "Why do you wear that?" can feel like a demand.
 - **Pick a good moment.** Five minutes before a midterm is not it.

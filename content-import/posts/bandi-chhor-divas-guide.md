@@ -47,15 +47,13 @@ Celebrations vary, but often include:
 
 ## How SSAs celebrate on campus
 
-Bandi Chhor Divas is one of the most natural events for a Sikh Student Association to host each fall. Ideas students have used include:
+Bandi Chhor Divas is one of the most natural events for a Sikh Student Association to host each fall. A few ideas that fit the day:
 
 - An evening **divaan or kirtan program** with lights [NEEDS GURSIMAR REVIEW]
 - A **storytelling night** sharing the story of Guru Hargobind and the 52 princes, open to non-Sikh friends
 - A **langar-style dinner** with a local gurdwara's help
 - A **joint event** with other South Asian or interfaith groups, being clear about each community's meaning of the day
 - A **seva drive** inspired by the theme of freeing others, like collecting supplies for a shelter
-
-For example, the USM events calendar lists a Bandi Chhor Divas Celebration hosted by RU Sikh at the College Avenue Student Center on November 8, 2026.
 
 ## Planning a Bandi Chhor Divas event: quick checklist
 
